@@ -37,7 +37,29 @@ air$ terraform apply -var do_token=$DO_TOKEN -var do_ssh_key=$DO_SSH_KEY
 Now you can ping to the public IPv4 address:
 
 ```sh
-air$ ping -c3 $(terraform output public_ipv4)
+air$ ping -4 -c3 $(terraform output public_ipv4)
+PING 104.131.96.15 (104.131.96.15) 56(84) bytes of data.
+64 bytes from 104.131.96.15: icmp_seq=1 ttl=56 time=81.9 ms
+64 bytes from 104.131.96.15: icmp_seq=2 ttl=56 time=81.2 ms
+64 bytes from 104.131.96.15: icmp_seq=3 ttl=56 time=78.3 ms
+
+--- 104.131.96.15 ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 2002ms
+rtt min/avg/max/mdev = 78.335/80.504/81.943/1.578 ms
+```
+and IPv6, too:
+
+```sh
+air$ ping -6 -c3 $(terraform output public_ipv6)
+PING 2604:a880:0800:0010:0000:0000:319e:1001(2604:a880:800:10::319e:1001) 56 data bytes
+64 bytes from 2604:a880:800:10::319e:1001: icmp_seq=1 ttl=49 time=81.4 ms
+64 bytes from 2604:a880:800:10::319e:1001: icmp_seq=2 ttl=49 time=81.4 ms
+64 bytes from 2604:a880:800:10::319e:1001: icmp_seq=3 ttl=49 time=79.5 ms
+
+--- 2604:a880:0800:0010:0000:0000:319e:1001 ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 2003ms
+rtt min/avg/max/mdev = 79.521/80.806/81.467/0.908 ms
+air$
 ```
 
 ### show
