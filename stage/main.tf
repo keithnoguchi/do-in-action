@@ -1,6 +1,3 @@
-variable "do_token" {}
-variable "do_ssh_key" {}
-
 terraform {
   backend "s3" {
     bucket  = "github-keinohguchi-doform-state"
