@@ -17,6 +17,13 @@ air$ export TF_VAR_do_token=$(cat ~/.do/token.pem)
 air$ export TF_VAR_do_ssh_key=$(ssh-keygen -E md5 -lf ~/.do/id_key.pub|awk '{print $2}'|sed 's/MD5://')
 ```
 
+And also, for the remote state store, we set AWS credentials, as below:
+
+```sh
+air$ export AWS_ACCESS_KEY_ID=$(cat ~/.aws/access_key_id)
+air$ export AWS_SECRET_ACCESS_KEY=$(cat ~/.aws/secret_access_key)
+```
+
 ## Run
 
 Here is the basic operations, plan, apply, show, destroy.
