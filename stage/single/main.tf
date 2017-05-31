@@ -1,7 +1,7 @@
 terraform {
   backend "s3" {
     bucket  = "github-keinohguchi-doform-state"
-    key     = "stage/terraform.tfstate"
+    key     = "stage/single/terraform.tfstate"
     region  = "us-west-1"
     encrypt = true
   }

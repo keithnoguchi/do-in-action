@@ -27,9 +27,9 @@ air$ export AWS_SECRET_ACCESS_KEY=$(cat ~/.aws/secret_access_key)
 ## Run
 
 Here is the basic operations, plan, apply, show, destroy.
-Please take a look at [stage/main.tf](stage/main.tf) for the resources.
+Please take a look at [stage/single/main.tf](stage/single/main.tf) for the resources.
 
-Note that all those command should be executed under `stage` sub directory.
+Note that all those command should be executed under `stage/single` sub directory.
 
 ### plan
 
@@ -97,9 +97,11 @@ air$ terraform destroy
 
 ## References
 
-Many thanks to [Yevgeniy (Jim) Brikman](http://www.ybrikman.com/) for
+Many thanks to [Yevgeniy (Jim) Brikman](http://www.ybrikman.com/) and
+[Mitchell Anicas](https://twitter.com/thisismitch) for
 sharing your terraform insights!
 
 - [Terraform Up & Running](http://shop.oreilly.com/product/0636920061939.do)
+- [How to use Terraform with DO](https://www.digitalocean.com/community/tutorials/how-to-use-terraform-with-digitalocean)
 
 Happy Hacking!
