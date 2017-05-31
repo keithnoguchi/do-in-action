@@ -27,7 +27,9 @@ air$ export AWS_SECRET_ACCESS_KEY=$(cat ~/.aws/secret_access_key)
 ## Run
 
 Here is the basic operations, plan, apply, show, destroy.
-Please take a look at [main.tf](main.tf) for the resources.
+Please take a look at [stage/main.tf](stage/main.tf) for the resources.
+
+Note that all those command should be executed under `stage` sub directory.
 
 ### plan
 
