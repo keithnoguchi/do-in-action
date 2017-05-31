@@ -1,6 +1,15 @@
 variable "do_token" {}
 variable "do_ssh_key" {}
 
+terraform {
+  backend "s3" {
+    bucket  = "github-keinohguchi-doform-state"
+    key     = "stage/terraform.tfstate"
+    region  = "us-west-1"
+    encrypt = true
+  }
+}
+
 # https://www.terraform.io/docs/providers/do/index.html
 provider "digitalocean" {
   token = "${var.do_token}"
