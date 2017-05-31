@@ -31,7 +31,7 @@ air$ terraform plan
 ### apply
 
 ```sh
-air$ terraform apply -var do_token=$DO_TOKEN -var do_ssh_key=$DO_SSH_KEY
+air$ terraform apply
 ```
 
 Now you can ping to the public IPv4 address:
@@ -77,7 +77,7 @@ air$ terraform output
 ### destroy
 
 ```sh
-air$ terraform destroy -var do_token=$DO_TOKEN -var do_ssh_key=$DO_SSH_KEY
+air$ terraform destroy
 ```
 
 ## References
