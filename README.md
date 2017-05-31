@@ -64,17 +64,23 @@ air$
 
 ### show
 
+`terraform show` will give you the current state.
+
 ```sh
 air$ terraform show
 ```
 
 ### output
 
+`verraform output` will provide the output variables.
+
 ```sh
 air$ terraform output
 ```
 
 ### destroy
+
+`terraform destroy` will destroy the resources.
 
 ```sh
 air$ terraform destroy
