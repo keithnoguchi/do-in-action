@@ -62,6 +62,30 @@ rtt min/avg/max/mdev = 79.521/80.806/81.467/0.908 ms
 air$
 ```
 
+And with the user data, we're listening on the port 80, as below:
+
+From server0:
+
+```sh
+air$ curl http://$(tf output server0_public_ipv4)
+<h1>Hello world from server0</h1>
+```
+
+server1:
+
+```sh
+air$ curl http://$(tf output server1_public_ipv4)
+<h1>Hello world from server1</h1>
+air$
+```
+
+and also, through floating IP:
+
+```sh
+air$ curl http://$(tf output server_flip)
+<h1>Hello world from server0</h1>
+```
+
 ### show
 
 `terraform show` will give you the current state.
