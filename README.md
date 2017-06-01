@@ -13,8 +13,8 @@ through [terraform](https://terraform.io).
 Sign up through [cloud.digitalocean.com](https://cloud.digitalocean.com/registrations/new), if you don't have DO account, and grab a [DO APIv2 token](https://www.digitalocean.com/community/tutorials/how-to-use-the-digitalocean-api-v2).
 
 ```sh
-air$ export TF_VAR_do_token=$(cat ~/.do/token.pem)
-air$ export TF_VAR_do_ssh_key=$(ssh-keygen -E md5 -lf ~/.do/id_key.pub|awk '{print $2}'|sed 's/MD5://')
+air$ export TF_VAR_DO_TOKEN=$(cat ~/.do/token.pem)
+air$ export TF_VAR_DO_FINGERPRINT=$(ssh-keygen -E md5 -lf ~/.do/id_key.pub|awk '{print $2}'|sed 's/MD5://')
 ```
 
 And also, for the remote state store, we set AWS credentials, as below:

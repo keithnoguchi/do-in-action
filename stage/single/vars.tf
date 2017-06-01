@@ -1,2 +1,2 @@
-variable "do_token" {}
-variable "do_ssh_key" {}
+variable "DO_TOKEN" {}
+variable "DO_FINGERPRINT" {}

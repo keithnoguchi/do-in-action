@@ -9,7 +9,7 @@ terraform {
 
 # https://www.terraform.io/docs/providers/do/index.html
 provider "digitalocean" {
-  token = "${var.do_token}"
+  token = "${var.DO_TOKEN}"
 }
 
 # https://www.terraform.io/docs/providers/do/r/droplet.html
@@ -20,5 +20,5 @@ resource "digitalocean_droplet" "web" {
   size               = "512mb"
   ipv6               = true
   private_networking = true
-  ssh_keys           = ["${var.do_ssh_key}"]
+  ssh_keys           = ["${var.DO_FINGERPRINT}"]
 }
