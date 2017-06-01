@@ -17,19 +17,10 @@ air$ export TF_VAR_DO_TOKEN=$(cat ~/.do/token.pem)
 air$ export TF_VAR_DO_FINGERPRINT=$(ssh-keygen -E md5 -lf ~/.do/id_key.pub|awk '{print $2}'|sed 's/MD5://')
 ```
 
-And also, for the remote state store, we set AWS credentials, as below:
-
-```sh
-air$ export AWS_ACCESS_KEY_ID=$(cat ~/.aws/access_key_id)
-air$ export AWS_SECRET_ACCESS_KEY=$(cat ~/.aws/secret_access_key)
-```
-
 ## Run
 
 Here is the basic operations, plan, apply, show, destroy.
-Please take a look at [stage/single/main.tf](stage/single/main.tf) for the resources.
-
-Note that all those command should be executed under `stage/single` sub directory.
+Please take a look at [main.tf](main.tf) for the resources.
 
 ### plan
 
