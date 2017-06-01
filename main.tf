@@ -24,7 +24,7 @@ resource "digitalocean_droplet" "server" {
 #!/bin/bash
 
 echo "Hello World!" > index.html
-nohup busybox httpd -f -p 8080 0<&- &> /tmp/script.log &
+nohup busybox httpd -f -p "${var.server_port}" 0<&- &> /tmp/script.log &
 EOF
 }
 
