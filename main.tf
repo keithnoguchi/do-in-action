@@ -4,7 +4,7 @@ provider "digitalocean" {
 }
 
 # https://www.terraform.io/docs/providers/do/r/floating_ip.html
-resource "digitalocean_floating_ip" "server_fip" {
+resource "digitalocean_floating_ip" "server_flip" {
   droplet_id = "${digitalocean_droplet.server.0.id}"
   region     = "${digitalocean_droplet.server.0.region}"
 }

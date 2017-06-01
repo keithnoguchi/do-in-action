@@ -1,5 +1,5 @@
-output "server_fip" {
-  value = "${digitalocean_floating_ip.server_fip.ip_address}"
+output "server_flip" {
+  value = "${digitalocean_floating_ip.server_flip.ip_address}"
 }
 
 output "server0_public_ipv4" {
