@@ -13,6 +13,7 @@ resource "digitalocean_droplet" "server" {
   ipv6               = true
   private_networking = true
   ssh_keys           = ["${var.DO_FINGERPRINT}"]
+  tags               = ["${digitalocean_tag.server.id}"]
 
   connection {
     user        = "root"
@@ -28,4 +29,9 @@ resource "digitalocean_droplet" "server" {
       "apt-get -y install iperf3"
     ]
   }
+}
+
+# https://www.terraform.io/docs/providers/do/r/tag.html
+resource "digitalocean_tag" "server" {
+  name = "server"
 }
