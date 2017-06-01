@@ -22,8 +22,8 @@ resource "digitalocean_droplet" "server" {
   tags               = ["${digitalocean_tag.server.id}"]
   user_data          = <<EOF
 #!/bin/bash
-
-echo "Hello World!" > index.html
+apt install -y python
+echo "<h1>Hello world!</h1>" > index.html
 nohup busybox httpd -f -p "${var.server_port}" 0<&- &> /tmp/script.log &
 EOF
 }
