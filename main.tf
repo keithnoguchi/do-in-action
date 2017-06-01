@@ -5,8 +5,9 @@ provider "digitalocean" {
 
 # https://www.terraform.io/docs/providers/do/r/droplet.html
 resource "digitalocean_droplet" "server" {
+  count              = "${var.server_count}"
   image              = "ubuntu-16-04-x64"
-  name               = "server"
+  name               = "server${count.index}"
   region             = "nyc3"
   size               = "512mb"
   ipv6               = true
