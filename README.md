@@ -14,9 +14,8 @@ Sign up through [cloud.digitalocean.com](https://cloud.digitalocean.com/registra
 
 ```sh
 air$ export TF_VAR_DO_TOKEN=$(cat ~/.do/token.pem)
-air$ export TF_VAR_DO_FINGERPRINT=$(ssh-keygen -E md5 -lf ~/.do/id_rsa.pub|awk '{print $2}'|sed 's/MD5://')
-air$ export TF_VAR_DO_PUBLIC_KEY=$(cat ~/.do/id_rsa.pub)
 air$ export TF_VAR_DO_PRIVATE_KEY=$(cat ~/.do/id_rsa)
+air$ export TF_VAR_DO_FINGERPRINT=$(ssh-keygen -E md5 -lf ~/.do/id_rsa.pub|awk '{print $2}'|sed 's/MD5://')
 ```
 
 ## Run
