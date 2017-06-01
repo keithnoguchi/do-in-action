@@ -20,7 +20,8 @@ resource "digitalocean_droplet" "server" {
   private_networking = true
   ssh_keys           = ["${var.DO_FINGERPRINT}"]
   tags               = ["${digitalocean_tag.server.id}"]
-  user_data          = <<EOF
+
+  user_data = <<EOF
 #!/bin/bash
 apt install -y python
 echo "<h1>Hello world from server"${count.index}"</h1>" > index.html
