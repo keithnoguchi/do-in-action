@@ -1,3 +1,7 @@
+output "server_fip" {
+  value = "${digitalocean_floating_ip.server_fip.ip_address}"
+}
+
 output "server0_public_ipv4" {
   value = "${digitalocean_droplet.server.0.ipv4_address}"
 }
