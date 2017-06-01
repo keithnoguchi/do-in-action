@@ -20,15 +20,18 @@ resource "digitalocean_droplet" "server" {
   private_networking = true
   ssh_keys           = ["${var.DO_FINGERPRINT}"]
   tags               = ["${digitalocean_tag.server.id}"]
-  user_data          = <<EOF
-#!/bin/bash
-apt install -y python
-echo "<h1>Hello world!</h1>" > index.html
-nohup busybox httpd -f -p "${var.server_port}" 0<&- &> /tmp/script.log &
-EOF
+  user_data          = "${data.template_file.server_user_data.rendered}"
 }
 
 # https://www.terraform.io/docs/providers/do/r/tag.html
 resource "digitalocean_tag" "server" {
   name = "server"
+}
+
+data "template_file" "server_user_data" {
+  template = "${file("user_data.sh")}"
+
+  vars {
+    server_port = "${var.server_port}"
+  }
 }
