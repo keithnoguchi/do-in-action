@@ -1,9 +1,14 @@
 variable "DO_TOKEN" {}
 variable "DO_FINGERPRINT" {}
 
+variable "client_count" {
+  description = "The number of server droplets"
+  default     = 4
+}
+
 variable "server_count" {
   description = "The number of server droplets"
-  default     = 2
+  default     = 4
 }
 
 variable "region" {

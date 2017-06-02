@@ -10,6 +10,24 @@ resource "digitalocean_floating_ip" "server_flip" {
 }
 
 # https://www.terraform.io/docs/providers/do/r/droplet.html
+resource "digitalocean_droplet" "client" {
+  count              = "${var.client_count}"
+  image              = "ubuntu-16-04-x64"
+  name               = "client${count.index}"
+  region             = "${var.region}"
+  size               = "512mb"
+  ipv6               = true
+  private_networking = true
+  ssh_keys           = ["${var.DO_FINGERPRINT}"]
+  tags               = ["${digitalocean_tag.client.id}"]
+
+  user_data = <<EOF
+#!/bin/bash
+apt install -y python
+EOF
+}
+
+# https://www.terraform.io/docs/providers/do/r/droplet.html
 resource "digitalocean_droplet" "server" {
   count              = "${var.server_count}"
   image              = "ubuntu-16-04-x64"
@@ -27,6 +45,11 @@ apt install -y python
 echo "<h1>Hello world from server"${count.index}"</h1>" > index.html
 nohup busybox httpd -f -p "${var.server_port}" 0<&- &> /tmp/script.log &
 EOF
+}
+
+# https://www.terraform.io/docs/providers/do/r/tag.html
+resource "digitalocean_tag" "client" {
+  name = "client"
 }
 
 # https://www.terraform.io/docs/providers/do/r/tag.html
