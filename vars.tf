@@ -1,4 +1,4 @@
-variable "DO_TOKEN" {}
+variable "DO_API_TOKEN" {}
 variable "DO_FINGERPRINT" {}
 
 variable "client_count" {

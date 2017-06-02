@@ -13,8 +13,14 @@ through [terraform](https://terraform.io).
 Sign up through [cloud.digitalocean.com](https://cloud.digitalocean.com/registrations/new), if you don't have DO account, and grab a [DO APIv2 token](https://www.digitalocean.com/community/tutorials/how-to-use-the-digitalocean-api-v2).
 
 ```sh
-air$ export TF_VAR_DO_TOKEN=$(cat ~/.do/token.pem)
+air$ export TF_VAR_DO_API_TOKEN=$(cat ~/.do/token.pem)
 air$ export TF_VAR_DO_FINGERPRINT=$(ssh-keygen -E md5 -lf ~/.do/id_rsa.pub|awk '{print $2}'|sed 's/MD5://')
+```
+
+and also, set another variable, `DO_API_TOKEN`, for ansible run:
+
+```sh
+air$ export DO_API_TOKEN=$TF_VAR_DO_API_TOKEN
 ```
 
 ## Run
