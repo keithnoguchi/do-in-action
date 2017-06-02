@@ -1,0 +1,5 @@
+---
+- name: ping to all the node
+  hosts: server
+  tasks:
+    - command: echo "hello from here"
