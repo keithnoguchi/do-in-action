@@ -17,12 +17,6 @@ air$ export TF_VAR_DO_API_TOKEN=$(cat ~/.do/token.pem)
 air$ export TF_VAR_DO_FINGERPRINT=$(ssh-keygen -E md5 -lf ~/.do/id_rsa.pub|awk '{print $2}'|sed 's/MD5://')
 ```
 
-and also, set another variable, `DO_API_TOKEN`, for ansible run:
-
-```sh
-air$ export DO_API_TOKEN=$TF_VAR_DO_API_TOKEN
-```
-
 ## Run
 
 Here is the basic operations, plan, apply, show, destroy.

@@ -3,12 +3,12 @@ variable "DO_FINGERPRINT" {}
 
 variable "client_count" {
   description = "The number of server droplets"
-  default     = 4
+  default     = 1
 }
 
 variable "server_count" {
   description = "The number of server droplets"
-  default     = 4
+  default     = 1
 }
 
 variable "region" {
