@@ -115,7 +115,7 @@ air$
 ```
 
 And, as we're running the simple HTTP server through
-[the droplet user data](main.tf), you can check the HTTP
+[the droplet user data](http://www.digitalocean.com/community/tutorials/an-introduction-to-droplet-metadata), you can check the HTTP
 reachability to the server, as below:
 
 ```sh
