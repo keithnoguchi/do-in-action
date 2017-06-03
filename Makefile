@@ -16,10 +16,7 @@ wait:
 
 .PHONY: test
 test: deploy wait
-	ansible-playbook tests/http.yml
-	ansible-playbook tests/tcp.yml
-	ansible-playbook tests/udp.yml
-	ansible-playbook tests/icmp.yml
+	ansible-playbook tests/all.yml
 
 .PHONY: clean
 clean:
