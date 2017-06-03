@@ -1,4 +1,4 @@
-# doterra
+# do-in-action
 
 Forming [droplets](https://www.digitalocean.com/products/compute/)
 instances on [DigitalOcean](https://digitalocean.com)
