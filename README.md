@@ -61,9 +61,9 @@ just a wrapper to the `terraform apply`:
 air$ make deploy
 ```
 
-this will create two droplets in the cloud.  And through the use
+this will droplets in the cloud.  Through the use
 of [terraform output variables](outputs.tf), you can check the
-IP reachability as below:
+IP reachability to one of the droplets as below:
 
 IPv4:
 
