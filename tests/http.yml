@@ -11,6 +11,14 @@
     - name: print out the result
       debug: var=result
 
+    - name: check the HTTP reachability (private IPv4)
+      uri:
+        url: "http://{{ server.ipv4_private }}"
+      register: result
+
+    - name: print out the result
+      debug: var=result
+
     - name: check the HTTP reachability (IPv6)
       uri:
         url: "http://[{{ server.ipv6 }}]"

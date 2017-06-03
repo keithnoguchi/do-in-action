@@ -41,10 +41,13 @@ def client(number):
         address = proc.stdout.read().strip('\n')
         client['hosts'].append(address)
 
-    # Setup the server variable.
+    # Setup the server related variables.
     proc = subprocess.Popen("terraform output server0_public_ipv4",
                             shell=True, stdout=subprocess.PIPE)
     client['vars']['server']['ipv4'] = proc.stdout.read().strip('\n')
+    proc = subprocess.Popen("terraform output server0_private_ipv4",
+                            shell=True, stdout=subprocess.PIPE)
+    client['vars']['server']['ipv4_private'] = proc.stdout.read().strip('\n')
     proc = subprocess.Popen("terraform output server0_public_ipv6",
                             shell=True, stdout=subprocess.PIPE)
     client['vars']['server']['ipv6'] = proc.stdout.read().strip('\n')
