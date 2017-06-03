@@ -1,7 +1,7 @@
 # do-in-action
 
-Forming [droplets](https://www.digitalocean.com/products/compute/)
-instances on [DigitalOcean](https://digitalocean.com)
+Forming [DigitalOcean](https://digitalocean.com)
+[droplets](https://www.digitalocean.com/products/compute/)
 through [terraform](https://terraform.io).
 
 - [Setup](#setup)
