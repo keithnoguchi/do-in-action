@@ -1,4 +1,4 @@
-# do-in-action
+# DO in Action!
 
 Forming [DigitalOcean](http://digitalocean.com)
 [droplets](http://www.digitalocean.com/products/compute/)
