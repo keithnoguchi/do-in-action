@@ -23,6 +23,14 @@ air$ export TF_VAR_DO_FINGERPRINT=$(ssh-keygen -E md5 -lf ~/.do/id_rsa.pub|awk '
 Here is the basic operations, plan, apply, show, destroy.
 Please take a look at [main.tf](main.tf) for the resources.
 
+Note that there is a dead simple [Makefile](Makefile) to do
+[plan](#plan), [apply](#apply), and [test](#test) with a
+single `make` command as below:
+
+```sh
+air$ make
+```
+
 ### plan
 
 ```sh
