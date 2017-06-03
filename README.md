@@ -13,11 +13,11 @@ on your favorite laptop/desktop and have DO in action!
 
 ## Setup
 
-Sign in or up to [DigitalOcean](http://digitalocean.com) on
+Sign in or sign up to [DigitalOcean](http://digitalocean.com) through
 [cloud.digitalocean.com](https://cloud.digitalocean.com/registrations/new)
 and grab a [DO APIv2 token](http://www.digitalocean.com/community/tutorials/how-to-use-the-digitalocean-api-v2).
-And then, set it up for the [terraform](http://terraform.io) by defining
-`TA_VAR_DO_API_TOKEN` environment variable as below:
+And then, set the API token for the [terraform](http://terraform.io)
+by defining `TA_VAR_DO_API_TOKEN` environment variable as below:
 
 ```sh
 air$ export TF_VAR_DO_API_TOKEN=$(cat ~/.do/token.pem)
