@@ -2,6 +2,10 @@ output "server_flip" {
   value = "${digitalocean_floating_ip.server_flip.ip_address}"
 }
 
+output "server_port" {
+  value = "${var.server_port}"
+}
+
 output "client0_public_ipv4" {
   value = "${digitalocean_droplet.client.0.ipv4_address}"
 }

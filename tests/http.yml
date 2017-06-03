@@ -5,7 +5,7 @@
   tasks:
     - name: check the HTTP reachability (IPv4)
       uri:
-        url: "http://{{ server.ipv4 }}"
+        url: "http://{{ server.ipv4 }}:{{ server.port }}"
       register: result
 
     - name: print out the result
@@ -13,7 +13,7 @@
 
     - name: check the HTTP reachability (private IPv4)
       uri:
-        url: "http://{{ server.ipv4_private }}"
+        url: "http://{{ server.ipv4_private }}:{{ server.port }}"
       register: result
 
     - name: print out the result
@@ -21,7 +21,7 @@
 
     - name: check the HTTP reachability (IPv6)
       uri:
-        url: "http://[{{ server.ipv6 }}]"
+        url: "http://[{{ server.ipv6 }}]:{{ server.port }}"
       register: result
 
     - name: print out the result
@@ -29,7 +29,7 @@
 
     - name: check the HTTP reachability (Floating IP)
       uri:
-        url: "http://{{ server.flip }}"
+        url: "http://{{ server.flip }}:{{ server.port }}"
       register: result
 
     - name: print out the result

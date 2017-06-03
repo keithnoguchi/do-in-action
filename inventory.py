@@ -54,6 +54,9 @@ def client(number):
     proc = subprocess.Popen("terraform output server_flip",
                             shell=True, stdout=subprocess.PIPE)
     client['vars']['server']['flip'] = proc.stdout.read().strip('\n')
+    proc = subprocess.Popen("terraform output server_port",
+                            shell=True, stdout=subprocess.PIPE)
+    client['vars']['server']['port'] = proc.stdout.read().strip('\n')
 
     return client
 
