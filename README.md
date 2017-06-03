@@ -8,6 +8,9 @@ through [terraform](http://terraform.io).
 - [Run](#run)
 - [References](#references)
 
+Install [terraform](http://terraform.io) and [ansible](http://ansible.com)
+on your favorite laptop/desktop and have DO in action!
+
 ## Setup
 
 Sign in or up to [DigitalOcean](http://digitalocean.com) on
