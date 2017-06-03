@@ -6,7 +6,6 @@ through [terraform](https://terraform.io).
 
 - [Setup](#setup)
 - [Run](#run)
-- [Test](#test)
 - [References](#references)
 
 ## Setup
@@ -38,11 +37,16 @@ the [terraform](https://terraform.io), as you can see it
 in [main.tf](main.tf) file.  To make the operation
 straightforward, however, I've wrote a simple [Makefile](Makefile).
 
+- [Plan](#plan)
+- [Deploy](#deploy)
+- [Test](#test)
+- [Cleanup](#cleanup)
+
 ### Plan
 
 [terraform](https://terraform.io) has a way to dry run the
 actual actions through `terraform plan`.  There is a one-to-one
-[Makefile](Makefile) target, called, `plan`!:
+[Makefile](Makefile) target, called, `plan`:
 
 ```sh
 air$ make plan
@@ -120,7 +124,7 @@ air$ curl http://$(tf output server_flip)
 <h1>Hello world from server0</h1>
 ```
 
-## Test
+### Test
 
 Of course, you need a test to check those droplets.  I use
 [ansible](http://ansible.com) to drive all those tests by
