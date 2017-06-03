@@ -31,6 +31,33 @@
     - name: print out the result
       debug: var=result
 
+    - name: check the UDP port reachability (private IPv4)
+      shell: nc -v -u -z -w "{{ timeout }}" "{{ server.ipv4_private }}" "{{ server_port }}"
+      register: result
+      changed_when: false
+      ignore_errors: "{{ debug }}"
+
+    - name: print out the result
+      debug: var=result
+
+    - name: check the UDP port reachability (IPv6)
+      shell: nc -v -u -z -w "{{ timeout }}" "{{ server.ipv6 }}" "{{ server_port }}"
+      register: result
+      changed_when: false
+      ignore_errors: "{{ debug }}"
+
+    - name: print out the result
+      debug: var=result
+
+    - name: check the UDP port reachability (Floating IP)
+      shell: nc -v -u -z -w "{{ timeout }}" "{{ server.flip }}" "{{ server_port }}"
+      register: result
+      changed_when: false
+      ignore_errors: "{{ debug }}"
+
+    - name: print out the result
+      debug: var=result
+
     - fail: msg="finish the test without stopping the UDP server"
       when: debug
 
