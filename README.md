@@ -33,30 +33,35 @@ air$ export TF_VAR_DO_FINGERPRINT=$(ssh-keygen -E md5 -lf ~/.do/id_rsa.pub|awk '
 
 ## Run
 
-Here is the basic operations, plan, apply, show, destroy.
-Please take a look at [main.tf](main.tf) for the resources.
+As mentioned before, all the droplets are formed through
+the [terraform](https://terraform.io), as you can see it
+in [main.tf](main.tf) file.  To make the operation
+straightforward, however, I've wrote a simple [Makefile](Makefile).
 
-Note that there is a dead simple [Makefile](Makefile) to do
-[plan](#plan), [apply](#apply), and [test](#test) with a
-single `make` command as below:
+### Plan
 
-```sh
-air$ make
-```
-
-### plan
+[terraform](https://terraform.io) has a way to dry run the
+actual actions through `terraform plan`.  There is a one-to-one
+[Makefile](Makefile) target, called, `plan`!:
 
 ```sh
-air$ terraform plan
+air$ make plan
 ```
 
-### apply
+### Deploy
+
+[Makefile](Makefile) deploy target is, as you can guess,
+just a wrapper to the `terraform apply`:
 
 ```sh
-air$ terraform apply
+air$ make deploy
 ```
 
-Now you can ping to the public IPv4 address:
+this will create two droplets in the cloud.  And through the use
+of [terraform output variables](outputs.tf), you can check the
+IP reachability as below:
+
+IPv4:
 
 ```sh
 air$ ping -4 -c3 $(terraform output server0_public_ipv4)
@@ -69,7 +74,7 @@ PING 104.131.96.15 (104.131.96.15) 56(84) bytes of data.
 3 packets transmitted, 3 received, 0% packet loss, time 2002ms
 rtt min/avg/max/mdev = 78.335/80.504/81.943/1.578 ms
 ```
-and IPv6, too:
+IPv6:
 
 ```sh
 air$ ping -6 -c3 $(terraform output server0_public_ipv6)
@@ -84,67 +89,60 @@ rtt min/avg/max/mdev = 79.521/80.806/81.467/0.908 ms
 air$
 ```
 
-And with the user data, we're listening on the port 80, as below:
+and to the floating IP:
 
-From server0:
+```sh
+air$ ping -c3 $(terraform output server_flip)
+PING 45.55.97.179 (45.55.97.179) 56(84) bytes of data.
+64 bytes from 45.55.97.179: icmp_seq=1 ttl=56 time=99.2 ms
+64 bytes from 45.55.97.179: icmp_seq=2 ttl=56 time=97.6 ms
+64 bytes from 45.55.97.179: icmp_seq=3 ttl=56 time=98.5 ms
+
+--- 45.55.97.179 ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 2002ms
+rtt min/avg/max/mdev = 97.690/98.508/99.278/0.649 ms
+air$
+```
+
+And, as we're running the simple HTTP server through
+[the droplet user data](main.tf), you can check the HTTP
+reachability to the server, as below:
 
 ```sh
 air$ curl http://$(tf output server0_public_ipv4)
 <h1>Hello world from server0</h1>
 ```
 
-server1:
-
-```sh
-air$ curl http://$(tf output server1_public_ipv4)
-<h1>Hello world from server1</h1>
-air$
-```
-
-and also, through floating IP:
+and through floating IP:
 
 ```sh
 air$ curl http://$(tf output server_flip)
 <h1>Hello world from server0</h1>
 ```
 
-### show
-
-`terraform show` will give you the current state.
-
-```sh
-air$ terraform show
-```
-
-### output
-
-`verraform output` will provide the output variables.
-
-```sh
-air$ terraform output
-```
-
-### destroy
-
-`terraform destroy` will destroy the resources.
-
-```sh
-air$ terraform destroy
-```
-
 ## Test
 
-There are a couple of tests to check two droplets' reachability under
-[tests](tests) directory.  Those are driven by the
-[ansible](http://ansible.com) playbooks and
-[the dynamic inventory file](http://docs.ansible.com/ansible/intro_dynamic_inventory.html),
-called [inventory.py](inventory.py).
-
-Here is the sample HTTP reachability test between two droplets through
-[tests/http.yml](tests/http.yml) playbook:
+Of course, you need a test to check those droplets.  I use
+[ansible](http://ansible.com) to drive all those tests by
+[dynamically](http://docs.ansible.com/ansible/intro_dynamic_inventory.html)
+retrieving the variables, IP addresses, etc., through the
+[inventory.py](inventory.py).  All you need to do is just
+call `make test`, which deploy droplets, if it's not there,
+and run all the ansible test playbooks:
 
 ```sh
-air$ ansible-playbook tests/http.yml
+air$ make test
+```
+
+### Cleanup
+
+Of course, we can destroy all those instances through `make clean`,
+which is just calling `terraform destroy` in addition to cleaning
+up the terraform state files:
+
+
+```sh
+air$ make clean
 ```
 
 ## References
