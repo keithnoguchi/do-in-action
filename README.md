@@ -124,7 +124,7 @@ air$ curl http://$(terraform output server0_public_ipv4)
 air$
 ```
 
-and through floating IP:
+and through the floating IP:
 
 ```sh
 air$ curl http://$(terraform output server_flip)
