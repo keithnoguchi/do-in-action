@@ -62,13 +62,18 @@ def client(number):
 
 
 def server(number):
-    server = {'hosts': [], 'vars': {}}
+    server = {'hosts': [], 'vars': {'server': {}}}
     for i in range(number):
         name = "server%d" % i
         proc = subprocess.Popen("terraform output %s_public_ipv4" % name,
                                 shell=True, stdout=subprocess.PIPE)
         address = proc.stdout.read().strip('\n')
         server['hosts'].append(address)
+
+    # Setup the server related variables.
+    proc = subprocess.Popen("terraform output server_port",
+                            shell=True, stdout=subprocess.PIPE)
+    server['vars']['server']['port'] = proc.stdout.read().strip('\n')
 
     return server
 

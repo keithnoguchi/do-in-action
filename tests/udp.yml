@@ -1,0 +1,41 @@
+---
+- name: start UDP server
+  hosts: server
+  vars:
+    server_port: "{{ server.port }}"
+  gather_facts: false
+  become: true
+  tasks:
+    - name: start netcat
+      shell: nc -u -k -l "{{ server_port }}" &
+      register: result
+      changed_when: false
+
+    - name: print out the result
+      debug: var=result
+
+- name: UDP connection between two droplets
+  hosts: client
+  vars:
+    server_port: "{{ server.port }}"
+    timeout: 3
+    debug: false
+  gather_facts: false
+  tasks:
+    - name: check the UDP port reachability (IPv4)
+      shell: nc -v -u -z -w "{{ timeout }}" "{{ server.ipv4 }}" "{{ server_port }}"
+      register: result
+      changed_when: false
+      ignore_errors: "{{ debug }}"
+
+    - name: print out the result
+      debug: var=result
+
+- name: stop UDP server
+  hosts: server
+  gather_facts: false
+  become: true
+  tasks:
+    - name: stop netcat
+      command: killall nc
+      changed_when: false
