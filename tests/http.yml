@@ -1,5 +1,5 @@
 ---
-- name: HTTP connection to the server
+- name: HTTP connection between two droplets
   hosts: client
   gather_facts: false
   tasks:
@@ -14,6 +14,14 @@
     - name: check the HTTP reachability (IPv6)
       uri:
         url: "http://[{{ server.ipv6 }}]"
+      register: result
+
+    - name: print out the result
+      debug: var=result
+
+    - name: check the HTTP reachability (Floating IP)
+      uri:
+        url: "http://{{ server.flip }}"
       register: result
 
     - name: print out the result
