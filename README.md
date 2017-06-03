@@ -113,14 +113,14 @@ And, as we're running the simple HTTP server through
 reachability to the server, as below:
 
 ```sh
-air$ curl http://$(tf output server0_public_ipv4)
+air$ curl http://$(terraform output server0_public_ipv4)
 <h1>Hello world from server0</h1>
 ```
 
 and through floating IP:
 
 ```sh
-air$ curl http://$(tf output server_flip)
+air$ curl http://$(terraform output server_flip)
 <h1>Hello world from server0</h1>
 ```
 
@@ -135,7 +135,11 @@ call `make test`, which deploy droplets, if it's not there,
 and run all the ansible test playbooks:
 
 ```sh
-air$ make test
+air$ make test | tail -4
+
+PLAY RECAP *********************************************************************
+45.55.207.205              : ok=32   changed=0    unreachable=0    failed=0
+
 ```
 
 ### Cleanup
