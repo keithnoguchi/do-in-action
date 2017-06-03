@@ -4,13 +4,18 @@ import json
 import argparse
 import subprocess
 
-inventory = {'all': {'hosts': [], 'vars': {'ansible_user': 'root'}}}
-hostvars = {}
-
 
 def main():
+    inventory = {'all': {'hosts': [], 'vars': {'ansible_user': 'root'}}}
+
     inventory['client'] = client(1)
     inventory['server'] = server(1)
+
+    hostvars = {}
+    for type in ['client', 'server']:
+        for host in inventory[type]['hosts']:
+            inventory['all']['hosts'].append(host)
+            hostvars[host] = {'name': host}
 
     # noqa https://github.com/ansible/ansible/commit/bcaa983c2f3ab684dca6c2c2c8d1997742260761
     inventory['_meta'] = {'hostvars': hostvars}
@@ -28,29 +33,33 @@ def main():
 
 
 def client(number):
-    client = {'hosts': []}
+    client = {'hosts': [], 'vars': {'server': {}}}
     for i in range(number):
         name = "client%d" % i
         proc = subprocess.Popen("terraform output %s_public_ipv4" % name,
                                 shell=True, stdout=subprocess.PIPE)
         address = proc.stdout.read().strip('\n')
         client['hosts'].append(address)
-        inventory['all']['hosts'].append(address)
-        hostvars[address] = {'name': name}
+
+    # Setup the server variable.
+    proc = subprocess.Popen("terraform output server0_public_ipv4",
+                            shell=True, stdout=subprocess.PIPE)
+    client['vars']['server']['ipv4'] = proc.stdout.read().strip('\n')
+    proc = subprocess.Popen("terraform output server0_public_ipv6",
+                            shell=True, stdout=subprocess.PIPE)
+    client['vars']['server']['ipv6'] = proc.stdout.read().strip('\n')
 
     return client
 
 
 def server(number):
-    server = {'hosts': []}
+    server = {'hosts': [], 'vars': {}}
     for i in range(number):
         name = "server%d" % i
         proc = subprocess.Popen("terraform output %s_public_ipv4" % name,
                                 shell=True, stdout=subprocess.PIPE)
         address = proc.stdout.read().strip('\n')
         server['hosts'].append(address)
-        inventory['all']['hosts'].append(address)
-        hostvars[address] = {'name': name}
 
     return server
 

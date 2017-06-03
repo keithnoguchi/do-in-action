@@ -1,0 +1,20 @@
+---
+- name: HTTP connection to the server
+  hosts: client
+  gather_facts: false
+  tasks:
+    - name: check the HTTP reachability (IPv4)
+      uri:
+        url: "http://{{ server.ipv4 }}"
+      register: result
+
+    - name: print out the result
+      debug: var=result
+
+    - name: check the HTTP reachability (IPv6)
+      uri:
+        url: "http://[{{ server.ipv6 }}]"
+      register: result
+
+    - name: print out the result
+      debug: var=result
