@@ -1,12 +1,15 @@
 ---
 - name: ICMP connection between two droplets
   hosts: client
+  vars:
+    debug: false
   gather_facts: false
   tasks:
     - name: check the ICMP reachability (IPv4)
       command: ping -c3 {{ server.ipv4 }}
       register: result
       changed_when: false
+      ignore_errors: "{{ debug }}"
 
     - name: print out the result
       debug: var=result
@@ -15,6 +18,7 @@
       command: ping -c3 {{ server.ipv4_private }}
       register: result
       changed_when: false
+      ignore_errors: "{{ debug }}"
 
     - name: print out the result
       debug: var=result
@@ -23,6 +27,7 @@
       command: ping6 -c3 {{ server.ipv6 }}
       register: result
       changed_when: false
+      ignore_errors: "{{ debug }}"
 
     - name: print out the result
       debug: var=result
@@ -31,6 +36,7 @@
       command: ping -c3 {{ server.flip }}
       register: result
       changed_when: false
+      ignore_errors: "{{ debug }}"
 
     - name: print out the result
       debug: var=result

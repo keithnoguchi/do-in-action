@@ -1,36 +1,43 @@
 ---
 - name: HTTP connection between two droplets
   hosts: client
+  vars:
+    server_port: "{{ server.port }}"
+    debug: false
   gather_facts: false
   tasks:
     - name: check the HTTP reachability (IPv4)
       uri:
-        url: "http://{{ server.ipv4 }}:{{ server.port }}"
+        url: "http://{{ server.ipv4 }}:{{ server_port }}"
       register: result
+      ignore_errors: "{{ debug }}"
 
     - name: print out the result
       debug: var=result
 
     - name: check the HTTP reachability (private IPv4)
       uri:
-        url: "http://{{ server.ipv4_private }}:{{ server.port }}"
+        url: "http://{{ server.ipv4_private }}:{{ server_port }}"
       register: result
+      ignore_errors: "{{ debug }}"
 
     - name: print out the result
       debug: var=result
 
     - name: check the HTTP reachability (IPv6)
       uri:
-        url: "http://[{{ server.ipv6 }}]:{{ server.port }}"
+        url: "http://[{{ server.ipv6 }}]:{{ server_port }}"
       register: result
+      ignore_errors: "{{ debug }}"
 
     - name: print out the result
       debug: var=result
 
     - name: check the HTTP reachability (Floating IP)
       uri:
-        url: "http://{{ server.flip }}:{{ server.port }}"
+        url: "http://{{ server.flip }}:{{ server_port }}"
       register: result
+      ignore_errors: "{{ debug }}"
 
     - name: print out the result
       debug: var=result
