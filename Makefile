@@ -26,3 +26,4 @@ clean:
 	terraform destroy -force
 	$(RM) *.tfstate*
 	$(RM) tests/*.retry
+	$(RM) *.log
