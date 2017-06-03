@@ -6,6 +6,7 @@ through [terraform](https://terraform.io).
 
 - [Setup](#setup)
 - [Run](#run)
+- [Test](#test)
 - [References](#references)
 
 ## Setup
@@ -108,6 +109,20 @@ air$ terraform output
 
 ```sh
 air$ terraform destroy
+```
+
+## Test
+
+There are a couple of tests to check two droplets' reachability under
+[tests](tests) directory.  Those are driven by the
+[ansible](http://ansible.com) playbooks and
+[the dynamic inventory file](http://docs.ansible.com/ansible/intro_dynamic_inventory.html),
+called [inventory.py](inventory.py).
+
+Here is the example of the HTTP reachability check between two droplets:
+
+```sh
+air$ ansible-playbook tests/http.yml
 ```
 
 ## References
