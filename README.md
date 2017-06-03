@@ -119,7 +119,8 @@ There are a couple of tests to check two droplets' reachability under
 [the dynamic inventory file](http://docs.ansible.com/ansible/intro_dynamic_inventory.html),
 called [inventory.py](inventory.py).
 
-Here is the example of the HTTP reachability check between two droplets:
+Here is the sample HTTP reachability test between two droplets through
+[tests/http.yml](tests/http.yml) playbook:
 
 ```sh
 air$ ansible-playbook tests/http.yml
