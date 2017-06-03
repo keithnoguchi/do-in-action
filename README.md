@@ -10,25 +10,27 @@ through [terraform](http://terraform.io).
 
 ## Setup
 
-Sign up to [DigitalOcean](http://digitalocean.com) through
-[cloud.digitalocean.com](https://cloud.digitalocean.com/registrations/new),
-if you don't have DO account, and grab a [DO APIv2 token](http://www.digitalocean.com/community/tutorials/how-to-use-the-digitalocean-api-v2)
-and set it up for the [terraform](http://terraform.io) through
-the `TA_VAR_DO_API_TOKEN` environment variable:
+Sign in or up to [DigitalOcean](http://digitalocean.com) on
+[cloud.digitalocean.com](https://cloud.digitalocean.com/registrations/new)
+and grab a [DO APIv2 token](http://www.digitalocean.com/community/tutorials/how-to-use-the-digitalocean-api-v2).
+And then, set it up for the [terraform](http://terraform.io) by defining
+`TA_VAR_DO_API_TOKEN` environment variable as below:
 
 ```sh
 air$ export TF_VAR_DO_API_TOKEN=$(cat ~/.do/token.pem)
 ```
 
-also, privide the SSH key in the setup section of the
+also, setup the SSH key in the setup section of the
 [cloud.digitalocean.com](http://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=12&ved=0ahUKEwjy1Z-Gs6LUAhWP2YMKHdz3ChUQFghUMAs&url=https%3A%2F%2Fwww.digitalocean.com%2Fcommunity%2Ftutorials%2Fhow-to-set-up-ssh-keys--2&usg=AFQjCNGf2nqGqjoCm0fCqIV3mR-djWG8qA)
-and provide to [terraform](http://terraform.io) through the
-the `TA_VAR_DO_FINGERPRINT` environment variable, to allow the
-ssh connection to the droplets:
+and give it to [terraform](http://terraform.io) through
+`TA_VAR_DO_FINGERPRINT` environment variable, so that you can
+ssh into those droplets:
 
 ```sh
 air$ export TF_VAR_DO_FINGERPRINT=$(ssh-keygen -E md5 -lf ~/.do/id_rsa.pub|awk '{print $2}'|sed 's/MD5://')
 ```
+
+That's it!  Now, let's roll!
 
 ## Run
 
