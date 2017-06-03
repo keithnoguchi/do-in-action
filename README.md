@@ -1,8 +1,8 @@
 # do-in-action
 
-Forming [DigitalOcean](https://digitalocean.com)
-[droplets](https://www.digitalocean.com/products/compute/)
-through [terraform](https://terraform.io).
+Forming [DigitalOcean](http://digitalocean.com)
+[droplets](http://www.digitalocean.com/products/compute/)
+through [terraform](http://terraform.io).
 
 - [Setup](#setup)
 - [Run](#run)
@@ -10,10 +10,10 @@ through [terraform](https://terraform.io).
 
 ## Setup
 
-Sign up to [DigitalOcean](https://digitalocean.com] through
+Sign up to [DigitalOcean](http://digitalocean.com) through
 [cloud.digitalocean.com](https://cloud.digitalocean.com/registrations/new),
-if you don't have DO account, and grab a [DO APIv2 token](https://www.digitalocean.com/community/tutorials/how-to-use-the-digitalocean-api-v2)
-and set it up for the [terraform](https://terraform.io) through
+if you don't have DO account, and grab a [DO APIv2 token](http://www.digitalocean.com/community/tutorials/how-to-use-the-digitalocean-api-v2)
+and set it up for the [terraform](http://terraform.io) through
 the `TA_VAR_DO_API_TOKEN` environment variable:
 
 ```sh
@@ -21,8 +21,8 @@ air$ export TF_VAR_DO_API_TOKEN=$(cat ~/.do/token.pem)
 ```
 
 also, privide the SSH key in the setup section of the
-[cloud.digitalocean.com](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=12&ved=0ahUKEwjy1Z-Gs6LUAhWP2YMKHdz3ChUQFghUMAs&url=https%3A%2F%2Fwww.digitalocean.com%2Fcommunity%2Ftutorials%2Fhow-to-set-up-ssh-keys--2&usg=AFQjCNGf2nqGqjoCm0fCqIV3mR-djWG8qA)
-and provide to [terraform](https://terraform.io) through the
+[cloud.digitalocean.com](http://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=12&ved=0ahUKEwjy1Z-Gs6LUAhWP2YMKHdz3ChUQFghUMAs&url=https%3A%2F%2Fwww.digitalocean.com%2Fcommunity%2Ftutorials%2Fhow-to-set-up-ssh-keys--2&usg=AFQjCNGf2nqGqjoCm0fCqIV3mR-djWG8qA)
+and provide to [terraform](http://terraform.io) through the
 the `TA_VAR_DO_FINGERPRINT` environment variable, to allow the
 ssh connection to the droplets:
 
@@ -33,7 +33,7 @@ air$ export TF_VAR_DO_FINGERPRINT=$(ssh-keygen -E md5 -lf ~/.do/id_rsa.pub|awk '
 ## Run
 
 As mentioned before, all the droplets are formed through
-the [terraform](https://terraform.io), as you can see it
+the [terraform](http://terraform.io), as you can see it
 in [main.tf](main.tf) file.  To make the operation
 straightforward, however, I've wrote a simple [Makefile](Makefile).
 
@@ -44,7 +44,7 @@ straightforward, however, I've wrote a simple [Makefile](Makefile).
 
 ### Plan
 
-[terraform](https://terraform.io) has a way to dry run the
+[terraform](http://terraform.io) has a way to dry run the
 actual actions through `terraform plan`.  There is a one-to-one
 [Makefile](Makefile) target, called, `plan`:
 
@@ -77,6 +77,7 @@ PING 104.131.96.15 (104.131.96.15) 56(84) bytes of data.
 --- 104.131.96.15 ping statistics ---
 3 packets transmitted, 3 received, 0% packet loss, time 2002ms
 rtt min/avg/max/mdev = 78.335/80.504/81.943/1.578 ms
+air$
 ```
 IPv6:
 
@@ -115,6 +116,7 @@ reachability to the server, as below:
 ```sh
 air$ curl http://$(terraform output server0_public_ipv4)
 <h1>Hello world from server0</h1>
+air$
 ```
 
 and through floating IP:
@@ -122,6 +124,7 @@ and through floating IP:
 ```sh
 air$ curl http://$(terraform output server_flip)
 <h1>Hello world from server0</h1>
+air$
 ```
 
 ### Test
@@ -140,6 +143,7 @@ air$ make test | tail -4
 PLAY RECAP *********************************************************************
 45.55.207.205              : ok=32   changed=0    unreachable=0    failed=0
 
+air$
 ```
 
 ### Cleanup
@@ -156,10 +160,10 @@ air$ make clean
 ## References
 
 Many thanks to [Yevgeniy (Jim) Brikman](http://www.ybrikman.com/) and
-[Mitchell Anicas](https://twitter.com/thisismitch) for
-sharing your terraform insights!
+[Mitchell Anicas](http://twitter.com/thisismitch) for
+sharing your [terraform](http://terraform.io) insights!
 
 - [Terraform Up & Running](http://shop.oreilly.com/product/0636920061939.do)
-- [How to use Terraform with DO](https://www.digitalocean.com/community/tutorials/how-to-use-terraform-with-digitalocean)
+- [How to use Terraform with DO](http://www.digitalocean.com/community/tutorials/how-to-use-terraform-with-digitalocean)
 
 Happy Hacking!
