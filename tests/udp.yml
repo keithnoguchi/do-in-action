@@ -6,8 +6,11 @@
   gather_facts: false
   become: true
   tasks:
-    - name: start netcat
-      shell: nc -u -k -l "{{ server_port }}" &
+    - name: install nmap for ncat as UDP client
+      apt: name=nmap state=present update_cache=no
+
+    - name: start ncat as UDP server
+      shell: ncat -u -k -c 'echo hello' -l "{{ server_port }}" &
       register: result
       changed_when: false
 
@@ -21,39 +24,44 @@
     timeout: 3
     debug: false
   gather_facts: false
+  become: true
   tasks:
     - name: check the UDP port reachability (IPv4)
-      shell: nc -v -u -z -w "{{ timeout }}" "{{ server.ipv4 }}" "{{ server_port }}"
+      shell: nc -4 -v -u -w "{{ timeout }}" "{{ server.ipv4 }}" "{{ server_port }}" 2>/dev/null
       register: result
       changed_when: false
+      failed_when: "result.rc != 0 or 'hello' not in result.stdout"
       ignore_errors: "{{ debug }}"
 
     - name: print out the result
       debug: var=result
 
     - name: check the UDP port reachability (private IPv4)
-      shell: nc -v -u -z -w "{{ timeout }}" "{{ server.ipv4_private }}" "{{ server_port }}"
+      shell: nc -4 -v -u -w "{{ timeout }}" "{{ server.ipv4_private }}" "{{ server_port }}" 2>/dev/null
       register: result
       changed_when: false
+      failed_when: "result.rc != 0 or 'hello' not in result.stdout"
       ignore_errors: "{{ debug }}"
 
     - name: print out the result
       debug: var=result
 
     - name: check the UDP port reachability (IPv6)
-      shell: nc -v -u -z -w "{{ timeout }}" "{{ server.ipv6 }}" "{{ server_port }}"
+      shell: nc -6 -v -u -w "{{ timeout }}" "{{ server.ipv6 }}" "{{ server_port }}" 2>/dev/null
       register: result
       changed_when: false
+      failed_when: "result.rc != 0 or 'hello' not in result.stdout"
       ignore_errors: "{{ debug }}"
 
     - name: print out the result
       debug: var=result
 
     - name: check the UDP port reachability (Floating IP)
-      shell: nc -v -u -z -w "{{ timeout }}" "{{ server.flip }}" "{{ server_port }}"
+      shell: nc -4 -v -u -w "{{ timeout }}" "{{ server.flip }}" "{{ server_port }}" 2>/dev/null
       register: result
       changed_when: false
-      ignore_errors: "{{ debug }}"
+      failed_when: "result.rc != 0 or 'hello' not in result.stdout"
+      ignore_errors: true
 
     - name: print out the result
       debug: var=result
@@ -66,6 +74,6 @@
   gather_facts: false
   become: true
   tasks:
-    - name: stop netcat
-      command: killall nc
+    - name: stop ncat
+      command: killall ncat
       changed_when: false

@@ -18,5 +18,5 @@ variable "region" {
 
 variable "server_port" {
   description = "The server's listening port"
-  default     = 80
+  default     = 8080
 }
