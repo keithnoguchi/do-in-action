@@ -3,12 +3,14 @@
   hosts: client
   vars:
     server_port: "{{ server.port }}"
+    timeout: 3
     debug: false
   gather_facts: false
   tasks:
     - name: check the HTTP reachability (IPv4)
       uri:
         url: "http://{{ server.ipv4 }}:{{ server_port }}"
+        timeout: "{{ timeout }}"
       register: result
       ignore_errors: "{{ debug }}"
 
@@ -18,6 +20,7 @@
     - name: check the HTTP reachability (private IPv4)
       uri:
         url: "http://{{ server.ipv4_private }}:{{ server_port }}"
+        timeout: "{{ timeout }}"
       register: result
       ignore_errors: "{{ debug }}"
 
@@ -27,6 +30,7 @@
     - name: check the HTTP reachability (IPv6)
       uri:
         url: "http://[{{ server.ipv6 }}]:{{ server_port }}"
+        timeout: "{{ timeout }}"
       register: result
       ignore_errors: "{{ debug }}"
 
@@ -36,6 +40,7 @@
     - name: check the HTTP reachability (Floating IP)
       uri:
         url: "http://{{ server.flip }}:{{ server_port }}"
+        timeout: "{{ timeout }}"
       register: result
       ignore_errors: "{{ debug }}"
 
