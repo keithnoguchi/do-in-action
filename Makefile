@@ -1,4 +1,4 @@
-WAIT_SECONDS=30
+WAIT_SECONDS = 30
 
 all: deploy
 
@@ -12,7 +12,7 @@ deploy: plan
 
 .PHONY: wait
 wait:
-	sleep ${WAIT_SECONDS}
+	sleep $(WAIT_SECONDS)
 
 .PHONY: test
 test: deploy wait
