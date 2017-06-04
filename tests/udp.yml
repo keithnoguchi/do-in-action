@@ -6,7 +6,7 @@
   gather_facts: false
   become: true
   tasks:
-    - name: install nmap for ncat as UDP client
+    - name: install nmap for ncat as UDP server
       apt: name=nmap state=present update_cache=no
 
     - name: start ncat as UDP server
