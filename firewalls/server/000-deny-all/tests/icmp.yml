@@ -1,0 +1,48 @@
+---
+- name: ICMP connection between two droplets
+  hosts: client
+  vars:
+    debug: false
+    timeout: 3
+    count: 3
+  gather_facts: false
+  tasks:
+    - name: check the ICMP reachability (IPv4)
+      command: ping -c {{ count }} -W {{ timeout }} {{ server.ipv4 }}
+      register: result
+      changed_when: false
+      failed_when: result.rc == 0
+      ignore_errors: "{{ debug }}"
+
+    - name: print out the result
+      debug: var=result
+
+    - name: check the ICMP reachability (private IPv4)
+      command: ping -c {{ count }} -W {{ timeout }} {{ server.ipv4_private }}
+      register: result
+      changed_when: false
+      failed_when: result.rc == 0
+      ignore_errors: "{{ debug }}"
+
+    - name: print out the result
+      debug: var=result
+
+    - name: check the ICMP reachability (IPv6)
+      command: ping6 -c {{ count }} -W {{ timeout }} {{ server.ipv6 }}
+      register: result
+      changed_when: false
+      failed_when: result.rc == 0
+      ignore_errors: "{{ debug }}"
+
+    - name: print out the result
+      debug: var=result
+
+    - name: check the ICMP reachability (Floating IP)
+      command: ping -c {{ count }} -W {{ timeout }} {{ server.flip }}
+      register: result
+      changed_when: false
+      failed_when: result.rc == 0
+      ignore_errors: "{{ debug }}"
+
+    - name: print out the result
+      debug: var=result

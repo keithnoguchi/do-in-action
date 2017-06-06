@@ -1,0 +1,60 @@
+---
+- name: TCP connection between two droplets
+  hosts: client
+  vars:
+    server_port: "{{ server.port }}"
+    timeout: 3
+    debug: false
+  gather_facts: false
+  tasks:
+    - name: check the TCP port reachability (IPv4)
+      wait_for:
+        host: "{{ server.ipv4 }}"
+        port: "{{ server_port }}"
+        state: started
+        timeout: "{{ timeout }}"
+      register: result
+      failed_when: result.failed != true
+      ignore_errors: "{{ debug }}"
+
+    - name: print out the result
+      debug: var=result
+
+    - name: check the TCP port reachability (private IPv4)
+      wait_for:
+        host: "{{ server.ipv4_private }}"
+        port: "{{ server_port }}"
+        state: started
+        timeout: "{{ timeout }}"
+      register: result
+      failed_when: result.failed != true
+      ignore_errors: "{{ debug }}"
+
+    - name: print out the result
+      debug: var=result
+
+    - name: check the TCP port reachability (IPv6)
+      wait_for:
+        host: "{{ server.ipv6 }}"
+        port: "{{ server_port }}"
+        state: started
+        timeout: "{{ timeout }}"
+      register: result
+      failed_when: result.failed != true
+      ignore_errors: "{{ debug }}"
+
+    - name: print out the result
+      debug: var=result
+
+    - name: check the TCP port reachability (Floating IP)
+      wait_for:
+        host: "{{ server.flip }}"
+        port: "{{ server_port }}"
+        state: started
+        timeout: "{{ timeout }}"
+      register: result
+      failed_when: result.failed != true
+      ignore_errors: "{{ debug }}"
+
+    - name: print out the result
+      debug: var=result

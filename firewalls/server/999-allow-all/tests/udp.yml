@@ -1,0 +1,79 @@
+---
+- name: start UDP server
+  hosts: server
+  vars:
+    server_port: "{{ server.port }}"
+  gather_facts: false
+  become: true
+  tasks:
+    - name: install nmap for ncat as UDP server
+      apt: name=nmap state=present update_cache=no
+
+    - name: start ncat as UDP server
+      shell: ncat -u -k -c 'echo hello' -l "{{ server_port }}" &
+      register: result
+      changed_when: false
+
+    - name: print out the result
+      debug: var=result
+
+- name: UDP connection between two droplets
+  hosts: client
+  vars:
+    server_port: "{{ server.port }}"
+    timeout: 3
+    debug: false
+  gather_facts: false
+  become: true
+  tasks:
+    - name: check the UDP port reachability (IPv4)
+      shell: nc -4 -v -u -w "{{ timeout }}" "{{ server.ipv4 }}" "{{ server_port }}" 2>/dev/null
+      register: result
+      changed_when: false
+      failed_when: "result.rc != 0 or 'hello' not in result.stdout"
+      ignore_errors: "{{ debug }}"
+
+    - name: print out the result
+      debug: var=result
+
+    - name: check the UDP port reachability (private IPv4)
+      shell: nc -4 -v -u -w "{{ timeout }}" "{{ server.ipv4_private }}" "{{ server_port }}" 2>/dev/null
+      register: result
+      changed_when: false
+      failed_when: "result.rc != 0 or 'hello' not in result.stdout"
+      ignore_errors: "{{ debug }}"
+
+    - name: print out the result
+      debug: var=result
+
+    - name: check the UDP port reachability (IPv6)
+      shell: nc -6 -v -u -w "{{ timeout }}" "{{ server.ipv6 }}" "{{ server_port }}" 2>/dev/null
+      register: result
+      changed_when: false
+      failed_when: "result.rc != 0 or 'hello' not in result.stdout"
+      ignore_errors: "{{ debug }}"
+
+    - name: print out the result
+      debug: var=result
+
+    - name: check the UDP port reachability (Floating IP)
+      shell: nc -4 -v -u -w "{{ timeout }}" "{{ server.flip }}" "{{ server_port }}" 2>/dev/null
+      register: result
+      changed_when: false
+      failed_when: "result.rc != 0 or 'hello' not in result.stdout"
+      ignore_errors: true
+
+    - name: print out the result
+      debug: var=result
+
+    - fail: msg="finish the test without stopping the UDP server"
+      when: debug
+
+- name: stop UDP server
+  hosts: server
+  gather_facts: false
+  become: true
+  tasks:
+    - name: stop ncat
+      command: killall ncat
+      changed_when: false
