@@ -27,6 +27,9 @@ test: deploy wait
 test-firewalls: test
 	$(MAKE) -C firewalls test
 
+.PHONY: test-all
+test-all: test test-firewalls
+
 .PHONY: clean
 clean:
 	$(MAKE) -C firewalls clean
