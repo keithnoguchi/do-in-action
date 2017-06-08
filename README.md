@@ -30,7 +30,7 @@ and give it to [terraform](http://terraform.io) through
 ssh into those droplets:
 
 ```sh
-air$ export TF_VAR_DO_FINGERPRINT=$(ssh-keygen -E md5 -lf ~/.do/id_rsa.pub|awk '{print $2}'|sed 's/MD5://')
+air$ export TF_VAR_DO_FINGERPRINT=$(ssh-keygen -E md5 -lf ~/.ssh/id_rsa.pub|awk '{print $2}'|sed 's/MD5://')
 ```
 
 That's it!  Now, let's roll!
