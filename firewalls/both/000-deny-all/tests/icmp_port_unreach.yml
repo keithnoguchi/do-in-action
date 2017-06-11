@@ -1,0 +1,69 @@
+---
+- name: check UDP port is closed for the particular port
+  hosts: server
+  vars:
+    server_port: "{{ server.port|int + 1 }}"
+  gather_facts: false
+  become: true
+  tasks:
+    - name: use netstat to check the port is not open
+      shell: netstat -lnup | grep ":{{ server_port }}"
+      register: result
+      changed_when: false
+      failed_when: "result.rc == 0"
+
+    - name: print out the result
+      debug: var=result
+
+- name: ICMP port unreach for closed UDP port
+  hosts: client
+  vars:
+    # server.port + 1 is not open, as verified above play.
+    server_port: "{{ server.port|int + 1 }}"
+    timeout: 3
+    debug: false
+  gather_facts: false
+  become: true
+  tasks:
+    - name: install nmap for UDP port scanning
+      apt: name=nmap state=present update_cache=no
+
+    - name: check ICMP port unreach for the closed UDP port (IPv4)
+      shell: nmap -Pn -sU --host-timeout "{{ timeout }}" -p "{{ server_port }}" "{{ server.ipv4 }}" 2>/dev/null
+      register: result
+      changed_when: false
+      failed_when: "result.rc != 0 or 'filtered' not in result.stdout"
+      ignore_errors: "{{ debug }}"
+
+    - name: print out the result
+      debug: var=result
+
+    - name: check ICMP port unreach for the closed UDP port (private IPv4)
+      shell: nmap -Pn -sU --host-timeout "{{ timeout }}" -p "{{ server_port }}" "{{ server.ipv4_private }}" 2>/dev/null
+      register: result
+      changed_when: false
+      failed_when: "result.rc != 0 or 'filtered' not in result.stdout"
+      ignore_errors: "{{ debug }}"
+
+    - name: print out the result
+      debug: var=result
+
+    - name: check ICMP port unreach for the closed UDP port (IPv6)
+      shell: nmap -6 -Pn -sU --host-timeout "{{ timeout }}" -p "{{ server_port }}" "{{ server.ipv6 }}" 2>/dev/null
+      register: result
+      changed_when: false
+      failed_when: "result.rc != 0 or 'filtered' not in result.stdout"
+      ignore_errors: "{{ debug }}"
+
+    - name: print out the result
+      debug: var=result
+
+    - name: check ICMP port unreach for the closed UDP port (Floating IP)
+      shell: nmap -Pn -sU --host-timeout "{{ timeout }}" -p "{{ server_port }}" "{{ server.flip }}" 2>/dev/null
+      register: result
+      changed_when: false
+      failed_when: "result.rc != 0 or 'filtered' not in result.stdout"
+      ignore_errors: "{{ debug }}"
+
+    - name: print out the result
+      debug: var=result
