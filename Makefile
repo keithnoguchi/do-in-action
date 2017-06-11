@@ -2,6 +2,11 @@ WAIT_SECONDS = 30
 
 all: deploy
 
+# Some terraform command aliases.
+.PHONY: plan show output apply
+plan show output apply:
+	terraform $@
+
 .PHONY: deploy
 deploy: plan
 	terraform apply
@@ -16,11 +21,6 @@ test-all: test test-firewalls
 .PHONY: test-firewalls
 test-firewalls: test
 	$(MAKE) -C firewalls test
-
-# Some terraform command aliases.
-.PHONY: plan show output
-plan show output:
-	terraform $@
 
 .PHONY: wait
 wait:

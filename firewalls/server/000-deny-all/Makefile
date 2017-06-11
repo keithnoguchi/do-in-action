@@ -2,9 +2,10 @@ WAIT_SECONDS = 30
 
 all: deploy
 
-.PHONY: plan
-plan:
-	terraform plan
+# Some terraform command aliases.
+.PHONY: plan show output apply
+plan show output apply:
+	terraform $@
 
 .PHONY: deploy
 deploy: plan
