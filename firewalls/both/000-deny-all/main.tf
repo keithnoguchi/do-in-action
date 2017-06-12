@@ -33,6 +33,14 @@ resource "digitalocean_firewall" "client_firewall" {
     {
       # For apt installation
       protocol                = "tcp"
+      port_range              = "443"
+      destination_addresses   = ["0.0.0.0/0", "::/0"]
+      destination_tags        = []
+      destination_droplet_ids = []
+    },
+    {
+      # For apt installation
+      protocol                = "tcp"
       port_range              = "80"
       destination_addresses   = ["0.0.0.0/0", "::/0"]
       destination_tags        = []
@@ -67,6 +75,14 @@ resource "digitalocean_firewall" "server_firewall" {
   ]
 
   outbound_rules = [
+    {
+      # For apt installation
+      protocol                = "tcp"
+      port_range              = "443"
+      destination_addresses   = ["0.0.0.0/0", "::/0"]
+      destination_tags        = []
+      destination_droplet_ids = []
+    },
     {
       # For apt installation
       protocol                = "tcp"

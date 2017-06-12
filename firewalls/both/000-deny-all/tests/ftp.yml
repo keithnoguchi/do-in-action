@@ -1,0 +1,109 @@
+---
+- name: start FTP server
+  hosts: server
+  gather_facts: false
+  become: true
+  vars:
+    quiet: false
+  tasks:
+    - name: install vsftpd as FTP server
+      apt: name=vsftpd state=present update_cache=no
+
+    - name: enable anonymous FTP
+      lineinfile:
+        path=/etc/vsftpd.conf
+        regexp='anonymous_enable='
+        line='anonymous_enable=YES'
+
+    - name: enable IPv6 listen
+      lineinfile:
+        path=/etc/vsftpd.conf
+        regexp='listen_ipv6='
+        line='listen_ipv6=YES'
+
+    - name: use / as a FTP user's home directory
+      user: name=ftp home=/
+
+    - name: restart FTP server
+      # https://stackoverflow.com/questions/30162528/ansible-service-restart-failed
+      command: systemctl restart vsftpd
+      register: result
+      changed_when: false
+
+    - name: print out the result
+      debug: var=result
+      when: not quiet|bool
+
+- name: FTP GET from server
+  hosts: client
+  vars:
+    path: index.html
+    dest: /tmp
+    timeout: 3
+    debug: false
+    quiet: false
+  gather_facts: false
+  tasks:
+    - name: check FTP GET (IPv4)
+      get_url:
+        url: "ftp://ftp@{{ server.ipv4 }}/{{ path }}"
+        dest: "{{ dest }}"
+        timeout: "{{ timeout }}"
+      register: result
+      failed_when: result.failed != true
+      ignore_errors: "{{ debug }}"
+
+    - name: print out the result
+      debug: var=result
+      when: not quiet|bool
+
+    - name: check FTP GET (private IPv4)
+      get_url:
+        url: "ftp://ftp@{{ server.ipv4_private }}/{{ path }}"
+        dest: "{{ dest }}"
+        timeout: "{{ timeout }}"
+      register: result
+      failed_when: result.failed != true
+      ignore_errors: "{{ debug }}"
+
+    - name: print out the result
+      debug: var=result
+      when: not quiet|bool
+
+    - name: check FTP GET (IPv6)
+      # It seems get_url module doesn't support IPv6 raw address format:
+      # https://github.com/ansible/ansible/issues/4482#issuecomment-307961120
+      command: >
+        curl --connect-timeout "{{ timeout }}" "ftp://ftp@[{{ server.ipv6 }}]/{{ path }}" -o "{{ dest }}/{{ path }}"
+      register: result
+      failed_when: result.rc == 0
+      ignore_errors: "{{ debug }}"
+      changed_when: false
+
+    - name: print out the result
+      debug: var=result
+      when: not quiet|bool
+
+    - name: check FTP GET (Floating IP)
+      # get_url module doesn't have a passive support.
+      # http://docs.ansible.com/ansible/get_url_module.html
+      command: >
+        curl --connect-timeout "{{ timeout }}" --ftp-pasv "ftp://ftp@{{ server.flip }}/{{ path }}" -o "{{ dest }}/{{ path }}"
+      register: result
+      failed_when: result.rc == 0
+      ignore_errors: "{{ debug }}"
+      changed_when: false
+
+    - name: print out the result
+      debug: var=result
+      when: not quiet|bool
+
+- name: stop FTP server
+  hosts: server
+  gather_facts: false
+  become: true
+  tasks:
+    - name: stop FTP server
+      command: systemctl stop vsftpd
+      register: result
+      changed_when: false
