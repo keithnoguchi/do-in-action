@@ -3,12 +3,12 @@ WAIT_SECONDS = 30
 all: deploy
 
 # Some terraform command aliases.
-.PHONY: plan show output apply
-plan show output apply:
+.PHONY: init plan show output apply
+init plan show output apply:
 	terraform $@
 
 .PHONY: deploy
-deploy: plan
+deploy: init plan
 	terraform apply
 
 .PHONY: test
@@ -27,7 +27,7 @@ wait:
 	sleep $(WAIT_SECONDS)
 
 .PHONY: clean
-clean:
+clean: init
 	$(MAKE) -C firewalls clean
 	terraform destroy -force
 	$(RM) *.tfstate*

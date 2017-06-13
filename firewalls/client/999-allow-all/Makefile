@@ -3,12 +3,12 @@ WAIT_SECONDS = 30
 all: deploy
 
 # Some terraform command aliases.
-.PHONY: plan show output apply
-plan show output apply:
+.PHONY: init plan show output apply
+init plan show output apply:
 	terraform $@
 
 .PHONY: deploy
-deploy: plan
+deploy: init plan
 	terraform apply
 
 .PHONY: wait
@@ -20,7 +20,7 @@ test: deploy wait
 	ansible-playbook tests/all.yml
 
 .PHONY: clean
-clean:
+clean: init
 	terraform destroy -force
 	$(RM) *.tfstate*
 	$(RM) tests/*.retry
