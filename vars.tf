@@ -11,7 +11,7 @@ variable "server_count" {
   default     = 1
 }
 
-variable "region" {
+variable "DO_REGION" {
   description = "The slug of the DO region, e.g. nyc3"
   default     = "nyc3"
 }

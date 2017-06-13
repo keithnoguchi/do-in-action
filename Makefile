@@ -1,4 +1,8 @@
-WAIT_SECONDS = 30
+WAIT_SECONDS ?= 30
+TF_VAR_DO_REGION ?= nyc3
+
+# for recursive call
+export WAIT_SECONDS TF_VAR_DO_REGION
 
 all: deploy
 

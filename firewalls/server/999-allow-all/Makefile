@@ -1,4 +1,5 @@
-WAIT_SECONDS = 30
+WAIT_SECONDS ?= 30
+TF_VAR_DO_REGION ?= nyc3
 
 all: deploy
 

@@ -14,7 +14,7 @@ resource "digitalocean_droplet" "client" {
   count              = "${var.client_count}"
   image              = "ubuntu-16-04-x64"
   name               = "client${count.index}"
-  region             = "${var.region}"
+  region             = "${var.DO_REGION}"
   size               = "512mb"
   ipv6               = true
   private_networking = true
@@ -32,7 +32,7 @@ resource "digitalocean_droplet" "server" {
   count              = "${var.server_count}"
   image              = "ubuntu-16-04-x64"
   name               = "server${count.index}"
-  region             = "${var.region}"
+  region             = "${var.DO_REGION}"
   size               = "512mb"
   ipv6               = true
   private_networking = true
