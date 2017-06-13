@@ -1,4 +1,4 @@
-WAIT_SECONDS = 30
+WAIT_SECONDS ?= 30
 
 all: deploy
 
