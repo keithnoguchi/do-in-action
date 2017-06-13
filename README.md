@@ -151,6 +151,29 @@ PLAY RECAP *********************************************************************
 air$
 ```
 
+Here is the test matrix covered by `make test-all`:
+
+| Firewall type | [Non firewall](main.tf) | [Inbound deny-all](firewalls/server/000-deny-all/main.tf) | [Inbound allow-all](firewalls/server/999-allow-all/main.tf) | [Outbound deny-all](firewalls/client/000-deny-all/main.tf) | [Outbound allow-all](firewalls/client/999-allow-all/main.tf) | [In/Out-bound deny-all](firewalls/both/000-deny-all/main.tf) | [In/Out-bound allow-all](firewalls/both/999-allow-all/main.tf) |
+|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| ICMP | [PASS](tests/icmp.yml) | [PASS](firewalls/server/000-deny-all/tests/icmp.yml) | [PASS](firewalls/server/999-allow-all/tests/icmp.yml) | [PASS](firewalls/client/000-deny-all/tests/icmp.yml) | [PASS](firewalls/client/999-allow-all/tests/icmp.yml) | [PASS](firewalls/both/000-deny-all/tests/icmp.yml) | [PASS](firewalls/both/999-allow-all/tests/icmp.yml) |
+| ICMP port unreach | [PASS](tests/icmp_port_unreach.yml) | [PASS](firewalls/server/000-deny-all/tests/icmp_port_unreach.yml) | [FAIL](firewalls/server/999-allow-all/tests/icmp_port_unreach.yml) | [PASS](firewalls/client/000-deny-all/tests/icmp_port_unreach.yml) | [FAIL](firewalls/client/999-allow-all/tests/icmp_port_unreach.yml) | [PASS](firewalls/both/000-deny-all/tests/icmp_port_unreach.yml) | [FAIL](firewalls/both/999-allow-all/tests/icmp_port_unreach.yml) |
+| HTTP | [PASS](tests/http.yml) | [PASS](firewalls/server/000-deny-all/tests/http.yml) | [PASS](firewalls/server/999-allow-all/tests/http.yml) | [PASS](firewalls/client/000-deny-all/tests/http.yml) | [PASS](firewalls/client/999-allow-all/tests/http.yml) | [PASS](firewalls/both/000-deny-all/tests/http.yml) | [PASS](firewalls/both/999-allow-all/tests/http.yml) |
+| TCP | [PASS](tests/tcp.yml) | [PASS](firewalls/server/000-deny-all/tests/tcp.yml) | [PASS](firewalls/server/999-allow-all/tests/tcp.yml) | [PASS](firewalls/client/000-deny-all/tests/tcp.yml) | [PASS](firewalls/client/999-allow-all/tests/tcp.yml) | [PASS](firewalls/both/000-deny-all/tests/tcp.yml) | [PASS](firewalls/both/999-allow-all/tests/tcp.yml) |
+| UDP | [PASS](tests/udp.yml) | [PASS](firewalls/server/000-deny-all/tests/udp.yml) | [PASS](firewalls/server/999-allow-all/tests/udp.yml) | [PASS](firewalls/client/000-deny-all/tests/udp.yml) | [PASS](firewalls/client/999-allow-all/tests/udp.yml) | [PASS](firewalls/both/000-deny-all/tests/udp.yml) | [PASS](firewalls/both/999-allow-all/tests/udp.yml) |
+| FTP | [PASS](tests/ftp.yml) | [PASS](firewalls/server/000-deny-all/tests/ftp.yml) | [PASS](firewalls/server/999-allow-all/tests/ftp.yml) | [PASS](firewalls/client/000-deny-all/tests/ftp.yml) | [PASS](firewalls/client/999-allow-all/tests/ftp.yml) | [PASS](firewalls/both/000-deny-all/tests/ftp.yml) | [PASS](firewalls/both/999-allow-all/tests/ftp.yml) |
+
+Note that all those Ansible test playbooks covers four different
+IP reachability, public IPv4, private IPv4, public IPv6, and
+floating IPv4, respectively.
+
+And also, you can run those tests indivisually through the standard
+ansible command.  For example, following command runs HTTP test for
+non firewalls setup.
+
+```sh
+air$ ansible-playbook tests/http.yml
+```
+
 ### Cleanup
 
 Of course, we can destroy all those instances through `make clean`,
