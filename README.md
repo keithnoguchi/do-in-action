@@ -151,6 +151,8 @@ PLAY RECAP *********************************************************************
 air$
 ```
 
+#### Test matrix
+
 Here is the test matrix covered by `make test-all`:
 
 | Firewall type | [Non firewall](main.tf) | [Inbound deny-all](firewalls/server/000-deny-all/main.tf) | [Inbound allow-all](firewalls/server/999-allow-all/main.tf) | [Outbound deny-all](firewalls/client/000-deny-all/main.tf) | [Outbound allow-all](firewalls/client/999-allow-all/main.tf) | [In/Out-bound deny-all](firewalls/both/000-deny-all/main.tf) | [In/Out-bound allow-all](firewalls/both/999-allow-all/main.tf) |
@@ -172,6 +174,21 @@ non firewalls setup.
 
 ```sh
 air$ ansible-playbook tests/http.yml
+```
+
+#### Test in the entire DO
+
+Here is the simple shell script to run the test in the entire DO!
+
+```sh
+air$ for region in ams2 ams3 blr1 fra1 lon1 nyc1 nyc2 nyc3 sfo1 sfo2 sgp1 tor1
+do
+	# Cleanup the environment before the test.
+	if ! make test-all TF_VAR_DO_REGION=$region
+	then
+		break
+	fi
+done
 ```
 
 ### Cleanup
