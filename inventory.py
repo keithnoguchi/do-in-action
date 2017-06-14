@@ -20,10 +20,10 @@ def main():
     # noqa https://github.com/ansible/ansible/commit/bcaa983c2f3ab684dca6c2c2c8d1997742260761
     inventory['_meta'] = {'hostvars': hostvars}
 
-    parser = argparse.ArgumentParser(description="DO server inventory")
+    parser = argparse.ArgumentParser(description="DO droplet inventory")
     parser.add_argument('--list', action='store_true',
-                        help="List DO server inventory")
-    parser.add_argument('--host', help='List details of a host')
+                        help="List DO droplet inventory")
+    parser.add_argument('--host', help='List details of a droplet')
     args = parser.parse_args()
 
     if args.list:
