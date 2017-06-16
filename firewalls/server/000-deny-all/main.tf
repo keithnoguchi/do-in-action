@@ -18,7 +18,7 @@ resource "digitalocean_firewall" "server_firewall" {
   tags        = ["${data.terraform_remote_state.main.server_tag_id}"]
   droplet_ids = []
 
-  inbound_rules = [
+  inbound_rule = [
     {
       # For ansible to work
       protocol           = "tcp"
@@ -29,7 +29,7 @@ resource "digitalocean_firewall" "server_firewall" {
     },
   ]
 
-  outbound_rules = [
+  outbound_rule = [
     {
       # For apt installation
       protocol                = "tcp"

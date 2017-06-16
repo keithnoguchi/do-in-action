@@ -18,7 +18,7 @@ resource "digitalocean_firewall" "client_firewall" {
   tags        = ["${data.terraform_remote_state.main.client_tag_id}"]
   droplet_ids = []
 
-  inbound_rules = [
+  inbound_rule = [
     {
       protocol           = "tcp"
       port_range         = "1-65535"
@@ -39,7 +39,7 @@ resource "digitalocean_firewall" "client_firewall" {
     },
   ]
 
-  outbound_rules = [
+  outbound_rule = [
     {
       protocol                = "tcp"
       port_range              = "1-65535"
