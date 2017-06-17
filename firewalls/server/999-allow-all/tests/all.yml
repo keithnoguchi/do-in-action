@@ -1,7 +1,7 @@
 ---
-- include: icmp.yml
-- include: icmp_port_unreach.yml
-- include: http.yml
-- include: tcp.yml
-- include: udp.yml
-- include: ftp.yml
+- import_playbook: icmp.yml
+- import_playbook: icmp_port_unreach.yml
+- import_playbook: http.yml
+- import_playbook: tcp.yml
+- import_playbook: udp.yml
+- import_playbook: ftp.yml
