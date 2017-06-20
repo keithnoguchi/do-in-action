@@ -9,7 +9,19 @@ through [terraform](http://terraform.io).
 - [References](#references)
 
 Install [terraform](http://terraform.io) and [ansible](http://ansible.com)
-on your favorite laptop/desktop and have DO in action!
+on your favorite laptop/desktop and enjoy having DO in action!
+
+Note that, since [DO Cloud Firewalls](https://do.co/cloud-firewalls) support
+has been just
+[merged into master](https://github.com/terraform-providers/terraform-provider-digitalocean/pull/1)
+recently, you either grab the latest DO provider release,
+[0.1.0](https://github.com/terraform-providers/terraform-provider-digitalocean/blob/master/CHANGELOG.md#010-june-19-2017),
+or git clone by yourself, if you're adventurous.
+
+Here is a simple [ansible playbook](https://github.com/keinohguchi/arch-on-air/blob/master/guest.yml)
+I wrote to `git clone` and install the latest [terraform](http://terraform.io)
+and [ansible](http://ansible.com).  As both are under really active development,
+use it on your own risk with hacker's mind. :)
 
 ## Setup
 
