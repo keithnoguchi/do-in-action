@@ -6,14 +6,16 @@ provider "digitalocean" {
 # https://www.terraform.io/docs/backends/types/local.html
 data "terraform_remote_state" "main" {
   backend = "local"
-
   config {
     path = "../../../terraform.tfstate"
   }
 }
 
 resource "digitalocean_firewall" "client_firewall" {
-  name = "client-000-deny-all"
+  name = "client-000-deny-all-${uuid()}"
+  lifecycle {
+    ignore_changes = "name"
+  }
 
   tags        = ["${data.terraform_remote_state.main.client_tag_id}"]
   droplet_ids = []
@@ -58,7 +60,10 @@ resource "digitalocean_firewall" "client_firewall" {
 }
 
 resource "digitalocean_firewall" "server_firewall" {
-  name = "server-000-deny-all"
+  name = "server-000-deny-all-${uuid()}"
+  lifecycle {
+    ignore_changes = "name"
+  }
 
   tags        = ["${data.terraform_remote_state.main.server_tag_id}"]
   droplet_ids = []
