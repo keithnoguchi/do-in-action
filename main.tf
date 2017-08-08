@@ -3,11 +3,6 @@ provider "digitalocean" {
   token = "${var.DO_API_TOKEN}"
 }
 
-# https://www.terraform.io/docs/providers/do/r/tag.html
-resource "digitalocean_tag" "client" {
-  name = "client"
-}
-
 # https://www.terraform.io/docs/providers/do/r/droplet.html
 resource "digitalocean_droplet" "client" {
   count              = "${var.client_count}"
@@ -24,11 +19,6 @@ resource "digitalocean_droplet" "client" {
 #!/bin/bash
 apt install -y python
 EOF
-}
-
-# https://www.terraform.io/docs/providers/do/r/tag.html
-resource "digitalocean_tag" "server" {
-  name = "server"
 }
 
 # https://www.terraform.io/docs/providers/do/r/droplet.html
@@ -55,4 +45,22 @@ EOF
 resource "digitalocean_floating_ip" "server_flip" {
   droplet_id = "${digitalocean_droplet.server.0.id}"
   region     = "${digitalocean_droplet.server.0.region}"
+}
+
+# https://www.terraform.io/docs/providers/do/r/tag.html
+resource "digitalocean_tag" "client" {
+  name = "client-${uuid()}"
+  # https://www.terraform.io/docs/configuration/resources.html
+  lifecycle {
+    ignore_changes = "name"
+  }
+}
+
+# https://www.terraform.io/docs/providers/do/r/tag.html
+resource "digitalocean_tag" "server" {
+  name = "server-${uuid()}"
+  # https://www.terraform.io/docs/configuration/resources.html
+  lifecycle {
+    ignore_changes = "name"
+  }
 }
