@@ -3,10 +3,9 @@ provider "digitalocean" {
   token = "${var.DO_API_TOKEN}"
 }
 
-# https://www.terraform.io/docs/providers/do/r/floating_ip.html
-resource "digitalocean_floating_ip" "server_flip" {
-  droplet_id = "${digitalocean_droplet.server.0.id}"
-  region     = "${digitalocean_droplet.server.0.region}"
+# https://www.terraform.io/docs/providers/do/r/tag.html
+resource "digitalocean_tag" "client" {
+  name = "client"
 }
 
 # https://www.terraform.io/docs/providers/do/r/droplet.html
@@ -25,6 +24,11 @@ resource "digitalocean_droplet" "client" {
 #!/bin/bash
 apt install -y python
 EOF
+}
+
+# https://www.terraform.io/docs/providers/do/r/tag.html
+resource "digitalocean_tag" "server" {
+  name = "server"
 }
 
 # https://www.terraform.io/docs/providers/do/r/droplet.html
@@ -47,12 +51,8 @@ nohup busybox httpd -f -p "${var.server_port}" 0<&- &> /tmp/script.log &
 EOF
 }
 
-# https://www.terraform.io/docs/providers/do/r/tag.html
-resource "digitalocean_tag" "client" {
-  name = "client"
-}
-
-# https://www.terraform.io/docs/providers/do/r/tag.html
-resource "digitalocean_tag" "server" {
-  name = "server"
+# https://www.terraform.io/docs/providers/do/r/floating_ip.html
+resource "digitalocean_floating_ip" "server_flip" {
+  droplet_id = "${digitalocean_droplet.server.0.id}"
+  region     = "${digitalocean_droplet.server.0.region}"
 }

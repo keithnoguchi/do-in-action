@@ -30,10 +30,12 @@ test-firewalls: test
 wait:
 	sleep $(WAIT_SECONDS)
 
-.PHONY: clean
+.PHONY: clean clean-all
 clean: init
-	$(MAKE) -C firewalls clean
 	terraform destroy -force
 	$(RM) *.tfstate*
 	$(RM) tests/*.retry
 	$(RM) *.log
+clean-all: init
+	$(MAKE) -C firewalls clean-all
+	$(MAKE) clean
