@@ -1,16 +1,16 @@
 SUBDIRS  = $(wildcard */.)
-ALLTEST  = $(SUBDIRS:%=test-%)
-ALLCLEAN = $(SUBDIRS:%=clean-%)
+TESTALL  = $(SUBDIRS:%=test-%)
+CLEANALL = $(SUBDIRS:%=clean-%)
 
 all:
 	@echo 'Not supported, run `make test`, instead.'
 
-.PHONY: test $(ALLTEST)
-test: $(ALLTEST)
-$(ALLTEST):
+.PHONY: test $(TESTALL)
+test: $(TESTALL)
+$(TESTALL):
 	$(MAKE) -C $(@:test-%=%) test clean
 
-.PHONY: clean $(ALLCLEAN)
-clean: $(ALLCLEAN)
-$(ALLCLEAN):
+.PHONY: clean clean-all $(CLEANALL)
+clean clean-all: $(CLEANALL)
+$(CLEANALL):
 	$(MAKE) -C $(@:clean-%=%) clean

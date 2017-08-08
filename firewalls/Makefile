@@ -13,4 +13,4 @@ $(TESTALL):
 .PHONY: clean clean-all $(CLEANALL)
 clean clean-all: $(CLEANALL)
 $(CLEANALL):
-	$(MAKE) -C $(@:clean-%=%) clean
+	$(MAKE) -C $(@:clean-%=%) clean-all
