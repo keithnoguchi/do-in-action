@@ -7,6 +7,7 @@ through [terraform](http://terraform.io).
 - [Setup](#setup)
 - [Run](#run)
 - [References](#references)
+- [Casts](#casts)
 
 Install [terraform](http://terraform.io) and [ansible](http://ansible.com)
 on your favorite laptop/desktop and enjoy having DO in action!
@@ -224,5 +225,16 @@ sharing your [terraform](http://terraform.io) insights!
 
 - [Terraform Up & Running](http://shop.oreilly.com/product/0636920061939.do)
 - [How to use Terraform with DO](http://www.digitalocean.com/community/tutorials/how-to-use-terraform-with-digitalocean)
+
+## Casts
+
+I've recorded the [asciinema](https://asciinema.org) cast for the droplet creation part.
+I'll upload it to the official site soon, but in a meanwhile, you can watch it with:
+
+```sh
+$ git clone https://github.com/keinohguchi/do-in-action
+$ cd do-in-action
+$ asciinema play ./casts/droplet.json
+```
 
 Happy Hacking!
