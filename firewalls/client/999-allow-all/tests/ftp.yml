@@ -6,9 +6,6 @@
   vars:
     quiet: false
   tasks:
-    - name: install vsftpd as FTP server
-      apt: name=vsftpd state=present update_cache=no
-
     - name: enable anonymous FTP
       lineinfile:
         path=/etc/vsftpd.conf

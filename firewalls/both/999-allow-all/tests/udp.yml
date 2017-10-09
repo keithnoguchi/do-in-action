@@ -6,9 +6,6 @@
   gather_facts: false
   become: true
   tasks:
-    - name: install nmap for ncat as UDP server
-      apt: name=nmap state=present update_cache=no
-
     - name: start ncat as UDP server
       shell: ncat -u -k -c 'echo hello' -l "{{ server_port }}" &
       register: result

@@ -21,18 +21,18 @@
     # server.port + 1 is not open, as verified above play.
     server_port: "{{ server.port|int + 1 }}"
     timeout: 3
+    retry: 3
     debug: false
   gather_facts: false
   become: true
   tasks:
-    - name: install nmap for UDP port scanning
-      apt: name=nmap state=present update_cache=no
-
     - name: check ICMP port unreach for the closed UDP port (IPv4)
       shell: nmap -Pn -sU --host-timeout "{{ timeout }}" -p "{{ server_port }}" "{{ server.ipv4 }}" 2>/dev/null
       register: result
       changed_when: false
       failed_when: "result.rc != 0 or 'udp closed' not in result.stdout"
+      until: result.rc == 0 and 'udp closed' in result.stdout
+      retries: "{{ retry }}"
       ignore_errors: "{{ debug }}"
 
     - name: print out the result
@@ -43,6 +43,8 @@
       register: result
       changed_when: false
       failed_when: "result.rc != 0 or 'udp closed' not in result.stdout"
+      until: result.rc == 0 and 'udp closed' in result.stdout
+      retries: "{{ retry }}"
       ignore_errors: "{{ debug }}"
 
     - name: print out the result
@@ -53,6 +55,8 @@
       register: result
       changed_when: false
       failed_when: "result.rc != 0 or 'udp closed' not in result.stdout"
+      until: result.rc == 0 and 'udp closed' in result.stdout
+      retries: "{{ retry }}"
       ignore_errors: "{{ debug }}"
 
     - name: print out the result
@@ -63,6 +67,8 @@
       register: result
       changed_when: false
       failed_when: "result.rc != 0 or 'udp closed' not in result.stdout"
+      until: result.rc == 0 and 'udp closed' in result.stdout
+      retries: "{{ retry }}"
       ignore_errors: true
 
     - name: print out the result

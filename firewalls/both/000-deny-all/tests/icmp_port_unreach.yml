@@ -25,9 +25,6 @@
   gather_facts: false
   become: true
   tasks:
-    - name: install nmap for UDP port scanning
-      apt: name=nmap state=present update_cache=no
-
     - name: check ICMP port unreach for the closed UDP port (IPv4)
       shell: nmap -Pn -sU --host-timeout "{{ timeout }}" -p "{{ server_port }}" "{{ server.ipv4 }}" 2>/dev/null
       register: result
