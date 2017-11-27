@@ -12,7 +12,7 @@ init plan show output apply:
 
 .PHONY: deploy
 deploy: init plan
-	terraform apply
+	terraform apply -auto-approve
 
 .PHONY: test
 test: deploy wait
