@@ -11,6 +11,14 @@ data "terraform_remote_state" "tags" {
   }
 }
 
+# https://www.terraform.io/docs/backends/types/local.html
+data "terraform_remote_state" "flips" {
+  backend = "local"
+  config {
+    path = "flips/terraform.tfstate"
+  }
+}
+
 # https://www.terraform.io/docs/providers/do/r/droplet.html
 resource "digitalocean_droplet" "client" {
   count              = "${var.client_count}"
@@ -49,8 +57,3 @@ nohup busybox httpd -f -p "${var.server_port}" 0<&- &> /tmp/script.log &
 EOF
 }
 
-# https://www.terraform.io/docs/providers/do/r/floating_ip.html
-resource "digitalocean_floating_ip" "server_flip" {
-  droplet_id = "${digitalocean_droplet.server.0.id}"
-  region     = "${digitalocean_droplet.server.0.region}"
-}

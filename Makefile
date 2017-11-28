@@ -13,6 +13,7 @@ init plan show output apply: tags
 .PHONY: deploy
 deploy: init plan
 	terraform apply -auto-approve
+	$(MAKE) -C flips $@
 
 .PHONY: tags
 tags:
@@ -41,5 +42,6 @@ clean: init
 	$(RM) *.log
 clean-all: init
 	$(MAKE) -C firewalls clean-all
+	$(MAKE) -C flips clean-all
 	$(MAKE) clean
 	$(MAKE) -C tags clean
