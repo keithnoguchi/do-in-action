@@ -3,6 +3,14 @@ provider "digitalocean" {
   token = "${var.DO_API_TOKEN}"
 }
 
+# https://www.terraform.io/docs/backends/types/local.html
+data "terraform_remote_state" "tags" {
+  backend = "local"
+  config {
+    path = "tags/terraform.tfstate"
+  }
+}
+
 # https://www.terraform.io/docs/providers/do/r/droplet.html
 resource "digitalocean_droplet" "client" {
   count              = "${var.client_count}"
@@ -13,7 +21,7 @@ resource "digitalocean_droplet" "client" {
   ipv6               = true
   private_networking = true
   ssh_keys           = ["${var.DO_FINGERPRINT}"]
-  tags               = ["${digitalocean_tag.client.id}"]
+  tags               = ["${data.terraform_remote_state.tags.client_tag_id}"]
 
   user_data = <<EOF
 #!/bin/bash
@@ -31,7 +39,7 @@ resource "digitalocean_droplet" "server" {
   ipv6               = true
   private_networking = true
   ssh_keys           = ["${var.DO_FINGERPRINT}"]
-  tags               = ["${digitalocean_tag.server.id}"]
+  tags               = ["${data.terraform_remote_state.tags.server_tag_id}"]
 
   user_data = <<EOF
 #!/bin/bash
@@ -45,22 +53,4 @@ EOF
 resource "digitalocean_floating_ip" "server_flip" {
   droplet_id = "${digitalocean_droplet.server.0.id}"
   region     = "${digitalocean_droplet.server.0.region}"
-}
-
-# https://www.terraform.io/docs/providers/do/r/tag.html
-resource "digitalocean_tag" "client" {
-  name = "client-${uuid()}"
-  # https://www.terraform.io/docs/configuration/resources.html
-  lifecycle {
-    ignore_changes = "name"
-  }
-}
-
-# https://www.terraform.io/docs/providers/do/r/tag.html
-resource "digitalocean_tag" "server" {
-  name = "server-${uuid()}"
-  # https://www.terraform.io/docs/configuration/resources.html
-  lifecycle {
-    ignore_changes = "name"
-  }
 }

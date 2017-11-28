@@ -11,8 +11,12 @@ init plan show output apply:
 	terraform $@
 
 .PHONY: deploy
-deploy: init plan
+deploy: init plan tags
 	terraform apply -auto-approve
+
+.PHONY: tags
+tags:
+	$(MAKE) -C $@ deploy
 
 .PHONY: test
 test: deploy wait
@@ -37,4 +41,5 @@ clean: init
 	$(RM) *.log
 clean-all: init
 	$(MAKE) -C firewalls clean-all
+	$(MAKE) -C tags clean
 	$(MAKE) clean
