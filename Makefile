@@ -7,11 +7,11 @@ all: deploy
 
 # Some terraform command aliases.
 .PHONY: init plan show output apply
-init plan show output apply:
+init plan show output apply: tags
 	terraform $@
 
 .PHONY: deploy
-deploy: init plan tags
+deploy: init plan
 	terraform apply -auto-approve
 
 .PHONY: tags
@@ -41,5 +41,5 @@ clean: init
 	$(RM) *.log
 clean-all: init
 	$(MAKE) -C firewalls clean-all
-	$(MAKE) -C tags clean
 	$(MAKE) clean
+	$(MAKE) -C tags clean
