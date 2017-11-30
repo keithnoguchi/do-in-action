@@ -10,17 +10,13 @@ all: deploy
 
 # Some terraform command aliases.
 .PHONY: init plan show output apply
-init plan show output apply: tags
+init plan show output apply:
 	terraform $@
 
 .PHONY: deploy
 deploy: init plan
 	terraform apply -auto-approve
 	$(MAKE) -C flips $@
-
-.PHONY: tags
-tags:
-	$(MAKE) -C $@ deploy
 
 .PHONY: test
 test: deploy wait
@@ -41,7 +37,6 @@ wait:
 clean: init
 	$(MAKE) -C flips $@
 	terraform destroy -force
-	$(MAKE) -C tags $@
 	$(RM) *.tfstate*
 	$(RM) tests/*.retry
 	$(RM) *.log

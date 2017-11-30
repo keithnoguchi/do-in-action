@@ -3,11 +3,11 @@ output "server_port" {
 }
 
 output "client_tag_id" {
-  value = "${data.terraform_remote_state.tags.client_tag_id}"
+  value = "${module.tags.client_tag_id}"
 }
 
 output "server_tag_id" {
-  value = "${data.terraform_remote_state.tags.server_tag_id}"
+  value = "${module.tags.server_tag_id}"
 }
 
 output "client0_droplet_id" {

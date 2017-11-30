@@ -3,12 +3,10 @@ provider "digitalocean" {
   token = "${var.DO_API_TOKEN}"
 }
 
-# https://www.terraform.io/docs/backends/types/local.html
-data "terraform_remote_state" "tags" {
-  backend = "local"
-  config {
-    path = "tags/terraform.tfstate"
-  }
+# https://www.terraform.io/docs/modules/usage.html
+module "tags" {
+  source       = "./tags"
+  DO_API_TOKEN = "${var.DO_API_TOKEN}"
 }
 
 # https://www.terraform.io/docs/backends/types/local.html
@@ -29,7 +27,7 @@ resource "digitalocean_droplet" "client" {
   ipv6               = true
   private_networking = true
   ssh_keys           = ["${var.DO_FINGERPRINT}"]
-  tags               = ["${data.terraform_remote_state.tags.client_tag_id}"]
+  tags               = ["${module.tags.client_tag_id}"]
 
   user_data = <<EOF
 #!/bin/bash
@@ -47,7 +45,7 @@ resource "digitalocean_droplet" "server" {
   ipv6               = true
   private_networking = true
   ssh_keys           = ["${var.DO_FINGERPRINT}"]
-  tags               = ["${data.terraform_remote_state.tags.server_tag_id}"]
+  tags               = ["${module.tags.server_tag_id}"]
 
   user_data = <<EOF
 #!/bin/bash
