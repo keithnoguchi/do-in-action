@@ -4,10 +4,18 @@ provider "digitalocean" {
 }
 
 # https://www.terraform.io/docs/backends/types/local.html
-data "terraform_remote_state" "main" {
+data "terraform_remote_state" "root" {
   backend = "local"
   config {
     path = "../../../terraform.tfstate"
+  }
+}
+
+# https://www.terraform.io/docs/backends/types/local.html
+data "terraform_remote_state" "flips" {
+  backend = "local"
+  config {
+    path = "../../../flips/terraform.tfstate"
   }
 }
 
@@ -17,7 +25,7 @@ resource "digitalocean_firewall" "client_firewall" {
     ignore_changes = "name"
   }
 
-  tags        = ["${data.terraform_remote_state.main.client_tag_id}"]
+  tags        = ["${data.terraform_remote_state.root.client_tag_id}"]
   droplet_ids = []
 
   inbound_rule = [
@@ -69,7 +77,7 @@ resource "digitalocean_firewall" "server_firewall" {
     ignore_changes = "name"
   }
 
-  tags        = ["${data.terraform_remote_state.main.server_tag_id}"]
+  tags        = ["${data.terraform_remote_state.root.server_tag_id}"]
   droplet_ids = []
 
   inbound_rule = [
