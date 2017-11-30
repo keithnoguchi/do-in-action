@@ -1,6 +1,6 @@
-# Droplet creation take a bit longer, 5min, before running test,
+# Droplet creation take a bit longer, 120 sec, before running test,
 # due to the apt update && apt install python through user data.
-DROPLET_WAIT_SECONDS ?= 300
+DROPLET_WAIT_SECONDS ?= 120
 
 # for recursive call
 WAIT_SECONDS ?= 30
