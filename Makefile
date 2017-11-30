@@ -1,6 +1,9 @@
-WAIT_SECONDS ?= 30
+# Droplet creation take a bit longer, 5min, before running test,
+# due to the apt update && apt install python through user data.
+DROPLET_WAIT_SECONDS ?= 300
 
 # for recursive call
+WAIT_SECONDS ?= 30
 export WAIT_SECONDS
 
 all: deploy
@@ -32,7 +35,7 @@ test-firewalls: test
 
 .PHONY: wait
 wait:
-	sleep $(WAIT_SECONDS)
+	sleep $(DROPLET_WAIT_SECONDS)
 
 .PHONY: clean clean-all
 clean: init
