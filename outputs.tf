@@ -1,7 +1,3 @@
-output "server_flip" {
-  value = "${data.terraform_remote_state.flips.server}"
-}
-
 output "server_port" {
   value = "${var.server_port}"
 }

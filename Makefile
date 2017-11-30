@@ -36,12 +36,12 @@ wait:
 
 .PHONY: clean clean-all
 clean: init
+	$(MAKE) -C flips $@
 	terraform destroy -force
+	$(MAKE) -C tags $@
 	$(RM) *.tfstate*
 	$(RM) tests/*.retry
 	$(RM) *.log
 clean-all: init
 	$(MAKE) -C firewalls clean-all
-	$(MAKE) -C flips clean-all
 	$(MAKE) clean
-	$(MAKE) -C tags clean

@@ -19,5 +19,3 @@ clean: init
 	terraform destroy -force
 	$(RM) *.tfstate*
 	$(RM) *.log
-clean-all: init
-	$(MAKE) clean

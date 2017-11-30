@@ -51,7 +51,7 @@ def client(number):
     proc = subprocess.Popen("terraform output server0_public_ipv6",
                             shell=True, stdout=subprocess.PIPE)
     client['vars']['server']['ipv6'] = proc.stdout.read().strip('\n')
-    proc = subprocess.Popen("terraform output server_flip",
+    proc = subprocess.Popen("cd flips && terraform output server_flip",
                             shell=True, stdout=subprocess.PIPE)
     client['vars']['server']['flip'] = proc.stdout.read().strip('\n')
     proc = subprocess.Popen("terraform output server_port",

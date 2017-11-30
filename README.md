@@ -117,7 +117,7 @@ air$
 and to the floating IP:
 
 ```sh
-air$ ping -c3 $(terraform output server_flip)
+air$ ping -c3 $(cd flips && terraform output server_flip)
 PING 45.55.97.179 (45.55.97.179) 56(84) bytes of data.
 64 bytes from 45.55.97.179: icmp_seq=1 ttl=56 time=99.2 ms
 64 bytes from 45.55.97.179: icmp_seq=2 ttl=56 time=97.6 ms
