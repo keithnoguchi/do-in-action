@@ -19,9 +19,9 @@ deploy: init plan
 	$(MAKE) -C flips $@
 
 .PHONY: test test-all test-firewalls
-test-all: test test-firewalls
 test: deploy wait
 	ansible-playbook tests/all.yml
+test-all: test test-firewalls
 test-firewalls:
 	$(MAKE) -C firewalls test
 
@@ -29,13 +29,13 @@ test-firewalls:
 wait:
 	sleep $(DROPLET_WAIT_SECONDS)
 
-.PHONY: clean clean-all
+.PHONY: clean clean-all clean-firewalls
 clean: init
 	$(MAKE) -C flips $@
 	terraform destroy -force
 	$(RM) *.tfstate*
 	$(RM) tests/*.retry
 	$(RM) *.log
-clean-all: init
+clean-all: clean-firewalls clean
+clean-firewalls:
 	$(MAKE) -C firewalls clean-all
-	$(MAKE) clean
