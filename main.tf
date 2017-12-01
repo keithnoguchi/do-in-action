@@ -5,8 +5,7 @@ provider "digitalocean" {
 
 # https://www.terraform.io/docs/modules/usage.html
 module "tags" {
-  source       = "./tags"
-  DO_API_TOKEN = "${var.DO_API_TOKEN}"
+  source = "./tags"
 }
 
 # https://www.terraform.io/docs/backends/types/local.html
