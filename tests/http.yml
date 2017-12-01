@@ -4,7 +4,6 @@
   vars:
     server_port: "{{ server.port }}"
   gather_facts: true
-  become: true
   tasks:
     - name: upload the index.html
       template:
@@ -19,9 +18,11 @@
       shell: nohup busybox httpd -f -p "{{ server_port }}" 0<&- &> /tmp/script.log &
       register: result
       changed_when: false
+      become: true
 
     - name: print out the result
       debug: var=result
+      delegate_to: local
 
 - name: HTTP connection between two droplets
   hosts: client
@@ -74,8 +75,8 @@
 - name: stop HTTP server
   hosts: server
   gather_facts: false
-  become: true
   tasks:
     - name: stop busybox based httpd server
       command: killall busybox
       changed_when: false
+      become: true
