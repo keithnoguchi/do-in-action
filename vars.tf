@@ -4,7 +4,7 @@ variable "DO_USER_DATA" {
   description = "cloud-init user data"
   default     = <<EOF
 #!/bin/bash
-apt update && apt install -y nmap python
+apt update && apt install -y python nmap vsftp
 EOF
 }
 
