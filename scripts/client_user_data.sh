@@ -1,2 +1,2 @@
 #!/bin/bash
-apt update && apt install -y nmap python
+apt update && apt install -y python nmap vsftpd
