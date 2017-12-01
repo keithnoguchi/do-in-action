@@ -18,15 +18,11 @@ deploy: init plan
 	terraform apply -auto-approve
 	$(MAKE) -C flips $@
 
-.PHONY: test
+.PHONY: test test-all test-firewalls
+test-all: test test-firewalls
 test: deploy wait
 	ansible-playbook tests/all.yml
-
-.PHONY: test-all
-test-all: test test-firewalls
-
-.PHONY: test-firewalls
-test-firewalls: test
+test-firewalls:
 	$(MAKE) -C firewalls test
 
 .PHONY: wait
