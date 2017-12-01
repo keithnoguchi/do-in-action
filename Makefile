@@ -10,7 +10,7 @@ all: deploy
 
 # Some terraform command aliases.
 .PHONY: init plan show output apply
-init plan show output apply:
+init plan show refresh output apply:
 	terraform $@
 
 .PHONY: deploy
