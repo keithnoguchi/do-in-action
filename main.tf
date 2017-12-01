@@ -31,7 +31,7 @@ resource "digitalocean_droplet" "client" {
 
   user_data = <<EOF
 #!/bin/bash
-apt update && apt install -y python
+apt update && apt install -y nmap python
 EOF
 }
 
@@ -49,7 +49,7 @@ resource "digitalocean_droplet" "server" {
 
   user_data = <<EOF
 #!/bin/bash
-apt update && apt install -y python
+apt update && apt install -y python nmap
 echo "<h1>Hello world from server"${count.index}"</h1>" > index.html
 nohup busybox httpd -f -p "${var.server_port}" 0<&- &> /tmp/script.log &
 EOF
