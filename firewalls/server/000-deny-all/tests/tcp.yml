@@ -1,4 +1,20 @@
 ---
+- name: start TCP server
+  hosts: server
+  vars:
+    server_port: "{{ server.port }}"
+  gather_facts: false
+  tasks:
+    - name: start busybox based HTTP server as TCP server
+      shell: nohup busybox httpd -f -p "{{ server_port }}" 0<&- &> /tmp/script.log &
+      register: result
+      changed_when: false
+      become: true
+
+    - name: print out the result
+      debug: var=result
+      delegate_to: local
+
 - name: TCP connection between two droplets
   hosts: client
   vars:
@@ -58,3 +74,12 @@
 
     - name: print out the result
       debug: var=result
+
+- name: stop TCP server
+  hosts: server
+  gather_facts: false
+  tasks:
+    - name: stop busybox based httpd server
+      command: killall busybox
+      changed_when: false
+      become: true
