@@ -1,5 +1,12 @@
 variable "DO_API_TOKEN" {}
 variable "DO_FINGERPRINT" {}
+variable "DO_USER_DATA" {
+  description = "cloud-init user data"
+  default     = <<EOF
+#!/bin/bash
+apt update && apt install -y nmap python
+EOF
+}
 
 variable "client_count" {
   description = "The number of server droplets"

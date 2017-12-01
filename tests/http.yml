@@ -1,4 +1,28 @@
 ---
+- name: start HTTP server
+  hosts: server
+  vars:
+    server_port: "{{ server.port }}"
+  gather_facts: true
+  become: true
+  tasks:
+    - name: upload the index.html
+      template:
+        src: templates/index.html.j2
+        dest: /root/index.html
+        mode: 0644
+        owner: root
+        group: root
+      become: true
+
+    - name: start busybox based HTTP server
+      shell: nohup busybox httpd -f -p "{{ server_port }}" 0<&- &> /tmp/script.log &
+      register: result
+      changed_when: false
+
+    - name: print out the result
+      debug: var=result
+
 - name: HTTP connection between two droplets
   hosts: client
   vars:
@@ -46,3 +70,12 @@
 
     - name: print out the result
       debug: var=result
+
+- name: stop HTTP server
+  hosts: server
+  gather_facts: false
+  become: true
+  tasks:
+    - name: stop busybox based httpd server
+      command: killall busybox
+      changed_when: false

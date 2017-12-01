@@ -27,11 +27,7 @@ resource "digitalocean_droplet" "client" {
   private_networking = true
   ssh_keys           = ["${var.DO_FINGERPRINT}"]
   tags               = ["${module.tags.client_tag_id}"]
-
-  user_data = <<EOF
-#!/bin/bash
-apt update && apt install -y nmap python
-EOF
+  user_data          = "${var.DO_USER_DATA}"
 }
 
 # https://www.terraform.io/docs/providers/do/r/droplet.html
@@ -45,11 +41,5 @@ resource "digitalocean_droplet" "server" {
   private_networking = true
   ssh_keys           = ["${var.DO_FINGERPRINT}"]
   tags               = ["${module.tags.server_tag_id}"]
-
-  user_data = <<EOF
-#!/bin/bash
-apt update && apt install -y python nmap
-echo "<h1>Hello world from server"${count.index}"</h1>" > index.html
-nohup busybox httpd -f -p "${var.server_port}" 0<&- &> /tmp/script.log &
-EOF
+  user_data          = "${var.DO_USER_DATA}"
 }
