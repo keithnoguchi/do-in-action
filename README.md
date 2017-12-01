@@ -206,6 +206,33 @@ do
 done
 ```
 
+### Import
+
+You can import the existing droplet into terraform through `terraform import` command.
+
+Note that the existing droplets and the one described in `main.tf` should match all the
+attribute field, e.g. region, or `terraform apply` will delete the imported droplet and
+re-create it as explained in `main.tf`.
+
+For the demonstration, I use [doctl] to pre-create the identical droplets, before importing
+that into the terraform.
+
+Specify [./scripts/client_user_data.sh] for the client:
+
+```
+$ doctl compute create client0 --image ubuntu-16-04-x64 --region nyc3 --size 512mb \
+--ssh-keys $TF_VAR_DO_FINGERPRINT --enable-ipv6 --enable-private-networking \
+--user-data-file ./scripts/client_user_data.sh
+```
+
+Specify [./scripts/server_user_data.sh] for the server:
+
+```
+$ doctl compute create server0 --image ubuntu-16-04-x64 --region nyc3 --size 512mb \
+--ssh-keys $TF_VAR_DO_FINGERPRINT --enable-ipv6 --enable-private-networking \
+--user-data-file ./scripts/server_user_data.sh
+```
+
 ### Cleanup
 
 Of course, we can destroy all those instances through `make clean`,
