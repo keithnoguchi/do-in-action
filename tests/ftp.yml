@@ -1,9 +1,10 @@
 ---
 - name: start FTP server
   hosts: server
-  gather_facts: false
+  gather_facts: true
   become: true
   vars:
+    path: index.html
     quiet: false
   tasks:
     - name: install vsftpd as FTP server
@@ -23,6 +24,15 @@
 
     - name: use / as a FTP user's home directory
       user: name=ftp home=/
+
+    - name: upload the index.html, as FTP data
+      template:
+        src: templates/index.html.j2
+        dest: "/{{ path }}"
+        mode: 0644
+        owner: root
+        group: root
+      become: true
 
     - name: restart FTP server
       # https://stackoverflow.com/questions/30162528/ansible-service-restart-failed
