@@ -23,7 +23,7 @@ test: deploy wait
 	ansible-playbook tests/all.yml
 
 .PHONY: test-all
-test-all: clean test test-firewalls
+test-all: test test-firewalls
 
 .PHONY: test-firewalls
 test-firewalls: test

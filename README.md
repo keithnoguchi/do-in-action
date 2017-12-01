@@ -199,7 +199,7 @@ Here is the simple shell script to run the test in the entire DO!
 air$ for region in ams2 ams3 blr1 fra1 lon1 nyc1 nyc2 nyc3 sfo1 sfo2 sgp1 tor1
 do
 	# Cleanup the environment before the test.
-	if ! make test-all TF_VAR_DO_REGION=$region
+	if ! make clean test-all TF_VAR_DO_REGION=$region
 	then
 		break
 	fi
