@@ -208,29 +208,85 @@ done
 
 ### Import
 
-You can import the existing droplet into terraform through `terraform import` command.
+Terraform has a feature to import the existing infrastructure, called import, through
+`terraform import` command.  In this section, I'll demonstrate how to use `import` to
+importing the existing droplets and apply firewalls automatically.
 
-Note that the existing droplets and the one described in `main.tf` should match all the
-attribute field, e.g. region, or `terraform apply` will delete the imported droplet and
-re-create it as explained in `main.tf`.
+Please note that the imported droplets and the one described in `main.tf` should share
+the same attributes, e.g. droplet images, or terraform will destroy the one you import
+and re-create new one, as it treats that as a conflict of the resources.
 
-For the demonstration, I use [doctl] to pre-create the identical droplets, before importing
-that into the terraform.
+#### Client
 
-Specify [./scripts/client_user_data.sh] for the client:
+Let's import the existing droplet as a client role. For this, I use [doctl] for the
+pre-creation but you can use any cloud orchestration tool of your choice.
 
+```bash
+$ doctl compute droplet create client0 --image ubuntu-16-04-x64 --region nyc3 \
+--size 512mb --enable-ipv6 --enable-private-networking \
+--ssh-keys $TF_VAR_DO_FINGERPRINT --user-data-file ./scripts/client_user_data.sh
 ```
-$ doctl compute create client0 --image ubuntu-16-04-x64 --region nyc3 --size 512mb \
---ssh-keys $TF_VAR_DO_FINGERPRINT --enable-ipv6 --enable-private-networking \
---user-data-file ./scripts/client_user_data.sh
+
+I'm using [./scripts/client_user_data.sh] as the user data, for `python` and `nmap`.
+
+Once it's up and running, you can import the droplet with `terraform import` command,
+as below.  Only argument you need is the droplet ID and there are multiple way to get
+that.  For `doctl` case, it will show in the console, or `doctl compute droplet list`.
+
+```bash
+$ terraform import digitalocean_droplet.client 12345
 ```
 
-Specify [./scripts/server_user_data.sh] for the server:
+Once it's successfully imported, all you have to do is just type `make` to let `terraform`
+to do the rest, with one caveat.
 
+As `terraform` will check the remote infrastructure against your local intention to make
+sure it's in sync, it will compare all the attributes to make a decision.  But there is one
+field that force terraform to re-create droplets all the time, which is the user data.
+This is becuase [DigitalOcean's APIv2](https://developers.digitalocean.com/documentation/v2/#retrieve-an-existing-droplet-by-id)
+doesn't expose the user data, and that makes terraform to always to destroy and re-create
+to make your intention happens in the cloud.  Since this is not what I want, I've defined
+the environmental variable, called `TF_VAR_DO_CLIENT_USER_DATA` and pass it nil, as below,
+to fool `terraform`.
+
+```bash
+$ TF_VAR_DO_CLIENT_USER_DATA= terraform apply
 ```
-$ doctl compute create server0 --image ubuntu-16-04-x64 --region nyc3 --size 512mb \
---ssh-keys $TF_VAR_DO_FINGERPRINT --enable-ipv6 --enable-private-networking \
---user-data-file ./scripts/server_user_data.sh
+
+To run the full test suite, you can do the same by replace it to `make test-all`, as below:
+
+```bash
+$ TF_VAR_DO_CLIENT_USER_DATA= make test-all
+```
+
+#### Server
+
+It's almost identical to use the existing droplet as a server role.
+
+First create the one with `doctl`:
+
+```bash
+$ doctl compute droplet create client0 --image ubuntu-16-04-x64 --region nyc3 \
+--size 512mb --enable-ipv6 --enable-private-networking \
+--ssh-keys $TF_VAR_DO_FINGERPRINT --user-data-file ./scripts/server_user_data.sh
+```
+
+then, import it as the server:
+
+```bash
+$ terraform import digitalocean_droplet.server 54321
+```
+
+now, run it with `TF_VAR_DO_SERVER_USER_DATA=`:
+
+```bash
+$ TF_VAR_DO_SERVER_USER_DATA= terraform apply
+```
+
+To run the full test suite, you can do the same by replace it to `make test-all`, as below:
+
+```bash
+$ TF_VAR_DO_SERVER_USER_DATA= make test-all
 ```
 
 ### Cleanup

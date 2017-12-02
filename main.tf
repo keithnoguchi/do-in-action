@@ -27,7 +27,7 @@ resource "digitalocean_droplet" "client" {
   private_networking = true
   ssh_keys           = ["${var.DO_FINGERPRINT}"]
   tags               = ["${module.tags.client_tag_id}"]
-  user_data          = "${var.DO_USER_DATA}"
+  user_data          = "${var.DO_CLIENT_USER_DATA}"
 }
 
 # https://www.terraform.io/docs/providers/do/r/droplet.html
@@ -41,5 +41,5 @@ resource "digitalocean_droplet" "server" {
   private_networking = true
   ssh_keys           = ["${var.DO_FINGERPRINT}"]
   tags               = ["${module.tags.server_tag_id}"]
-  user_data          = "${var.DO_USER_DATA}"
+  user_data          = "${var.DO_SERVER_USER_DATA}"
 }
