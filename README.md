@@ -266,7 +266,7 @@ It's almost identical to use the existing droplet as a server role.
 First create the one with `doctl`:
 
 ```bash
-$ doctl compute droplet create client0 --image ubuntu-16-04-x64 --region nyc3 \
+$ doctl compute droplet create server0 --image ubuntu-16-04-x64 --region nyc3 \
 --size 512mb --enable-ipv6 --enable-private-networking \
 --ssh-keys $TF_VAR_DO_FINGERPRINT --user-data-file ./scripts/server_user_data.sh
 ```
