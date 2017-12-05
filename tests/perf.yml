@@ -38,6 +38,8 @@
 
 - name: run iperf server container as bandwidth agent on server
   hosts: server
+  vars:
+    server_port: 5201
   gather_facts: false
   tasks:
     - name: install the pre-requisite apt packages
@@ -60,7 +62,29 @@
       docker_container:
         name: iperf3-agent
         image: networkstatic/iperf3
-        ports: "{{ server.port }}:{{ server.port }}"
+        ports: "{{ server_port }}:{{ server_port }}"
         command: -s
         detach: true
         state: started
+
+- name: run iperf poller container as bandwidth poller on client
+  hosts: client
+  gather_facts: false
+  tasks:
+    - name: pull networkstatic/bandwidth-poller image
+      command: docker pull networkstatic/bandwidth-poller:latest
+
+    - name: run iperf3 bandwidth collector
+      docker_container:
+        name: iperf3-poller
+        image: networkstatic/bandwidth-poller
+        state: started
+        env:
+          DB_IP: 172.17.0.2
+          BW_AGENT_IP: "{{ server.ipv4 }}"
+          MACHINE_TYPE: digitalocean
+          IPERF_SAMPLE_COUNT: 3
+      register: collect
+      until: false
+      retries: 100
+      delay: 60
