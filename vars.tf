@@ -5,7 +5,7 @@ variable "DO_CLIENT_USER_DATA" {
   description = "cloud-init user data for the client"
   default     = <<EOF
 #!/bin/bash
-apt update && apt install -y python nmap iperf3
+apt update && apt install -y python nmap
 EOF
 }
 
@@ -13,7 +13,7 @@ variable "DO_SERVER_USER_DATA" {
   description = "cloud-init user data for the server"
   default     = <<EOF
 #!/bin/bash
-apt update && apt install -y python nmap iperf3 jq vsftpd
+apt update && apt install -y python nmap vsftpd
 EOF
 }
 

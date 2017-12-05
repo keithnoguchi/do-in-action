@@ -1,2 +1,2 @@
 #!/bin/bash
-apt update && apt install -y python nmap iperf3
+apt update && apt install -y python nmap
