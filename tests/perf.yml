@@ -1,5 +1,5 @@
 ---
-- name: github.com/nerdalert/cloud-bandwidth based perf test
+- name: data vis containers based on github.com/nerdalert/cloud-bandwidth
   hosts: client
   vars:
     debug: false
@@ -10,13 +10,6 @@
       items:
         - docker.io
         - python-pip
-      become: true
-
-    - name: add root user to the developer groups
-      user:
-        name: root
-        append: true
-        groups: docker
       become: true
 
     - name: install python packages
@@ -34,11 +27,40 @@
         ssh_opts: "-o StrictHostKeyChecking=no"
       register: git
 
-    - name: docker-compose up!
+    - name: docker-compose up the data vis containers!
       docker_service:
         project_src: /tmp/cloud-bandwidth
       register: cloud_bandwidth
 
-    - name: debug the docker-compose output
+    - name: debug the docker-compose up output
       debug: var=cloud_bandwidth
       when: debug|bool
+
+- name: run iperf server container as bandwidth agent on server
+  hosts: server
+  gather_facts: false
+  tasks:
+    - name: install the pre-requisite apt packages
+      apt: name={{ item }} state=present update_cache=false
+      items:
+        - docker.io
+        - python-pip
+      become: true
+
+    - name: install python packages
+      pip: name={{ item }}
+      items:
+        - docker-py
+      become: true
+
+    - name: pull networkstatic/iperf3 image
+      command: docker pull networkstatic/iperf3:latest
+
+    - name: run iperf3 container server
+      docker_container:
+        name: iperf3-agent
+        image: networkstatic/iperf3
+        ports: "{{ server.port }}:{{ server.port }}"
+        command: -s
+        detach: true
+        state: started
