@@ -2,9 +2,9 @@
 - name: data vis containers based on github.com/nerdalert/cloud-bandwidth
   hosts: client
   vars:
-    debug: false
+    repo: https://github.com/nerdalert/cloud-bandwidth
   gather_facts: false
-  tasks:
+  pre_tasks:
     - name: install the pre-requisite apt packages
       apt: name={{ item }} state=present update_cache=false
       items:
@@ -21,27 +21,23 @@
 
     - name: clone the cloud-bandwidth git repo
       git:
-        repo: https://github.com/nerdalert/cloud-bandwidth
+        repo: "{{ repo }}"
         dest: /tmp/cloud-bandwidth
         update: yes
         ssh_opts: "-o StrictHostKeyChecking=no"
       register: git
 
-    - name: docker-compose up the data vis containers!
+    - name: fire up the data vis containers!
       docker_service:
         project_src: /tmp/cloud-bandwidth
-      register: cloud_bandwidth
-
-    - name: debug the docker-compose up output
-      debug: var=cloud_bandwidth
-      when: debug|bool
 
 - name: run iperf server as bandwidth agent on server
   hosts: server
   vars:
-    server_port: 5201
+    agent_image: networkstatic/iperf3:latest
+    agent_port: 5201
   gather_facts: false
-  tasks:
+  pre_tasks:
     - name: install the pre-requisite apt packages
       apt: name={{ item }} state=present update_cache=false
       items:
@@ -56,13 +52,13 @@
       become: true
 
     - name: pull networkstatic/iperf3 image
-      command: docker pull networkstatic/iperf3:latest
+      command: docker pull {{ agent_image }}
 
     - name: run iperf3 server
       docker_container:
         name: iperf3-agent
-        image: networkstatic/iperf3
-        ports: "{{ server_port }}:{{ server_port }}"
+        image: "{{ agent_image }}"
+        ports: "{{ agent_port }}:{{ agent_port }}"
         command: -s
         detach: true
         state: started
@@ -70,42 +66,49 @@
 - name: run iperf poller as bandwidth poller on client
   hosts: client
   vars:
+    poller_image: networkstatic/bandwidth-poller:latest
     polling:
-      iteration: 120
-      interval: 30
+      count: 120
+      interval_seconds: 30
+      sample_count: 3
+      target_address: "{{ server.ipv4 }}"
+      target_type: digitalocean
+      report_address: 172.17.0.2
   gather_facts: false
   tasks:
     - name: pull networkstatic/bandwidth-poller image
-      command: docker pull networkstatic/bandwidth-poller:latest
+      command: docker pull {{ poller_image }}
 
     - name: run iperf3 bandwidth collector
       docker_container:
         name: iperf3-poller
-        image: networkstatic/bandwidth-poller
+        image: "{{ poller_image }}"
         state: started
         env:
-          DB_IP: 172.17.0.2
-          BW_AGENT_IP: "{{ server.ipv4 }}"
-          MACHINE_TYPE: digitalocean
-          IPERF_SAMPLE_COUNT: 3
-      register: collect
+          DB_IP: "{{ polling.report_address }}"
+          BW_AGENT_IP: "{{ polling.target_address }}"
+          MACHINE_TYPE: "{{ polling.target_type }}"
+          IPERF_SAMPLE_COUNT: "{{ polling.sample_count }}"
       until: false
-      retries: "{{ polling.iteration }}"
-      delay: "{{ polling.interval }}"
+      retries: "{{ polling.count }}"
+      delay: "{{ polling.interval_seconds }}"
       ignore_errors: true
 
-    - name: cleanup iperf3 bandwidth collector
+  post_tasks:
+    - name: cleanup iperf3 bandwidth poller on the client
       docker_container:
         name: iperf3-poller
-        image: networkstatic/bandwidth-poller
+        image: "{{ poller_image }}"
         state: absent
 
-- name: cleanup iperf server container
+- name: cleanup iperf3 agent container on the server
   hosts: server
   gather_facts: false
-  tasks:
-    - name: cleanup iperf3 bandwidth server
+  vars:
+    agent_image: networkstatic/iperf3:latest
+  post_tasks:
+    - name: cleanup iperf3 bandwidth agent on the server
       docker_container:
         name: iperf3-agent
-        image: networkstatic/iperf3
+        image: "{{ agent_image }}"
         state: absent
