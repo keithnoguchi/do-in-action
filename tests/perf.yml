@@ -36,7 +36,7 @@
       debug: var=cloud_bandwidth
       when: debug|bool
 
-- name: run iperf server container as bandwidth agent on server
+- name: run iperf server as bandwidth agent on server
   hosts: server
   vars:
     server_port: 5201
@@ -58,7 +58,7 @@
     - name: pull networkstatic/iperf3 image
       command: docker pull networkstatic/iperf3:latest
 
-    - name: run iperf3 container server
+    - name: run iperf3 server
       docker_container:
         name: iperf3-agent
         image: networkstatic/iperf3
@@ -67,8 +67,12 @@
         detach: true
         state: started
 
-- name: run iperf poller container as bandwidth poller on client
+- name: run iperf poller as bandwidth poller on client
   hosts: client
+  vars:
+    polling:
+      iteration: 120
+      interval: 30
   gather_facts: false
   tasks:
     - name: pull networkstatic/bandwidth-poller image
@@ -86,5 +90,22 @@
           IPERF_SAMPLE_COUNT: 3
       register: collect
       until: false
-      retries: 100
-      delay: 60
+      retries: "{{ polling.iteration }}"
+      delay: "{{ polling.interval }}"
+      ignore_errors: true
+
+    - name: cleanup iperf3 bandwidth collector
+      docker_container:
+        name: iperf3-poller
+        image: networkstatic/bandwidth-poller
+        state: absent
+
+- name: cleanup iperf server container
+  hosts: server
+  gather_facts: false
+  tasks:
+    - name: cleanup iperf3 bandwidth server
+      docker_container:
+        name: iperf3-agent
+        image: networkstatic/iperf3
+        state: absent
