@@ -1,0 +1,44 @@
+---
+- name: github.com/nerdalert/cloud-bandwidth based perf test
+  hosts: client
+  vars:
+    debug: false
+  gather_facts: false
+  tasks:
+    - name: install the pre-requisite apt packages
+      apt: name={{ item }} state=present update_cache=false
+      items:
+        - docker.io
+        - python-pip
+      become: true
+
+    - name: add root user to the developer groups
+      user:
+        name: root
+        append: true
+        groups: docker
+      become: true
+
+    - name: install python packages
+      pip: name={{ item }}
+      items:
+        - docker-py
+        - docker-compose
+      become: true
+
+    - name: clone the cloud-bandwidth git repo
+      git:
+        repo: https://github.com/nerdalert/cloud-bandwidth
+        dest: /tmp/cloud-bandwidth
+        update: yes
+        ssh_opts: "-o StrictHostKeyChecking=no"
+      register: git
+
+    - name: docker-compose up!
+      docker_service:
+        project_src: /tmp/cloud-bandwidth
+      register: cloud_bandwidth
+
+    - name: debug the docker-compose output
+      debug: var=cloud_bandwidth
+      when: debug|bool
