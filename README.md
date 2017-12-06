@@ -303,14 +303,16 @@ air$ make clean
 ## References
 
 Many thanks to [Yevgeniy (Jim) Brikman] and [Mitchell Anicas] for
-sharing your [terraform] insights!
+sharing your [terraform] insights!  And also, [Brent Salisbury] for
+the cloud insight through his [Cloud Bandwidth] automation framework.
 
 - [Terraform Up & Running]
 - [How to use Terraform with DO]
 - [Cloud Bandwidth]
 
 [Yevgeniy (Jim) Brikman]: http://www.ybrikman.com/
-[Mitchell Anicas]: http://twitter.com/thisismitch/
+[Mitchell Anicas]: http://twitter.com/thisismitch
+[Brent Salisbury]: http://twitter.com/networkstatic
 [terraform]: http://terraform.io
 [Terraform Up & Running]: http://shop.oreilly.com/product/0636920061939.do
 [How to use Terraform with DO]: http://www.digitalocean.com/community/tutorials/how-to-use-terraform-with-digitalocean
