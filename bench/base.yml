@@ -68,9 +68,9 @@
   vars:
     poller_image: networkstatic/bandwidth-poller:latest
     polling:
-      count: 120
-      interval_seconds: 30
-      sample_count: 3
+      count: 60
+      sampling_seconds: 10
+      interval_seconds: 40
       target_address: "{{ server.ipv4 }}"
       target_type: digitalocean
       report_address: 172.17.0.2
@@ -88,7 +88,7 @@
           DB_IP: "{{ polling.report_address }}"
           BW_AGENT_IP: "{{ polling.target_address }}"
           MACHINE_TYPE: "{{ polling.target_type }}"
-          IPERF_SAMPLE_COUNT: "{{ polling.sample_count }}"
+          IPERF_SAMPLE_COUNT: "{{ polling.sampling_seconds }}"
       until: false
       retries: "{{ polling.count }}"
       delay: "{{ polling.interval_seconds }}"

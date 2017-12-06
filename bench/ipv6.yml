@@ -2,9 +2,9 @@
 - import_playbook: base.yml
   vars:
     polling:
-      count: 120
-      interval_seconds: 30
-      sample_count: 3
+      count: 60
+      sampling_seconds: 10
+      interval_seconds: 40
       target_address: "{{ server.ipv6 }}"
       target_type: digitalocean
       report_address: 172.17.0.2
