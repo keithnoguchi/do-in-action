@@ -355,9 +355,9 @@ air$ make clean
 ## References
 
 Many thanks to [Yevgeniy (Jim) Brikman] and [Mitchell Anicas] for
-sharing your [terraform] insights!  And also, [Brent Salisbury] for
-the cloud insight through his [Cloud Bandwidth Performance Monitoring]
-framework.
+their [terraform] insights!  And [Brent Salisbury] for his cloud
+monitoring demonstrated in his [Cloud Bandwidth Performance Monitoring]
+github repository.
 
 - [Terraform Up & Running]
 - [How to use Terraform with DO]
