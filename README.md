@@ -1,8 +1,13 @@
 # DigitalOcean in Action!
 
-Forming [DigitalOcean](http://digitalocean.com)
-[droplets](http://www.digitalocean.com/products/compute/)
-through [terraform](http://terraform.io).
+Forming [DigitalOcean] [droplets] through [terraform].
+
+[![asciicast]](https://asciinema.org/a/3SlAFCVTsV2SYffiCiCgLiK5p)
+
+[DigitalOcean]: http://digitalocean.com
+[droplets]: http://www.digitalocean.com/products/compute/
+[terraform]: http://terraform.io
+[asciicast]: https://asciinema.org/a/3SlAFCVTsV2SYffiCiCgLiK5p.png
 
 - [Setup](#setup)
 - [Run](#run)
@@ -313,7 +318,6 @@ the cloud insight through his [Cloud Bandwidth] automation framework.
 [Yevgeniy (Jim) Brikman]: http://www.ybrikman.com/
 [Mitchell Anicas]: http://twitter.com/thisismitch
 [Brent Salisbury]: http://twitter.com/networkstatic
-[terraform]: http://terraform.io
 [Terraform Up & Running]: http://shop.oreilly.com/product/0636920061939.do
 [How to use Terraform with DO]: http://www.digitalocean.com/community/tutorials/how-to-use-terraform-with-digitalocean
 [Cloud Bandwidth]: https://github.com/nerdalert/cloud-bandwidth
@@ -326,7 +330,7 @@ I'll upload it to the official site soon, but in a meanwhile, you can watch it w
 ```sh
 $ git clone https://github.com/keinohguchi/do-in-action
 $ cd do-in-action
-$ asciinema play ./casts/droplet.json
+$ asciinema play ./casts/do-in-action.json
 ```
 
 Happy Hacking!
