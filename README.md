@@ -308,18 +308,19 @@ air$ make clean
 
 Many thanks to [Yevgeniy (Jim) Brikman] and [Mitchell Anicas] for
 sharing your [terraform] insights!  And also, [Brent Salisbury] for
-the cloud insight through his [Cloud Bandwidth] automation framework.
+the cloud insight through his [Cloud Bandwidth] performance monitoring
+framework.
 
 - [Terraform Up & Running]
 - [How to use Terraform with DO]
-- [Cloud Bandwidth]
+- [Cloud Bandwidth Performance Monitoring] with Docker
 
 [Yevgeniy (Jim) Brikman]: http://www.ybrikman.com/
 [Mitchell Anicas]: http://twitter.com/thisismitch
 [Brent Salisbury]: http://twitter.com/networkstatic
 [Terraform Up & Running]: http://shop.oreilly.com/product/0636920061939.do
 [How to use Terraform with DO]: http://www.digitalocean.com/community/tutorials/how-to-use-terraform-with-digitalocean
-[Cloud Bandwidth]: https://github.com/nerdalert/cloud-bandwidth
+[Cloud Bandwidth Performance Monitoring]: https://github.com/nerdalert/cloud-bandwidth
 
 ### Ascii casts
 
