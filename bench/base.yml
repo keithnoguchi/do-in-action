@@ -62,10 +62,12 @@
         command: -s
         detach: true
         state: started
+      changed_when: false
 
 - name: run iperf poller as bandwidth poller on client
   hosts: client
   vars:
+    debug: false
     poller_image: networkstatic/bandwidth-poller:latest
     polling:
       count: 60
@@ -89,10 +91,15 @@
           BW_AGENT_IP: "{{ polling.target_address }}"
           MACHINE_TYPE: "{{ polling.target_type }}"
           IPERF_SAMPLE_COUNT: "{{ polling.sampling_seconds }}"
-      until: false
+      register: iperf3_poller
+      until: iperf3_poller.ansible_facts.docker_container.State.ExitCode != 0
       retries: "{{ polling.count }}"
       delay: "{{ polling.interval_seconds }}"
       ignore_errors: true
+      changed_when: false
+
+    - debug: var=iperf3_poller
+      when: debug|bool
 
   post_tasks:
     - name: cleanup iperf3 bandwidth poller on the client
