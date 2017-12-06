@@ -14,7 +14,6 @@ Forming [DigitalOcean] [droplets] through [terraform].
 - [Test](#test)
 - [Cleanup](#cleanup)
 - [References](#references)
-- [Casts](#casts)
 
 Install [terraform](http://terraform.io) and [ansible](http://ansible.com)
 on your favorite laptop/desktop and enjoy having DO in action!
@@ -322,7 +321,7 @@ the cloud insight through his [Cloud Bandwidth] automation framework.
 [How to use Terraform with DO]: http://www.digitalocean.com/community/tutorials/how-to-use-terraform-with-digitalocean
 [Cloud Bandwidth]: https://github.com/nerdalert/cloud-bandwidth
 
-## Casts
+### Ascii casts
 
 I've recorded the [asciinema](https://asciinema.org) cast for the droplet creation part.
 I'll upload it to the official site soon, but in a meanwhile, you can watch it with:
