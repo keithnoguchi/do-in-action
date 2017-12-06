@@ -317,8 +317,8 @@ and the private IPv4 equivalent:
 $ make bench-ipv4-private
 ```
 
-Those make target will kick the ansible playbook, [./bench/ipv4.yml] and
-[./bench/ipv4-private.yml] respectively, which first spin up the data vis
+Those make target will kick the ansible playbook, [ipv4.yml] and
+[ipv4-private.yml] respectively, which first spin up the data vis
 containers on the client droplet.  This takes a while, as it fetches docker
 images, and run it fresh.  Once that ansible task is complete, you can point
 your browser to the graphana dashboard, for example:
@@ -330,6 +330,9 @@ $ chromium $(terraform output client0_public_ipv4):8000
 The playbook keep continue to run the `iperf3` server on the server droplet
 and run the `iperf3` based bandwidth polling container for an hour.  You can
 monitor the trend through the graphana dashboard as mentioned above.
+
+[ipv4.yml]: ./bench/ipv4.yml
+[ipv4-private.yml]: ./bench/ipv4-private.yml
 
 ## Cleanup
 
