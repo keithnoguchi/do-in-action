@@ -302,12 +302,19 @@ air$ make clean
 
 ## References
 
-Many thanks to [Yevgeniy (Jim) Brikman](http://www.ybrikman.com/) and
-[Mitchell Anicas](http://twitter.com/thisismitch) for
-sharing your [terraform](http://terraform.io) insights!
+Many thanks to [Yevgeniy (Jim) Brikman] and [Mitchell Anicas] for
+sharing your [terraform] insights!
 
-- [Terraform Up & Running](http://shop.oreilly.com/product/0636920061939.do)
-- [How to use Terraform with DO](http://www.digitalocean.com/community/tutorials/how-to-use-terraform-with-digitalocean)
+- [Terraform Up & Running]
+- [How to use Terraform with DO]
+- [Cloud Bandwidth]
+
+[Yevgeniy (Jim) Brikman]: http://www.ybrikman.com/
+[Mitchell Anicas]: http://twitter.com/thisismitch/
+[terraform]: http://terraform.io
+[Terraform Up & Running]: http://shop.oreilly.com/product/0636920061939.do
+[How to use Terraform with DO]: http://www.digitalocean.com/community/tutorials/how-to-use-terraform-with-digitalocean
+[Cloud Bandwidth]: https://github.com/nerdalert/cloud-bandwidth
 
 ## Casts
 

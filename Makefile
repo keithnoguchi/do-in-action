@@ -25,6 +25,14 @@ test-all: test test-firewalls
 test-firewalls:
 	$(MAKE) -C firewalls test
 
+.PHONY: bench-ipv4 bench-ipv4-private bench-ipv6
+bench-ipv4: deploy
+	ansible-playbook bench/ipv4.yml
+bench-ipv4-private: deploy
+	ansible-playbook bench/ipv4-private.yml
+bench-ipv6: deploy
+	ansible-playbook bench/ipv6.yml
+
 .PHONY: wait
 wait:
 	sleep $(DROPLET_WAIT_SECONDS)
