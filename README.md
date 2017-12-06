@@ -188,7 +188,7 @@ Note that all those Ansible test playbooks covers four different
 IP reachability, public IPv4, private IPv4, public IPv6, and
 floating IPv4, respectively.
 
-And also, you can run those tests indivisually through the standard
+And also, you can run those tests individually through the standard
 ansible command.  For example, following command runs HTTP test for
 non firewalls setup.
 
@@ -248,7 +248,7 @@ to do the rest, with one caveat.
 As `terraform` will check the remote infrastructure against your local intention to make
 sure it's in sync, it will compare all the attributes to make a decision.  But there is one
 field that force terraform to re-create droplets all the time, which is the user data.
-This is becuase [DigitalOcean's APIv2](https://developers.digitalocean.com/documentation/v2/#retrieve-an-existing-droplet-by-id)
+This is because [DigitalOcean's APIv2](https://developers.digitalocean.com/documentation/v2/#retrieve-an-existing-droplet-by-id)
 doesn't expose the user data, and that makes terraform to always to destroy and re-create
 to make your intention happens in the cloud.  Since this is not what I want, I've defined
 the environmental variable, called `TF_VAR_DO_CLIENT_USER_DATA` and pass it nil, as below,
@@ -297,26 +297,39 @@ $ TF_VAR_DO_SERVER_USER_DATA= make test-all
 ## Benchmark
 
 You can run the [Cloud Bandwidth Performance Monitoring] based benchmark
-against the droplet.  Currently, we benchmark both upload and download
-bandwidth for 10 seconds each with 40 seconds internal for an hour and
-visualizes it on the graphana dashboard, running on the client droplet.
+against the server side droplet.  Currently, it executes both the upload
+and the download bandwidth benchmark with `iperf3`.  The duration of
+the single benchmark is 10 seconds each.  It runs for an hour with 40
+seconds interval to avoid the excessive load on the cloud.
 
-For example, to benchmark the public IPv4 bandwidth between the client
-and server droplet, you run `bench-ipv4` target, as below:
+You can execute for each IP address type, public and private IPv4, and
+IPv6, with the simple make target.
+
+Here is the public IPv4 benchmark:
 
 ```bash
 $ make bench-ipv4
 ```
 
-The above target will spawn up the data vis containers on the client
-droplet, which takes a bit while, and run the `iperf3` containers
-both on the server and the client.  Once the client side of the
-`iperf3` is up and running, you can monitor the bandwidth time series
-by pointing the browser to the client droplet, as below:
+and the private IPv4 equivalent:
+
+```bash
+$ make bench-ipv4-private
+```
+
+Those make target will kick the ansible playbook, [./bench/ipv4.yml] and
+[./bench/ipv4-private.yml] respectively, which first spin up the data vis
+containers on the client droplet.  This takes a while, as it fetches docker
+images, and run it fresh.  Once that ansible task is complete, you can point
+your browser to the graphana dashboard, for example:
 
 ```bash
 $ chromium $(terraform output client0_public_ipv4):8000
 ```
+
+The playbook keep continue to run the `iperf3` server on the server droplet
+and run the `iperf3` based bandwidth polling container for an hour.  You can
+monitor the trend through the graphana dashboard as mentioned above.
 
 ## Cleanup
 
@@ -346,7 +359,7 @@ framework.
 [How to use Terraform with DO]: http://www.digitalocean.com/community/tutorials/how-to-use-terraform-with-digitalocean
 [Cloud Bandwidth Performance Monitoring]: https://github.com/nerdalert/cloud-bandwidth
 
-### Ascii casts
+### ASCII casts
 
 I've recorded the [asciinema](https://asciinema.org) cast for the droplet creation part.
 I'll upload it to the official site soon, but in a meanwhile, you can watch it with:
