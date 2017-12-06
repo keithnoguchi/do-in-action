@@ -1,8 +1,8 @@
 # DigitalOcean in Action!
 
-Forming [DigitalOcean] [droplets] through [terraform].
-
 [![asciicast]](https://asciinema.org/a/3SlAFCVTsV2SYffiCiCgLiK5p)
+
+Forming [DigitalOcean] [droplets] through [terraform].
 
 [DigitalOcean]: http://digitalocean.com
 [droplets]: http://www.digitalocean.com/products/compute/
