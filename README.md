@@ -229,7 +229,7 @@ Let's import the existing droplet as a client role. For this, I use [doctl] for 
 pre-creation but you can use any cloud orchestration tool of your choice.
 
 ```bash
-$ doctl compute droplet create client0 --image ubuntu-16-04-x64 --region nyc3 \
+air$ doctl compute droplet create client0 --image ubuntu-16-04-x64 --region nyc3 \
 --size 512mb --enable-ipv6 --enable-private-networking \
 --ssh-keys $TF_VAR_DO_FINGERPRINT --user-data-file ./scripts/client_user_data.sh
 ```
@@ -242,7 +242,7 @@ multiple way to get that.  For `doctl` case, it will show in the console, or
 `doctl compute droplet list`.
 
 ```bash
-$ terraform import digitalocean_droplet.client 12345
+air$ terraform import digitalocean_droplet.client 12345
 ```
 
 Once it's successfully imported, all you have to do is just type `make` to let
@@ -258,14 +258,14 @@ I've defined the environmental variable, called `TF_VAR_DO_CLIENT_USER_DATA`
 and pass it nil, as below, to fool `terraform`.
 
 ```bash
-$ TF_VAR_DO_CLIENT_USER_DATA= terraform apply
+air$ TF_VAR_DO_CLIENT_USER_DATA= terraform apply
 ```
 
 To run the full test suite, you can do the same by replace it to `make test-all`,
 as below:
 
 ```bash
-$ TF_VAR_DO_CLIENT_USER_DATA= make test-all
+air$ TF_VAR_DO_CLIENT_USER_DATA= make test-all
 ```
 
 ### Server
@@ -275,7 +275,7 @@ It's almost identical to use the existing droplet as a server role.
 First create the one with `doctl`:
 
 ```bash
-$ doctl compute droplet create server0 --image ubuntu-16-04-x64 --region nyc3 \
+air$ doctl compute droplet create server0 --image ubuntu-16-04-x64 --region nyc3 \
 --size 512mb --enable-ipv6 --enable-private-networking \
 --ssh-keys $TF_VAR_DO_FINGERPRINT --user-data-file ./scripts/server_user_data.sh
 ```
@@ -283,20 +283,20 @@ $ doctl compute droplet create server0 --image ubuntu-16-04-x64 --region nyc3 \
 then, import it as the server:
 
 ```bash
-$ terraform import digitalocean_droplet.server 54321
+air$ terraform import digitalocean_droplet.server 54321
 ```
 
 now, run it with `TF_VAR_DO_SERVER_USER_DATA=`:
 
 ```bash
-$ TF_VAR_DO_SERVER_USER_DATA= terraform apply
+air$ TF_VAR_DO_SERVER_USER_DATA= terraform apply
 ```
 
 To run the full test suite, you can do the same by replace it to `make test-all`,
 as below:
 
 ```bash
-$ TF_VAR_DO_SERVER_USER_DATA= make test-all
+air$ TF_VAR_DO_SERVER_USER_DATA= make test-all
 ```
 
 [DigitalOcean's APIv2]: https://developers.digitalocean.com/documentation/v2/#retrieve-an-existing-droplet-by-id
@@ -315,13 +315,13 @@ IPv6, with the simple make target.
 Here is the public IPv4 benchmark:
 
 ```bash
-$ make bench-ipv4
+air$ make bench-ipv4
 ```
 
 and the private IPv4 equivalent:
 
 ```bash
-$ make bench-ipv4-private
+air$ make bench-ipv4-private
 ```
 
 Those make target will kick the ansible playbook, [ipv4.yml] and
@@ -331,7 +331,7 @@ images, and run it fresh.  Once that ansible task is complete, you can point
 your browser to the graphana dashboard, for example:
 
 ```bash
-$ chromium $(terraform output client0_public_ipv4):8000
+air$ chromium $(terraform output client0_public_ipv4):8000
 ```
 
 The playbook keep continue to run the `iperf3` server on the server droplet
