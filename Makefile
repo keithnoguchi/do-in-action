@@ -29,7 +29,7 @@ test-firewalls:
 bench-ipv4: deploy
 	ansible-playbook bench/ipv4.yml
 bench-ipv4-private: deploy
-	ansible-playbook bench/ipv4-private.yml
+	ansible-playbook bench/ipv4_private.yml
 bench-ipv6: deploy
 	ansible-playbook bench/ipv6.yml
 
