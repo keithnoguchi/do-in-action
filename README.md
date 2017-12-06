@@ -197,18 +197,19 @@ non firewalls setup.
 air$ ansible-playbook tests/http.yml
 ```
 
-### Test in the entire DO
+### Test against the entire DO
 
-Here is the simple shell script to run the test in the entire DO!
+Here is the simple shell script to run the test against the entire DO!
 
 ```sh
 air$ for region in ams2 ams3 blr1 fra1 lon1 nyc1 nyc2 nyc3 sfo1 sfo2 sgp1 tor1
 do
-	# Cleanup the environment before the test.
-	if ! make clean-all test-all TF_VAR_DO_REGION=$region
-	then
-		break
-	fi
+        # Cleanup the environment before the test.
+        if ! make clean-all test-all TF_VAR_DO_REGION=$region
+        then
+                echo 'oh, no!'
+                break
+        fi
 done
 ```
 
