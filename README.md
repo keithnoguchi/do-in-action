@@ -12,6 +12,7 @@ Forming [DigitalOcean] [droplets] through [terraform].
 - [Setup](#setup)
 - [Run](#run)
 - [Test](#test)
+- [Import](#import)
 - [Benchmark](#benchmark)
 - [Cleanup](#cleanup)
 - [References](#references)
@@ -213,13 +214,14 @@ done
 
 ## Import
 
-Terraform has a feature to import the existing infrastructure, called import, through
-`terraform import` command.  In this section, I'll demonstrate how to use `import` to
-importing the existing droplets and apply firewalls automatically.
+Terraform has a feature called import, which imports the existing infrastructure,
+e.g. droplets, by `terraform import` command.  In this section, I'll demonstrate
+how to use `import` sub command to import the existing droplets and apply
+firewalls rules against it through the terraform.
 
-Please note that the imported droplets and the one described in `main.tf` should share
-the same attributes, e.g. droplet images, or terraform will destroy the one you import
-and re-create new one, as it treats that as a conflict of the resources.
+Please note that the imported droplets and the one described in `main.tf` should
+share the same attributes, e.g. droplet images, or terraform will destroy the one
+you import and re-create new one, as it treats that as a conflict of the resources.
 
 ### Client
 
@@ -234,31 +236,33 @@ $ doctl compute droplet create client0 --image ubuntu-16-04-x64 --region nyc3 \
 
 I'm using [./scripts/client_user_data.sh] as the user data, for `python` and `nmap`.
 
-Once it's up and running, you can import the droplet with `terraform import` command,
-as below.  Only argument you need is the droplet ID and there are multiple way to get
-that.  For `doctl` case, it will show in the console, or `doctl compute droplet list`.
+Once it's up and running, you can import the droplet with `terraform import`
+command, as below.  Only argument you need is the droplet ID and there are
+multiple way to get that.  For `doctl` case, it will show in the console, or
+`doctl compute droplet list`.
 
 ```bash
 $ terraform import digitalocean_droplet.client 12345
 ```
 
-Once it's successfully imported, all you have to do is just type `make` to let `terraform`
-to do the rest, with one caveat.
+Once it's successfully imported, all you have to do is just type `make` to let
+`terraform` to do the rest, with one caveat.
 
-As `terraform` will check the remote infrastructure against your local intention to make
-sure it's in sync, it will compare all the attributes to make a decision.  But there is one
-field that force terraform to re-create droplets all the time, which is the user data.
-This is because [DigitalOcean's APIv2](https://developers.digitalocean.com/documentation/v2/#retrieve-an-existing-droplet-by-id)
-doesn't expose the user data, and that makes terraform to always to destroy and re-create
-to make your intention happens in the cloud.  Since this is not what I want, I've defined
-the environmental variable, called `TF_VAR_DO_CLIENT_USER_DATA` and pass it nil, as below,
-to fool `terraform`.
+As `terraform` will check the remote infrastructure against your local intention
+to make sure it's in sync, it will compare all the attributes to make a decision.
+But there is one field that force terraform to re-create droplets all the time,
+which is the user data.  This is because [DigitalOcean's APIv2] doesn't expose
+the user data, and that makes terraform to always to destroy and re-create
+to make your intention happens in the cloud.  Since this is not what I want,
+I've defined the environmental variable, called `TF_VAR_DO_CLIENT_USER_DATA`
+and pass it nil, as below, to fool `terraform`.
 
 ```bash
 $ TF_VAR_DO_CLIENT_USER_DATA= terraform apply
 ```
 
-To run the full test suite, you can do the same by replace it to `make test-all`, as below:
+To run the full test suite, you can do the same by replace it to `make test-all`,
+as below:
 
 ```bash
 $ TF_VAR_DO_CLIENT_USER_DATA= make test-all
@@ -288,11 +292,14 @@ now, run it with `TF_VAR_DO_SERVER_USER_DATA=`:
 $ TF_VAR_DO_SERVER_USER_DATA= terraform apply
 ```
 
-To run the full test suite, you can do the same by replace it to `make test-all`, as below:
+To run the full test suite, you can do the same by replace it to `make test-all`,
+as below:
 
 ```bash
 $ TF_VAR_DO_SERVER_USER_DATA= make test-all
 ```
+
+[DigitalOcean's APIv2]: https://developers.digitalocean.com/documentation/v2/#retrieve-an-existing-droplet-by-id
 
 ## Benchmark
 
