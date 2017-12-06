@@ -12,6 +12,7 @@ Forming [DigitalOcean] [droplets] through [terraform].
 - [Setup](#setup)
 - [Run](#run)
 - [Test](#test)
+- [Benchmark](#benchmark)
 - [Cleanup](#cleanup)
 - [References](#references)
 
@@ -293,12 +294,35 @@ To run the full test suite, you can do the same by replace it to `make test-all`
 $ TF_VAR_DO_SERVER_USER_DATA= make test-all
 ```
 
+## Benchmark
+
+You can run the [Cloud Bandwidth Performance Monitoring] based benchmark
+against the droplet.  Currently, we benchmark both upload and download
+bandwidth for 10 seconds each with 40 seconds internal for an hour and
+visualizes it on the graphana dashboard, running on the client droplet.
+
+For example, to benchmark the public IPv4 bandwidth between the client
+and server droplet, you run `bench-ipv4` target, as below:
+
+```bash
+$ make bench-ipv4
+```
+
+The above target will spawn up the data vis containers on the client
+droplet, which takes a bit while, and run the `iperf3` containers
+both on the server and the client.  Once the client side of the
+`iperf3` is up and running, you can monitor the bandwidth time series
+by pointing the browser to the client droplet, as below:
+
+```bash
+$ chromium $(terraform output client0_public_ipv4):8000
+```
+
 ## Cleanup
 
 Of course, we can destroy all those instances through `make clean`,
 which is just calling `terraform destroy` in addition to cleaning
 up the terraform state files:
-
 
 ```sh
 air$ make clean
@@ -308,7 +332,7 @@ air$ make clean
 
 Many thanks to [Yevgeniy (Jim) Brikman] and [Mitchell Anicas] for
 sharing your [terraform] insights!  And also, [Brent Salisbury] for
-the cloud insight through his [Cloud Bandwidth] performance monitoring
+the cloud insight through his [Cloud Bandwidth Performance Monitoring]
 framework.
 
 - [Terraform Up & Running]
