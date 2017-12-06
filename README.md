@@ -11,6 +11,8 @@ Forming [DigitalOcean] [droplets] through [terraform].
 
 - [Setup](#setup)
 - [Run](#run)
+- [Test](#test)
+- [Cleanup](#cleanup)
 - [References](#references)
 - [Casts](#casts)
 
@@ -64,8 +66,6 @@ straightforward, however, I've wrote a simple [Makefile](Makefile).
 
 - [Plan](#plan)
 - [Deploy](#deploy)
-- [Test](#test)
-- [Cleanup](#cleanup)
 
 ### Plan
 
@@ -152,7 +152,7 @@ air$ curl http://$(terraform output server_flip)
 air$
 ```
 
-### Test
+## Test
 
 Of course, you need a test to check those droplets.  I use
 [ansible](http://ansible.com) to drive all those tests by
@@ -171,7 +171,7 @@ PLAY RECAP *********************************************************************
 air$
 ```
 
-#### Test matrix
+### Test matrix
 
 Here is the test matrix covered by `make test-all`:
 
@@ -196,7 +196,7 @@ non firewalls setup.
 air$ ansible-playbook tests/http.yml
 ```
 
-#### Test in the entire DO
+### Test in the entire DO
 
 Here is the simple shell script to run the test in the entire DO!
 
@@ -211,7 +211,7 @@ do
 done
 ```
 
-### Import
+## Import
 
 Terraform has a feature to import the existing infrastructure, called import, through
 `terraform import` command.  In this section, I'll demonstrate how to use `import` to
@@ -221,7 +221,7 @@ Please note that the imported droplets and the one described in `main.tf` should
 the same attributes, e.g. droplet images, or terraform will destroy the one you import
 and re-create new one, as it treats that as a conflict of the resources.
 
-#### Client
+### Client
 
 Let's import the existing droplet as a client role. For this, I use [doctl] for the
 pre-creation but you can use any cloud orchestration tool of your choice.
@@ -264,7 +264,7 @@ To run the full test suite, you can do the same by replace it to `make test-all`
 $ TF_VAR_DO_CLIENT_USER_DATA= make test-all
 ```
 
-#### Server
+### Server
 
 It's almost identical to use the existing droplet as a server role.
 
@@ -294,7 +294,7 @@ To run the full test suite, you can do the same by replace it to `make test-all`
 $ TF_VAR_DO_SERVER_USER_DATA= make test-all
 ```
 
-### Cleanup
+## Cleanup
 
 Of course, we can destroy all those instances through `make clean`,
 which is just calling `terraform destroy` in addition to cleaning
