@@ -23,6 +23,7 @@ resource "digitalocean_droplet" "client" {
   name               = "client${count.index}"
   region             = "${var.DO_REGION}"
   size               = "512mb"
+  resize_disk        = false
   ipv6               = true
   private_networking = true
   ssh_keys           = ["${var.DO_FINGERPRINT}"]
@@ -37,6 +38,7 @@ resource "digitalocean_droplet" "server" {
   name               = "server${count.index}"
   region             = "${var.DO_REGION}"
   size               = "512mb"
+  resize_disk        = false
   ipv6               = true
   private_networking = true
   ssh_keys           = ["${var.DO_FINGERPRINT}"]
