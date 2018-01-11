@@ -10,9 +10,10 @@ def main():
 
     inventory['client'] = client(1)
     inventory['server'] = server(1)
+    inventory['monitor'] = monitor(1)
 
     hostvars = {}
-    for type in ['client', 'server']:
+    for type in ['client', 'server', 'monitor']:
         for host in inventory[type]['hosts']:
             inventory['all']['hosts'].append(host)
             hostvars[host] = {'name': host}
@@ -76,6 +77,18 @@ def server(number):
     server['vars']['server']['port'] = proc.stdout.read().decode('utf-8').strip('\n')
 
     return server
+
+
+def monitor(number):
+    monitor = {'hosts': [], 'vars': {'server': {}}}
+    for i in range(number):
+        name = "monitor%d" % i
+        proc = subprocess.Popen("terraform output %s_public_ipv4" % name,
+                                shell=True, stdout=subprocess.PIPE)
+        address = proc.stdout.read().decode('utf-8').strip('\n')
+        monitor['hosts'].append(address)
+
+    return monitor
 
 
 if __name__ == '__main__':
