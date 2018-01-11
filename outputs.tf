@@ -49,3 +49,23 @@ output "server0_private_ipv4" {
 output "server0_public_ipv6" {
   value = "${digitalocean_droplet.server.0.ipv6_address}"
 }
+
+output "monitor0_droplet_id" {
+  value = "${digitalocean_droplet.monitor.0.id}"
+}
+
+output "monitor0_droplet_region" {
+  value = "${digitalocean_droplet.monitor.0.region}"
+}
+
+output "monitor0_public_ipv4" {
+  value = "${digitalocean_droplet.monitor.0.ipv4_address}"
+}
+
+output "monitor0_private_ipv4" {
+  value = "${digitalocean_droplet.monitor.0.ipv4_address_private}"
+}
+
+output "monitor0_public_ipv6" {
+  value = "${digitalocean_droplet.monitor.0.ipv6_address}"
+}

@@ -45,3 +45,17 @@ resource "digitalocean_droplet" "server" {
   tags               = ["${module.tags.server_tag_id}"]
   user_data          = "${var.DO_SERVER_USER_DATA}"
 }
+
+# https://www.terraform.io/docs/providers/do/r/droplet.html
+resource "digitalocean_droplet" "monitor" {
+  count              = "${var.monitor_count}"
+  image              = "ubuntu-16-04-x64"
+  name               = "monitor${count.index}"
+  region             = "${var.DO_REGION}"
+  size               = "512mb"
+  resize_disk        = false
+  ipv6               = true
+  private_networking = true
+  ssh_keys           = ["${var.DO_FINGERPRINT}"]
+  user_data          = "${var.DO_MONITOR_USER_DATA}"
+}

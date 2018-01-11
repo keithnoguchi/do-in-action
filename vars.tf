@@ -17,6 +17,14 @@ apt update && apt install -y python nmap iperf3 vsftpd
 EOF
 }
 
+variable "DO_MONITOR_USER_DATA" {
+  description = "cloud-init user data for the monitor server"
+  default     = <<EOF
+#!/bin/bash
+apt update && apt install -y python nmap iperf3 vsftpd
+EOF
+}
+
 variable "client_count" {
   description = "The number of server droplets"
   default     = 1
@@ -24,6 +32,11 @@ variable "client_count" {
 
 variable "server_count" {
   description = "The number of server droplets"
+  default     = 1
+}
+
+variable "monitor_count" {
+  description = "The number of monitoring droplets"
   default     = 1
 }
 
