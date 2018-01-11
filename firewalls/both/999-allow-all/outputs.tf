@@ -37,3 +37,19 @@ output "server0_private_ipv4" {
 output "server0_public_ipv6" {
   value = "${data.terraform_remote_state.root.server0_public_ipv6}"
 }
+
+output "monitor0_droplet_region" {
+  value = "${data.terraform_remote_state.root.monitor0_droplet_region}"
+}
+
+output "monitor0_public_ipv4" {
+  value = "${data.terraform_remote_state.root.monitor0_public_ipv4}"
+}
+
+output "monitor0_private_ipv4" {
+  value = "${data.terraform_remote_state.root.monitor0_private_ipv4}"
+}
+
+output "monitor0_public_ipv6" {
+  value = "${data.terraform_remote_state.root.monitor0_public_ipv6}"
+}
