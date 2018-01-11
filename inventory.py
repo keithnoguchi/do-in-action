@@ -38,25 +38,25 @@ def client(number):
         name = "client%d" % i
         proc = subprocess.Popen("terraform output %s_public_ipv4" % name,
                                 shell=True, stdout=subprocess.PIPE)
-        address = proc.stdout.read().strip('\n')
+        address = proc.stdout.read().decode('utf-8').strip('\n')
         client['hosts'].append(address)
 
     # Setup the server related variables.
     proc = subprocess.Popen("terraform output server0_public_ipv4",
                             shell=True, stdout=subprocess.PIPE)
-    client['vars']['server']['ipv4'] = proc.stdout.read().strip('\n')
+    client['vars']['server']['ipv4'] = proc.stdout.read().decode('utf-8').strip('\n')
     proc = subprocess.Popen("terraform output server0_private_ipv4",
                             shell=True, stdout=subprocess.PIPE)
-    client['vars']['server']['ipv4_private'] = proc.stdout.read().strip('\n')
+    client['vars']['server']['ipv4_private'] = proc.stdout.read().decode('utf-8').strip('\n')
     proc = subprocess.Popen("terraform output server0_public_ipv6",
                             shell=True, stdout=subprocess.PIPE)
-    client['vars']['server']['ipv6'] = proc.stdout.read().strip('\n')
+    client['vars']['server']['ipv6'] = proc.stdout.read().decode('utf-8').strip('\n')
     proc = subprocess.Popen("cd flips && terraform output server_flip",
                             shell=True, stdout=subprocess.PIPE)
-    client['vars']['server']['flip'] = proc.stdout.read().strip('\n')
+    client['vars']['server']['flip'] = proc.stdout.read().decode('utf-8').strip('\n')
     proc = subprocess.Popen("terraform output server_port",
                             shell=True, stdout=subprocess.PIPE)
-    client['vars']['server']['port'] = proc.stdout.read().strip('\n')
+    client['vars']['server']['port'] = proc.stdout.read().decode('utf-8').strip('\n')
 
     return client
 
@@ -67,13 +67,13 @@ def server(number):
         name = "server%d" % i
         proc = subprocess.Popen("terraform output %s_public_ipv4" % name,
                                 shell=True, stdout=subprocess.PIPE)
-        address = proc.stdout.read().strip('\n')
+        address = proc.stdout.read().decode('utf-8').strip('\n')
         server['hosts'].append(address)
 
     # Setup the server related variables.
     proc = subprocess.Popen("terraform output server_port",
                             shell=True, stdout=subprocess.PIPE)
-    server['vars']['server']['port'] = proc.stdout.read().strip('\n')
+    server['vars']['server']['port'] = proc.stdout.read().decode('utf-8').strip('\n')
 
     return server
 

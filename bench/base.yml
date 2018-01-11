@@ -7,14 +7,14 @@
   pre_tasks:
     - name: install the pre-requisite apt packages
       apt: name={{ item }} state=present update_cache=false
-      items:
+      with_items:
         - docker.io
         - python-pip
       become: true
 
     - name: install python packages
       pip: name={{ item }}
-      items:
+      with_items:
         - docker-py
         - docker-compose
       become: true
@@ -40,14 +40,14 @@
   pre_tasks:
     - name: install the pre-requisite apt packages
       apt: name={{ item }} state=present update_cache=false
-      items:
+      with_items:
         - docker.io
         - python-pip
       become: true
 
     - name: install python packages
       pip: name={{ item }}
-      items:
+      with_items:
         - docker-py
       become: true
 
