@@ -39,25 +39,25 @@ def client(number, hostvars):
         proc = subprocess.Popen("terraform output %s_public_ipv4" % name,
                                 shell=True, stdout=subprocess.PIPE)
         address = proc.stdout.read().decode('utf-8').strip('\n')
-        client['hosts'].append(address)
-        hostvars[address] = {'name': address, 'server': {}}
+        client['hosts'].append(name)
+        hostvars[name] = {'ansible_host': address, 'server': {}}
 
         # Setup the server related variables.
         proc = subprocess.Popen("terraform output server0_public_ipv4",
                                 shell=True, stdout=subprocess.PIPE)
-        hostvars[address]['server']['ipv4'] = proc.stdout.read().decode('utf-8').strip('\n')
+        hostvars[name]['server']['ipv4'] = proc.stdout.read().decode('utf-8').strip('\n')
         proc = subprocess.Popen("terraform output server0_private_ipv4",
                                 shell=True, stdout=subprocess.PIPE)
-        hostvars[address]['server']['ipv4_private'] = proc.stdout.read().decode('utf-8').strip('\n')
+        hostvars[name]['server']['ipv4_private'] = proc.stdout.read().decode('utf-8').strip('\n')
         proc = subprocess.Popen("terraform output server0_public_ipv6",
                                 shell=True, stdout=subprocess.PIPE)
-        hostvars[address]['server']['ipv6'] = proc.stdout.read().decode('utf-8').strip('\n')
+        hostvars[name]['server']['ipv6'] = proc.stdout.read().decode('utf-8').strip('\n')
         proc = subprocess.Popen("cd flips && terraform output server_flip",
                                 shell=True, stdout=subprocess.PIPE)
-        hostvars[address]['server']['flip'] = proc.stdout.read().decode('utf-8').strip('\n')
+        hostvars[name]['server']['flip'] = proc.stdout.read().decode('utf-8').strip('\n')
         proc = subprocess.Popen("terraform output server_port",
                                 shell=True, stdout=subprocess.PIPE)
-        hostvars[address]['server']['port'] = proc.stdout.read().decode('utf-8').strip('\n')
+        hostvars[name]['server']['port'] = proc.stdout.read().decode('utf-8').strip('\n')
 
     return client
 
@@ -69,13 +69,13 @@ def server(number, hostvars):
         proc = subprocess.Popen("terraform output %s_public_ipv4" % name,
                                 shell=True, stdout=subprocess.PIPE)
         address = proc.stdout.read().decode('utf-8').strip('\n')
-        server['hosts'].append(address)
-        hostvars[address] = {'name': address}
+        server['hosts'].append(name)
+        hostvars[name] = {'ansible_host': address, 'server': {}}
 
-    # Setup the server related variables.
-    proc = subprocess.Popen("terraform output server_port",
-                            shell=True, stdout=subprocess.PIPE)
-    server['vars']['server']['port'] = proc.stdout.read().decode('utf-8').strip('\n')
+        # Setup the server related variables.
+        proc = subprocess.Popen("terraform output server_port",
+                                shell=True, stdout=subprocess.PIPE)
+        hostvars[name]['server']['port'] = proc.stdout.read().decode('utf-8').strip('\n')
 
     return server
 
@@ -87,8 +87,8 @@ def monitor(number, hostvars):
         proc = subprocess.Popen("terraform output %s_public_ipv4" % name,
                                 shell=True, stdout=subprocess.PIPE)
         address = proc.stdout.read().decode('utf-8').strip('\n')
-        monitor['hosts'].append(address)
-        hostvars[address] = {'name': address}
+        monitor['hosts'].append(name)
+        hostvars[name] = {'ansible_host': address}
 
     return monitor
 
