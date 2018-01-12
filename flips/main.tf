@@ -13,6 +13,7 @@ data "terraform_remote_state" "main" {
 
 # https://www.terraform.io/docs/providers/do/r/floating_ip.html
 resource "digitalocean_floating_ip" "server_flip" {
-  droplet_id = "${data.terraform_remote_state.main.server0_droplet_id}"
-  region     = "${data.terraform_remote_state.main.server0_droplet_region}"
+  count      = "${data.terraform_remote_state.main.server_count}"
+  droplet_id = "${element(data.terraform_remote_state.main.server_droplet_id, count.index)}"
+  region     = "${element(data.terraform_remote_state.main.server_droplet_region, count.index)}"
 }

@@ -8,14 +8,6 @@ module "tags" {
   source = "./tags"
 }
 
-# https://www.terraform.io/docs/backends/types/local.html
-data "terraform_remote_state" "flips" {
-  backend = "local"
-  config {
-    path = "flips/terraform.tfstate"
-  }
-}
-
 # https://www.terraform.io/docs/providers/do/r/droplet.html
 resource "digitalocean_droplet" "client" {
   count              = "${var.client_count}"

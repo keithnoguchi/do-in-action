@@ -27,12 +27,12 @@ EOF
 
 variable "client_count" {
   description = "The number of server droplets"
-  default     = 1
+  default     = 2
 }
 
 variable "server_count" {
   description = "The number of server droplets"
-  default     = 1
+  default     = 2
 }
 
 variable "monitor_count" {

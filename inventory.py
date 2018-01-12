@@ -9,9 +9,9 @@ def main():
     inventory = {'all': {'hosts': [], 'vars': {'ansible_user': 'root'}}}
     hostvars = {}
 
-    inventory['client'] = client(1, hostvars)
-    inventory['server'] = server(1, hostvars)
-    inventory['monitor'] = monitor(1, hostvars)
+    inventory['client'] = client(hostvars)
+    inventory['server'] = server(hostvars)
+    inventory['monitor'] = monitor(hostvars)
 
     for type in ['client', 'server', 'monitor']:
         for host in inventory[type]['hosts']:
@@ -32,65 +32,75 @@ def main():
         print(json.dumps(hostvars.get(args.host, {})))
 
 
-def client(number, hostvars):
+def client(hostvars):
     client = {'hosts': []}
-    for i in range(number):
+
+    for i in range(int(get_scalar_value("client_count"))):
         name = "client%d" % i
-        proc = subprocess.Popen("terraform output %s_public_ipv4" % name,
-                                shell=True, stdout=subprocess.PIPE)
-        address = proc.stdout.read().decode('utf-8').strip('\n')
         client['hosts'].append(name)
+
+        # Get the public IPv4 for the droplet reachability.
+        address = get_array_value("client_public_ipv4", i)
         hostvars[name] = {'ansible_host': address, 'server': {}}
 
         # Setup the server related variables.
-        proc = subprocess.Popen("terraform output server0_public_ipv4",
-                                shell=True, stdout=subprocess.PIPE)
-        hostvars[name]['server']['ipv4'] = proc.stdout.read().decode('utf-8').strip('\n')
-        proc = subprocess.Popen("terraform output server0_private_ipv4",
-                                shell=True, stdout=subprocess.PIPE)
-        hostvars[name]['server']['ipv4_private'] = proc.stdout.read().decode('utf-8').strip('\n')
-        proc = subprocess.Popen("terraform output server0_public_ipv6",
-                                shell=True, stdout=subprocess.PIPE)
-        hostvars[name]['server']['ipv6'] = proc.stdout.read().decode('utf-8').strip('\n')
-        proc = subprocess.Popen("cd flips && terraform output server_flip",
-                                shell=True, stdout=subprocess.PIPE)
-        hostvars[name]['server']['flip'] = proc.stdout.read().decode('utf-8').strip('\n')
-        proc = subprocess.Popen("terraform output server_port",
-                                shell=True, stdout=subprocess.PIPE)
-        hostvars[name]['server']['port'] = proc.stdout.read().decode('utf-8').strip('\n')
+        hostvars[name]['server']['ipv4'] = get_array_value("server_public_ipv4", i)
+        hostvars[name]['server']['ipv4_private'] = get_array_value("server_private_ipv4", i)
+        hostvars[name]['server']['ipv6'] = get_array_value("server_public_ipv6", i)
+        hostvars[name]['server']['flip'] = get_array_flip("server_flip", i)
+        hostvars[name]['server']['port'] = get_scalar_value("server_port")
 
     return client
 
 
-def server(number, hostvars):
-    server = {'hosts': [], 'vars': {'server': {}}}
-    for i in range(number):
+def server(hostvars):
+    server = {'hosts': []}
+
+    for i in range(int(get_scalar_value("server_count"))):
         name = "server%d" % i
-        proc = subprocess.Popen("terraform output %s_public_ipv4" % name,
-                                shell=True, stdout=subprocess.PIPE)
-        address = proc.stdout.read().decode('utf-8').strip('\n')
         server['hosts'].append(name)
+
+        # Get the public IPv4 for the droplet reachability.
+        address = get_array_value("server_public_ipv4", i)
         hostvars[name] = {'ansible_host': address, 'server': {}}
 
         # Setup the server related variables.
-        proc = subprocess.Popen("terraform output server_port",
-                                shell=True, stdout=subprocess.PIPE)
-        hostvars[name]['server']['port'] = proc.stdout.read().decode('utf-8').strip('\n')
+        port = get_scalar_value("server_port")
+        hostvars[name]['server']['port'] = port
 
     return server
 
 
-def monitor(number, hostvars):
-    monitor = {'hosts': [], 'vars': {'server': {}}}
-    for i in range(number):
+def monitor(hostvars):
+    monitor = {'hosts': []}
+
+    for i in range(int(get_scalar_value("monitor_count"))):
         name = "monitor%d" % i
-        proc = subprocess.Popen("terraform output %s_public_ipv4" % name,
-                                shell=True, stdout=subprocess.PIPE)
-        address = proc.stdout.read().decode('utf-8').strip('\n')
         monitor['hosts'].append(name)
+
+        # Get the public IPv4 for the droplet reachability.
+        address = get_array_value("monitor_public_ipv4", i)
         hostvars[name] = {'ansible_host': address}
 
     return monitor
+
+
+def get_scalar_value(value):
+    return subprocess.Popen("terraform output %s" % value,
+                            shell=True, stdout=subprocess.PIPE
+                            ).stdout.read().decode('utf-8').strip('\n').replace('"', '')
+
+
+def get_array_value(value, index):
+    return subprocess.Popen("terraform output -json %s|jq '.value[%d]'" % (value, index),
+                            shell=True, stdout=subprocess.PIPE
+                            ).stdout.read().decode('utf-8').strip('\n').replace('"', '')
+
+
+def get_array_flip(value, index):
+    return subprocess.Popen("cd flips && terraform output -json %s|jq '.value[%d]'" % (value, index),
+                            shell=True, stdout=subprocess.PIPE
+                            ).stdout.read().decode('utf-8').strip('\n').replace('"', '')
 
 
 if __name__ == '__main__':
