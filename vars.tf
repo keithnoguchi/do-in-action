@@ -46,6 +46,6 @@ variable "DO_MONITOR_USER_DATA" {
   description = "cloud-init user data for the monitor server"
   default     = <<EOF
 #!/bin/bash
-apt update && apt install -y python nmap iperf3 vsftpd
+apt update && apt install -y python python-pip docker.io
 EOF
 }

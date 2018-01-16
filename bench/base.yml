@@ -1,6 +1,6 @@
 ---
 - name: data vis containers based on github.com/nerdalert/cloud-bandwidth
-  hosts: client
+  hosts: monitor
   vars:
     repo: https://github.com/nerdalert/cloud-bandwidth
   gather_facts: false
@@ -77,6 +77,20 @@
       target_type: digitalocean
       report_address: "{{ monitor.ipv4 }}"
   gather_facts: false
+  pre_tasks:
+    - name: install the pre-requisite apt packages
+      apt: name={{ item }} state=present update_cache=false
+      with_items:
+        - docker.io
+        - python-pip
+      become: true
+
+    - name: install python packages
+      pip: name={{ item }}
+      with_items:
+        - docker-py
+      become: true
+
   tasks:
     - name: pull networkstatic/bandwidth-poller image
       command: docker pull {{ poller_image }}
@@ -105,7 +119,6 @@
     - name: cleanup iperf3 bandwidth poller on the client
       docker_container:
         name: iperf3-poller
-        image: "{{ poller_image }}"
         state: absent
 
 - name: cleanup iperf3 agent container on the server
@@ -117,5 +130,4 @@
     - name: cleanup iperf3 bandwidth agent on the server
       docker_container:
         name: iperf3-agent
-        image: "{{ agent_image }}"
         state: absent

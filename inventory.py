@@ -53,9 +53,9 @@ def client(hostvars):
         hostvars[name]['server']['flip'] = get_array_flip("server_flip", i)
         hostvars[name]['server']['port'] = get_scalar_value("server_port")
 
-        # Setup the monitor related variables.  Use client0 for the default monitoring
-        # server for all at the moment.
-        hostvars[name]['monitor']['ipv4'] = get_array_value("client_public_ipv4", 0)
+        # Setup the monitor related variables.  Use monitor0 for the default monitoring
+        # server for all the clients.
+        hostvars[name]['monitor']['ipv4'] = get_array_value("monitor_public_ipv4", 0)
 
     return client
 
