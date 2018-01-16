@@ -5,6 +5,6 @@
       count: 60
       sampling_seconds: 10
       interval_seconds: 40
+      target_name: "{{ server.name }}"
       target_address: "{{ server.ipv4 }}"
-      target_type: digitalocean
       report_address: "{{ monitor.ipv4 }}"

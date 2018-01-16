@@ -73,8 +73,8 @@
       count: 60
       sampling_seconds: 10
       interval_seconds: 40
+      target_name: "{{ server.name }}"
       target_address: "{{ server.ipv4 }}"
-      target_type: digitalocean
       report_address: "{{ monitor.ipv4 }}"
   gather_facts: false
   pre_tasks:
@@ -103,7 +103,7 @@
         env:
           DB_IP: "{{ polling.report_address }}"
           BW_AGENT_IP: "{{ polling.target_address }}"
-          MACHINE_TYPE: "{{ polling.target_type }}"
+          MACHINE_TYPE: "{{ polling.target_name }}"
           IPERF_SAMPLE_COUNT: "{{ polling.sampling_seconds }}"
       register: iperf3_poller
       until: iperf3_poller.ansible_facts.docker_container.State.ExitCode != 0

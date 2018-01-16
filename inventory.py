@@ -47,6 +47,7 @@ def client(hostvars):
         hostvars[name]['ipv6'] = get_array_value("client_public_ipv6", i)
 
         # Setup the server related variables.
+        hostvars[name]['server']['name'] = get_array_value("server_droplet_name", i)
         hostvars[name]['server']['ipv4'] = get_array_value("server_public_ipv4", i)
         hostvars[name]['server']['ipv4_private'] = get_array_value("server_private_ipv4", i)
         hostvars[name]['server']['ipv6'] = get_array_value("server_public_ipv6", i)

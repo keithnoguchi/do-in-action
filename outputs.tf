@@ -26,6 +26,10 @@ output "client_droplet_id" {
   value = ["${digitalocean_droplet.client.*.id}"]
 }
 
+output "client_droplet_name" {
+  value = ["${digitalocean_droplet.client.*.name}"]
+}
+
 output "client_droplet_region" {
   value = ["${digitalocean_droplet.client.*.region}"]
 }
@@ -46,6 +50,10 @@ output "server_droplet_id" {
   value = ["${digitalocean_droplet.server.*.id}"]
 }
 
+output "server_droplet_name" {
+  value = ["${digitalocean_droplet.server.*.name}"]
+}
+
 output "server_droplet_region" {
   value = "${digitalocean_droplet.server.*.region}"
 }
@@ -64,6 +72,10 @@ output "server_public_ipv6" {
 
 output "monitor_droplet_id" {
   value = "${digitalocean_droplet.monitor.*.id}"
+}
+
+output "monitor_droplet_name" {
+  value = "${digitalocean_droplet.monitor.*.name}"
 }
 
 output "monitor_droplet_region" {
