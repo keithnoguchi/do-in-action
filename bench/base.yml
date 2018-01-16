@@ -75,7 +75,7 @@
       interval_seconds: 40
       target_address: "{{ server.ipv4 }}"
       target_type: digitalocean
-      report_address: 172.17.0.2
+      report_address: "{{ monitor.ipv4 }}"
   gather_facts: false
   tasks:
     - name: pull networkstatic/bandwidth-poller image

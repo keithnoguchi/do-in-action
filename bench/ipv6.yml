@@ -7,4 +7,4 @@
       interval_seconds: 40
       target_address: "{{ server.ipv6 }}"
       target_type: digitalocean
-      report_address: 172.17.0.2
+      report_address: "{{ monitor.ipv4 }}"

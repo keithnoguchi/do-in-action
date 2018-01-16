@@ -41,7 +41,7 @@ def client(hostvars):
 
         # Get the public IPv4 for the droplet reachability.
         address = get_array_value("client_public_ipv4", i)
-        hostvars[name] = {'ansible_host': address, 'server': {}}
+        hostvars[name] = {'ansible_host': address, 'server': {}, 'monitor': {}}
         hostvars[name]['ipv4'] = get_array_value("client_public_ipv4", i)
         hostvars[name]['ipv4_private'] = get_array_value("client_private_ipv4", i)
         hostvars[name]['ipv6'] = get_array_value("client_public_ipv6", i)
@@ -52,6 +52,10 @@ def client(hostvars):
         hostvars[name]['server']['ipv6'] = get_array_value("server_public_ipv6", i)
         hostvars[name]['server']['flip'] = get_array_flip("server_flip", i)
         hostvars[name]['server']['port'] = get_scalar_value("server_port")
+
+        # Setup the monitor related variables.  Use client0 for the default monitoring
+        # server for all at the moment.
+        hostvars[name]['monitor']['ipv4'] = get_array_value("client_public_ipv4", 0)
 
     return client
 
