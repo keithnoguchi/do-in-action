@@ -17,6 +17,7 @@
         repo: "{{ repo }}"
         dest: /tmp/cloud-bandwidth
         update: yes
+        force: yes
         ssh_opts: "-o StrictHostKeyChecking=no"
 
     - name: modify the grafana configuration
@@ -82,6 +83,7 @@
         repo: "{{ repo }}"
         dest: /tmp/cloud-bandwidth
         update: yes
+        force: yes
         ssh_opts: "-o StrictHostKeyChecking=no"
 
     - name: modify the poller configurations
