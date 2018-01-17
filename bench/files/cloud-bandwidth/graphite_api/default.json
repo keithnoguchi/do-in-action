@@ -16,111 +16,70 @@
       "collapse": false,
       "panels": [
         {
-          "title": "Total Download Bandwidth",
+          "title": "Summed Bandwidth",
           "error": false,
-          "span": 6,
+          "span": 12,
           "editable": true,
-          "type": "singlestat",
+          "type": "graph",
           "id": 1,
-          "links": [],
+          "datasource": null,
+          "renderer": "flot",
           "x-axis": true,
           "y-axis": true,
           "y_formats": [
             "bps",
             "short"
           ],
-          "maxDataPoints": 100,
-          "interval": null,
-          "targets": [
-            {
-              "target": "sumSeries(bandwidth.download.*)"
-            }
-          ],
-          "cacheTimeout": null,
-          "format": "bps",
-          "prefix": "CURRENT TOTAL DOWNLOAD",
-          "postfix": "",
-          "nullText": null,
-          "valueMaps": [
-            {
-              "value": "",
-              "op": "=",
-              "text": ""
-            }
-          ],
-          "nullPointMode": "connected",
-          "valueName": "current",
-          "prefixFontSize": "30%",
-          "valueFontSize": "70%",
-          "postfixFontSize": "50%",
-          "thresholds": "",
-          "colorBackground": false,
-          "colorValue": true,
-          "colors": [
-            "rgba(50, 172, 45, 0.97)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(245, 54, 54, 0.9)"
-          ],
-          "sparkline": {
-            "show": true,
-            "full": true,
-            "lineColor": "rgb(0, 182, 255)",
-            "fillColor": "rgba(79, 75, 89, 0.34)"
+          "grid": {
+            "leftMax": 40000000000,
+            "rightMax": null,
+            "leftMin": 0,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold2": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
           },
-          "height": ""
-        },
-        {
-          "title": "Total Upload Bandwidth",
-          "error": false,
-          "span": 6,
-          "editable": true,
-          "type": "singlestat",
-          "id": 2,
-          "links": [],
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "bps",
-            "short"
-          ],
-          "maxDataPoints": 100,
-          "interval": null,
+          "lines": true,
+          "fill": 3,
+          "linewidth": 3,
+          "points": true,
+          "pointradius": 3,
+          "bars": false,
+          "stack": false,
+          "percentage": false,
+          "legend": {
+            "show": true,
+            "values": true,
+            "min": true,
+            "max": true,
+            "current": true,
+            "total": false,
+            "avg": true,
+            "alignAsTable": true,
+            "rightSide": false,
+            "hideEmpty": true
+          },
+          "nullPointMode": "connected",
+          "steppedLine": false,
+          "tooltip": {
+            "value_type": "cumulative",
+            "shared": true
+          },
           "targets": [
             {
-              "target": "sumSeries(bandwidth.upload.*)"
-            }
-          ],
-          "cacheTimeout": null,
-          "format": "bps",
-          "prefix": "CURRENT TOTAL UPLOAD",
-          "postfix": "",
-          "nullText": null,
-          "valueMaps": [
+              "target": "alias(sumSeries(bandwidth.download.*), 'download')"
+            },
             {
-              "value": "",
-              "op": "=",
-              "text": ""
+              "target": "alias(sumSeries(bandwidth.upload.*), 'upload')"
             }
           ],
-          "nullPointMode": "connected",
-          "valueName": "avg",
-          "prefixFontSize": "30%",
-          "valueFontSize": "70%",
-          "postfixFontSize": "50%",
-          "thresholds": "",
-          "colorBackground": false,
-          "colorValue": true,
-          "colors": [
-            "rgba(50, 172, 45, 0.97)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(245, 54, 54, 0.9)"
-          ],
-          "sparkline": {
-            "show": true,
-            "full": true,
-            "lineColor": "rgb(246, 226, 16)",
-            "fillColor": "rgba(83, 83, 68, 0.35)"
-          }
+          "aliasColors": {
+            "download": "#0082C8",
+            "upload": "#46F0F0"
+          },
+          "seriesOverrides": [],
+          "links": []
         }
       ]
     },
@@ -136,7 +95,7 @@
           "span": 12,
           "editable": true,
           "type": "graph",
-          "id": 3,
+          "id": 2,
           "datasource": null,
           "renderer": "flot",
           "x-axis": true,
@@ -146,7 +105,7 @@
             "short"
           ],
           "grid": {
-            "leftMax": 2000000000,
+            "leftMax": 4000000000,
             "rightMax": null,
             "leftMin": 0,
             "rightMin": null,
@@ -215,7 +174,7 @@
           "span": 12,
           "editable": true,
           "type": "graph",
-          "id": 4,
+          "id": 3,
           "datasource": null,
           "renderer": "flot",
           "x-axis": true,
@@ -225,7 +184,7 @@
             "short"
           ],
           "grid": {
-            "leftMax": 2000000000,
+            "leftMax": 4000000000,
             "rightMax": null,
             "leftMin": 0,
             "rightMin": null,

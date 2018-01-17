@@ -63,7 +63,7 @@
     poller_image: local/bandwidth-poller:latest
     repo: https://github.com/nerdalert/cloud-bandwidth
     polling:
-      count: 60
+      count: 120
       sampling_seconds: 10
       interval_seconds: 40
       target_name: "{{ server.name }}"
