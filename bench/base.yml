@@ -25,7 +25,6 @@
         dest: /tmp/cloud-bandwidth
         update: yes
         ssh_opts: "-o StrictHostKeyChecking=no"
-      register: git
 
     - name: modify the grafana configuration
       copy:
@@ -75,7 +74,8 @@
   hosts: client
   vars:
     debug: false
-    poller_image: networkstatic/bandwidth-poller:latest
+    poller_image: local/bandwidth-poller:latest
+    repo: https://github.com/nerdalert/cloud-bandwidth
     polling:
       count: 60
       sampling_seconds: 10
@@ -98,11 +98,28 @@
         - docker-py
       become: true
 
-  tasks:
-    - name: pull networkstatic/bandwidth-poller image
-      command: docker pull {{ poller_image }}
+    - name: clone the cloud-bandwidth git repo
+      git:
+        repo: "{{ repo }}"
+        dest: /tmp/cloud-bandwidth
+        update: yes
+        ssh_opts: "-o StrictHostKeyChecking=no"
 
-    - name: run iperf3 bandwidth collector
+    - name: modify the poller configurations
+      patch:
+        src: "files/{{ item.path }}.diff"
+        dest: "/tmp/{{ item.path }}"
+        strip: "{{ item.strip }}"
+      with_items:
+        - { path: cloud-bandwidth/bandwidth_poller/entry.sh, strip: 2 }
+
+    - name: build the poller docker image
+      docker_image:
+        path: /tmp/cloud-bandwidth/bandwidth_poller
+        name: "{{ poller_image }}"
+
+  tasks:
+    - name: run iperf3 bandwidth poller
       docker_container:
         name: iperf3-poller
         image: "{{ poller_image }}"
@@ -131,8 +148,6 @@
 - name: cleanup iperf3 agent container on the server
   hosts: server
   gather_facts: false
-  vars:
-    agent_image: networkstatic/iperf3:latest
   post_tasks:
     - name: cleanup iperf3 bandwidth agent on the server
       docker_container:

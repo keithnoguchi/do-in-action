@@ -1,0 +1,16 @@
+diff --git a/bandwidth_poller/entry.sh b/bandwidth_poller/entry.sh
+index 24899b8..013c1a1 100755
+--- a/bandwidth_poller/entry.sh
++++ b/bandwidth_poller/entry.sh
+@@ -184,6 +184,11 @@ case  ${MACHINE_TYPE}  in
+         runIperfIngress
+         runIperfEgress
+         ;;
++    server*)
++        echo -e "${INFO}Driver type is: server"
++        runIperfIngress
++        runIperfEgress
++        ;;
+     *)
+     echo >&2 'error: missing required BW_AGENT_IP environment variable'
+ 	echo >&2 '  Did you forget to pass -e BW_AGENT_IP=<Iperf Server IP Address>'
