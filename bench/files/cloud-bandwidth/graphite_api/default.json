@@ -247,7 +247,7 @@
           "interval": null,
           "targets": [
             {
-              "target": "averageSeries(bandwidth.download.*)"
+              "target": "sumSeries(bandwidth.download.*)"
             }
           ],
           "cacheTimeout": null,
@@ -295,7 +295,7 @@
           "interval": null,
           "targets": [
             {
-              "target": "averageSeries(bandwidth.upload.*)"
+              "target": "sumSeries(bandwidth.upload.*)"
             }
           ],
           "cacheTimeout": null,
