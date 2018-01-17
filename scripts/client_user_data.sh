@@ -1,2 +1,2 @@
 #!/bin/bash
-apt update && apt install -y python python-pip nmap iperf3
+apt update && apt install -y python python-pip docker.io nmap iperf3
