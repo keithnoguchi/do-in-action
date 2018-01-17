@@ -27,6 +27,13 @@
         ssh_opts: "-o StrictHostKeyChecking=no"
       register: git
 
+    - name: modify the grafana configuration
+      copy:
+        src: "files/{{ item }}"
+        dest: "/tmp/{{ item }}"
+      with_items:
+        - cloud-bandwidth/graphite_api/default.json
+
     - name: fire up the data vis containers!
       docker_service:
         project_src: /tmp/cloud-bandwidth
