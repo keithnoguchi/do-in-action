@@ -1,2 +1,2 @@
 #!/bin/bash
-apt update && apt install -y python nmap iperf3 vsftpd
+apt update && apt install -y python python-pip nmap iperf3 vsftpd
