@@ -68,15 +68,15 @@
           },
           "targets": [
             {
-              "target": "alias(sumSeries(bandwidth.download.*), 'download')"
+              "target": "alias(sumSeries(bandwidth.download.*), 'Summed Download')"
             },
             {
-              "target": "alias(sumSeries(bandwidth.upload.*), 'upload')"
+              "target": "alias(sumSeries(bandwidth.upload.*), 'Summed Upload')"
             }
           ],
           "aliasColors": {
-            "download": "#0082C8",
-            "upload": "#46F0F0"
+            "Summed Download": "#0082C8",
+            "Summed Upload": "#46F0F0"
           },
           "seriesOverrides": [],
           "links": []
