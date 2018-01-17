@@ -42,6 +42,7 @@ def client(hostvars):
         # Get the public IPv4 for the droplet reachability.
         address = get_array_value("client_public_ipv4", i)
         hostvars[name] = {'ansible_host': address, 'server': {}, 'monitor': {}}
+        hostvars[name]['id'] = get_array_value("client_droplet_id", i)
         hostvars[name]['ipv4'] = get_array_value("client_public_ipv4", i)
         hostvars[name]['ipv4_private'] = get_array_value("client_private_ipv4", i)
         hostvars[name]['ipv6'] = get_array_value("client_public_ipv6", i)
@@ -71,6 +72,7 @@ def server(hostvars):
         # Get the public IPv4 for the droplet reachability.
         address = get_array_value("server_public_ipv4", i)
         hostvars[name] = {'ansible_host': address, 'server': {}}
+        hostvars[name]['id'] = get_array_value("server_droplet_id", i)
         hostvars[name]['ipv4'] = get_array_value("server_public_ipv4", i)
         hostvars[name]['ipv4_private'] = get_array_value("server_private_ipv4", i)
         hostvars[name]['ipv6'] = get_array_value("server_public_ipv6", i)
@@ -89,6 +91,7 @@ def monitor(hostvars):
         # Get the public IPv4 for the droplet reachability.
         address = get_array_value("monitor_public_ipv4", i)
         hostvars[name] = {'ansible_host': address}
+        hostvars[name]['id'] = get_array_value("monitor_droplet_id", i)
         hostvars[name]['ipv4'] = get_array_value("monitor_public_ipv4", i)
         hostvars[name]['ipv4_private'] = get_array_value("monitor_private_ipv4", i)
         hostvars[name]['ipv6'] = get_array_value("monitor_public_ipv6", i)
