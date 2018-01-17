@@ -16,226 +16,6 @@
       "collapse": false,
       "panels": [
         {
-          "title": "Combined Upload Bandwidth",
-          "error": false,
-          "span": 12,
-          "editable": true,
-          "type": "graph",
-          "id": 8,
-          "datasource": null,
-          "renderer": "flot",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "bps",
-            "short"
-          ],
-          "grid": {
-            "leftMax": null,
-            "rightMax": null,
-            "leftMin": null,
-            "rightMin": null,
-            "threshold1": null,
-            "threshold2": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
-          "lines": true,
-          "fill": 0,
-          "linewidth": 3,
-          "points": true,
-          "pointradius": 3,
-          "bars": false,
-          "stack": false,
-          "percentage": false,
-          "legend": {
-            "show": true,
-            "values": true,
-            "min": true,
-            "max": true,
-            "current": true,
-            "total": false,
-            "avg": true,
-            "alignAsTable": true,
-            "hideEmpty": true
-          },
-          "nullPointMode": "connected",
-          "steppedLine": false,
-          "tooltip": {
-            "value_type": "cumulative",
-            "shared": true
-          },
-          "targets": [
-            {
-              "target": "aliasByMetric(bandwidth.upload.*)"
-            }
-          ],
-          "aliasColors": {
-            "server0": "#6ED0E0",
-            "server1": "#AEA2E0",
-            "server2": "#705DA0",
-            "server3": "#F9D9F9",
-            "server4": "#CFFAFF",
-            "server5": "#F9934E",
-            "server6": "#E0F9D7"
-          },
-          "seriesOverrides": [],
-          "links": []
-        }
-      ]
-    },
-    {
-      "title": "New row",
-      "height": "250px",
-      "editable": true,
-      "collapse": false,
-      "panels": [
-        {
-          "title": "Combined Download Bandwidth",
-          "error": false,
-          "span": 12,
-          "editable": true,
-          "type": "graph",
-          "id": 22,
-          "datasource": null,
-          "renderer": "flot",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "bps",
-            "short"
-          ],
-          "grid": {
-            "leftMax": null,
-            "rightMax": null,
-            "leftMin": null,
-            "rightMin": null,
-            "threshold1": null,
-            "threshold2": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
-          "lines": true,
-          "fill": 0,
-          "linewidth": 2,
-          "points": true,
-          "pointradius": 3,
-          "bars": false,
-          "stack": false,
-          "percentage": false,
-          "legend": {
-            "show": true,
-            "values": true,
-            "min": true,
-            "max": true,
-            "current": true,
-            "total": false,
-            "avg": true,
-            "alignAsTable": true,
-            "hideEmpty": true
-          },
-          "nullPointMode": "connected",
-          "steppedLine": false,
-          "tooltip": {
-            "value_type": "cumulative",
-            "shared": true
-          },
-          "targets": [
-            {
-              "target": "aliasByMetric(bandwidth.download.*)"
-            }
-          ],
-          "aliasColors": {
-            "server0": "#6ED0E0",
-            "server1": "#AEA2E0",
-            "server2": "#705DA0",
-            "server3": "#F9D9F9",
-            "server4": "#CFFAFF",
-            "server5": "#F9934E",
-            "server6": "#E0F9D7"
-          },
-          "seriesOverrides": [],
-          "links": []
-        },
-        {
-          "title": "Combined Upload/Download - Bi-Directional",
-          "error": false,
-          "span": 12,
-          "editable": true,
-          "type": "graph",
-          "id": 23,
-          "datasource": null,
-          "renderer": "flot",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "bits",
-            "short"
-          ],
-          "grid": {
-            "leftMax": null,
-            "rightMax": null,
-            "leftMin": null,
-            "rightMin": null,
-            "threshold1": null,
-            "threshold2": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
-          "lines": true,
-          "fill": 0,
-          "linewidth": 2,
-          "points": true,
-          "pointradius": 2,
-          "bars": false,
-          "stack": false,
-          "percentage": false,
-          "legend": {
-            "show": true,
-            "values": true,
-            "min": true,
-            "max": true,
-            "current": true,
-            "total": false,
-            "avg": true,
-            "alignAsTable": true,
-            "hideEmpty": true
-          },
-          "nullPointMode": "null",
-          "steppedLine": false,
-          "tooltip": {
-            "value_type": "cumulative",
-            "shared": true
-          },
-          "targets": [
-            {
-              "target": "bandwidth.download.*"
-            },
-            {
-              "target": "bandwidth.upload.*"
-            }
-          ],
-          "aliasColors": {
-            "server0": "#447EBC",
-            "server1": "#E24D42",
-            "bandwidth.download.server0": "#E0752D",
-            "bandwidth.download.server1": "#1F78C1",
-            "bandwidth.upload.server0": "#BADFF4",
-            "bandwidth.upload.server1": "#AEA2E0"
-          },
-          "seriesOverrides": [],
-          "links": []
-        }
-      ],
-      "showTitle": false
-    },
-    {
-      "title": "New row",
-      "height": "250px",
-      "editable": true,
-      "collapse": false,
-      "panels": [
-        {
           "title": "",
           "error": false,
           "span": 6,
@@ -339,18 +119,18 @@
       "collapse": false,
       "panels": [
         {
-          "title": "Server0 Bandwidth",
+          "title": "Combined Upload Bandwidth",
           "error": false,
           "span": 12,
           "editable": true,
           "type": "graph",
-          "id": 9,
+          "id": 8,
           "datasource": null,
           "renderer": "flot",
           "x-axis": true,
           "y-axis": true,
           "y_formats": [
-            "bits",
+            "bps",
             "short"
           ],
           "grid": {
@@ -364,10 +144,10 @@
             "threshold2Color": "rgba(234, 112, 112, 0.22)"
           },
           "lines": true,
-          "fill": 2,
+          "fill": 0,
           "linewidth": 3,
           "points": true,
-          "pointradius": 4,
+          "pointradius": 3,
           "bars": false,
           "stack": false,
           "percentage": false,
@@ -379,7 +159,8 @@
             "current": true,
             "total": false,
             "avg": true,
-            "alignAsTable": true
+            "alignAsTable": true,
+            "hideEmpty": true
           },
           "nullPointMode": "connected",
           "steppedLine": false,
@@ -389,17 +170,20 @@
           },
           "targets": [
             {
-              "target": "bandwidth.download.server0",
-              "hide": false
-            },
-            {
-              "target": "bandwidth.upload.server0",
-              "hide": false
+              "target": "aliasByMetric(bandwidth.upload.*)"
             }
           ],
           "aliasColors": {
-            "bandwidth.upload.server0": "#BADFF4",
-            "bandwidth.download.server0": "#1F78C1"
+            "server0": "#E6194B",
+            "server1": "#3CB44B",
+            "server2": "#FFE119",
+            "server3": "#0082C8",
+            "server4": "#F58231",
+            "server5": "#911EB4",
+            "server6": "#46F0F0",
+            "server7": "#F032E6",
+            "server8": "#D2F53C",
+            "server9": "#FABEBE"
           },
           "seriesOverrides": [],
           "links": []
@@ -413,18 +197,18 @@
       "collapse": false,
       "panels": [
         {
-          "title": "Server1 Bandwidth",
+          "title": "Combined Download Bandwidth",
           "error": false,
           "span": 12,
           "editable": true,
           "type": "graph",
-          "id": 1,
+          "id": 22,
           "datasource": null,
           "renderer": "flot",
           "x-axis": true,
           "y-axis": true,
           "y_formats": [
-            "bits",
+            "bps",
             "short"
           ],
           "grid": {
@@ -438,10 +222,10 @@
             "threshold2Color": "rgba(234, 112, 112, 0.22)"
           },
           "lines": true,
-          "fill": 3,
-          "linewidth": 3,
+          "fill": 0,
+          "linewidth": 2,
           "points": true,
-          "pointradius": 4,
+          "pointradius": 3,
           "bars": false,
           "stack": false,
           "percentage": false,
@@ -454,7 +238,7 @@
             "total": false,
             "avg": true,
             "alignAsTable": true,
-            "rightSide": false
+            "hideEmpty": true
           },
           "nullPointMode": "connected",
           "steppedLine": false,
@@ -464,532 +248,26 @@
           },
           "targets": [
             {
-              "target": "bandwidth.download.server1"
-            },
-            {
-              "target": "bandwidth.upload.server1"
+              "target": "aliasByMetric(bandwidth.download.*)"
             }
           ],
           "aliasColors": {
-            "bandwidth.download.server1": "#1F78C1",
-            "bandwidth.upload.server1": "#EAB839"
+            "server0": "#E6194B",
+            "server1": "#3CB44B",
+            "server2": "#FFE119",
+            "server3": "#0082C8",
+            "server4": "#F58231",
+            "server5": "#911EB4",
+            "server6": "#46F0F0",
+            "server7": "#F032E6",
+            "server8": "#D2F53C",
+            "server9": "#FABEBE"
           },
           "seriesOverrides": [],
           "links": []
         }
       ],
       "showTitle": false
-    },
-    {
-      "title": "New row",
-      "height": "250px",
-      "editable": true,
-      "collapse": false,
-      "panels": [
-        {
-          "title": "Server2 Bandwidth",
-          "error": false,
-          "span": 12,
-          "editable": true,
-          "type": "graph",
-          "id": 3,
-          "datasource": null,
-          "renderer": "flot",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "bits",
-            "short"
-          ],
-          "grid": {
-            "leftMax": null,
-            "rightMax": null,
-            "leftMin": null,
-            "rightMin": null,
-            "threshold1": null,
-            "threshold2": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
-          "lines": true,
-          "fill": 3,
-          "linewidth": 3,
-          "points": true,
-          "pointradius": 4,
-          "bars": false,
-          "stack": true,
-          "percentage": false,
-          "legend": {
-            "show": true,
-            "values": true,
-            "min": true,
-            "max": true,
-            "current": true,
-            "total": false,
-            "avg": true,
-            "alignAsTable": true,
-            "rightSide": false
-          },
-          "nullPointMode": "connected",
-          "steppedLine": false,
-          "tooltip": {
-            "value_type": "cumulative",
-            "shared": true
-          },
-          "targets": [
-            {
-              "target": "bandwidth.download.server2"
-            },
-            {
-              "target": "bandwidth.upload.server2"
-            }
-          ],
-          "aliasColors": {
-            "bandwidth.download.server2": "#1F78C1",
-            "bandwidth.upload.server2": "#AEA2E0"
-          },
-          "seriesOverrides": [],
-          "links": []
-        }
-      ],
-      "showTitle": false
-    },
-    {
-      "title": "New row",
-      "height": "250px",
-      "editable": true,
-      "collapse": false,
-      "panels": [
-        {
-          "title": "Server3 Bandwidth",
-          "error": false,
-          "span": 12,
-          "editable": true,
-          "type": "graph",
-          "id": 5,
-          "datasource": null,
-          "renderer": "flot",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "bits",
-            "short"
-          ],
-          "grid": {
-            "leftMax": null,
-            "rightMax": null,
-            "leftMin": null,
-            "rightMin": null,
-            "threshold1": null,
-            "threshold2": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
-          "lines": true,
-          "fill": 2,
-          "linewidth": 3,
-          "points": true,
-          "pointradius": 4,
-          "bars": false,
-          "stack": false,
-          "percentage": false,
-          "legend": {
-            "show": true,
-            "values": true,
-            "min": true,
-            "max": true,
-            "current": true,
-            "total": false,
-            "avg": true,
-            "alignAsTable": true
-          },
-          "nullPointMode": "connected",
-          "steppedLine": false,
-          "tooltip": {
-            "value_type": "cumulative",
-            "shared": true
-          },
-          "targets": [
-            {
-              "target": "bandwidth.download.server3"
-            },
-            {
-              "target": "bandwidth.upload.server3"
-            }
-          ],
-          "aliasColors": {
-            "bandwidth.upload.server3": "#BF1B00",
-            "bandwidth.download.server3": "#1F78C1"
-          },
-          "seriesOverrides": [],
-          "links": []
-        }
-      ]
-    },
-    {
-      "title": "New row",
-      "height": "250px",
-      "editable": true,
-      "collapse": false,
-      "panels": [
-        {
-          "title": "Server4 Bandwidth",
-          "error": false,
-          "span": 12,
-          "editable": true,
-          "type": "graph",
-          "id": 10,
-          "datasource": null,
-          "renderer": "flot",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "short",
-            "short"
-          ],
-          "grid": {
-            "leftMax": null,
-            "rightMax": null,
-            "leftMin": null,
-            "rightMin": null,
-            "threshold1": null,
-            "threshold2": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
-          "lines": true,
-          "fill": 3,
-          "linewidth": 3,
-          "points": true,
-          "pointradius": 4,
-          "bars": false,
-          "stack": false,
-          "percentage": false,
-          "legend": {
-            "show": true,
-            "values": true,
-            "min": true,
-            "max": true,
-            "current": true,
-            "total": false,
-            "avg": true,
-            "alignAsTable": true,
-            "sortDesc": true
-          },
-          "nullPointMode": "connected",
-          "steppedLine": false,
-          "tooltip": {
-            "value_type": "cumulative",
-            "shared": true
-          },
-          "targets": [
-            {
-              "target": "bandwidth.download.server4"
-            },
-            {
-              "target": "bandwidth.upload.server4"
-            }
-          ],
-          "aliasColors": {
-            "bandwidth.download.google": "#1F78C1",
-            "bandwidth.upload.google": "#E0752D"
-          },
-          "seriesOverrides": [],
-          "links": []
-        }
-      ]
-    },
-    {
-      "title": "New row",
-      "height": "250px",
-      "editable": true,
-      "collapse": false,
-      "panels": [
-        {
-          "title": "Server5 Bandwidth",
-          "error": false,
-          "span": 12,
-          "editable": true,
-          "type": "graph",
-          "id": 6,
-          "datasource": null,
-          "renderer": "flot",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "bits",
-            "short"
-          ],
-          "grid": {
-            "leftMax": null,
-            "rightMax": null,
-            "leftMin": null,
-            "rightMin": null,
-            "threshold1": null,
-            "threshold2": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
-          "lines": true,
-          "fill": 3,
-          "linewidth": 3,
-          "points": true,
-          "pointradius": 4,
-          "bars": false,
-          "stack": true,
-          "percentage": false,
-          "legend": {
-            "show": true,
-            "values": true,
-            "min": true,
-            "max": true,
-            "current": true,
-            "total": false,
-            "avg": true,
-            "alignAsTable": true,
-            "rightSide": false
-          },
-          "nullPointMode": "connected",
-          "steppedLine": false,
-          "tooltip": {
-            "value_type": "cumulative",
-            "shared": true
-          },
-          "targets": [
-            {
-              "target": "bandwidth.download.server5"
-            },
-            {
-              "target": "bandwidth.upload.server5"
-            }
-          ],
-          "aliasColors": {
-            "bandwidth.server5": "#70DBED",
-            "bandwidth.download.server5": "#1F78C1",
-            "bandwidth.upload.server5": "#7EB26D"
-          },
-          "seriesOverrides": [],
-          "links": []
-        }
-      ]
-    },
-    {
-      "title": "New row",
-      "height": "250px",
-      "editable": true,
-      "collapse": false,
-      "panels": [
-        {
-          "title": "Server6 Bandwidth",
-          "error": false,
-          "span": 12,
-          "editable": true,
-          "type": "graph",
-          "id": 12,
-          "datasource": null,
-          "renderer": "flot",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "short",
-            "short"
-          ],
-          "grid": {
-            "leftMax": null,
-            "rightMax": null,
-            "leftMin": null,
-            "rightMin": null,
-            "threshold1": null,
-            "threshold2": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
-          "lines": true,
-          "fill": 3,
-          "linewidth": 3,
-          "points": true,
-          "pointradius": 4,
-          "bars": false,
-          "stack": false,
-          "percentage": false,
-          "legend": {
-            "show": true,
-            "values": true,
-            "min": true,
-            "max": true,
-            "current": true,
-            "total": false,
-            "avg": true,
-            "alignAsTable": true
-          },
-          "nullPointMode": "connected",
-          "steppedLine": false,
-          "tooltip": {
-            "value_type": "cumulative",
-            "shared": true
-          },
-          "targets": [
-            {
-              "target": "bandwidth.download.server6"
-            },
-            {
-              "target": "bandwidth.upload.server6"
-            }
-          ],
-          "aliasColors": {
-            "bandwidth.download.server6": "#1F78C1",
-            "bandwidth.upload.server6": "#EA6460"
-          },
-          "seriesOverrides": [],
-          "links": []
-        }
-      ]
-    },
-    {
-      "title": "New row",
-      "height": "250px",
-      "editable": true,
-      "collapse": false,
-      "panels": [
-        {
-          "title": "Server7 Bandwidth",
-          "error": false,
-          "span": 12,
-          "editable": true,
-          "type": "graph",
-          "id": 2,
-          "datasource": null,
-          "renderer": "flot",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "bits",
-            "short"
-          ],
-          "grid": {
-            "leftMax": null,
-            "rightMax": null,
-            "leftMin": null,
-            "rightMin": null,
-            "threshold1": null,
-            "threshold2": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
-          "lines": true,
-          "fill": 3,
-          "linewidth": 3,
-          "points": true,
-          "pointradius": 4,
-          "bars": false,
-          "stack": true,
-          "percentage": false,
-          "legend": {
-            "show": true,
-            "values": true,
-            "min": true,
-            "max": true,
-            "current": true,
-            "total": false,
-            "avg": true,
-            "alignAsTable": true,
-            "rightSide": false,
-            "sortDesc": true
-          },
-          "nullPointMode": "connected",
-          "steppedLine": false,
-          "tooltip": {
-            "value_type": "cumulative",
-            "shared": true
-          },
-          "targets": [
-            {
-              "target": "bandwidth.download.server7"
-            },
-            {
-              "target": "bandwidth.upload.server7"
-            }
-          ],
-          "aliasColors": {
-            "bandwidth.download.server2": "#1F78C1",
-            "bandwidth.upload.server2": "#EF843C"
-          },
-          "seriesOverrides": [],
-          "links": []
-        }
-      ]
-    },
-    {
-      "title": "New row",
-      "height": "250px",
-      "editable": true,
-      "collapse": false,
-      "panels": [
-        {
-          "title": "Server8 Bandwidth",
-          "error": false,
-          "span": 12,
-          "editable": true,
-          "type": "graph",
-          "id": 11,
-          "datasource": null,
-          "renderer": "flot",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "short",
-            "short"
-          ],
-          "grid": {
-            "leftMax": null,
-            "rightMax": null,
-            "leftMin": null,
-            "rightMin": null,
-            "threshold1": null,
-            "threshold2": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
-          "lines": true,
-          "fill": 3,
-          "linewidth": 3,
-          "points": true,
-          "pointradius": 4,
-          "bars": false,
-          "stack": false,
-          "percentage": false,
-          "legend": {
-            "show": true,
-            "values": true,
-            "min": true,
-            "max": true,
-            "current": true,
-            "total": false,
-            "avg": true,
-            "alignAsTable": true
-          },
-          "nullPointMode": "connected",
-          "steppedLine": false,
-          "tooltip": {
-            "value_type": "cumulative",
-            "shared": true
-          },
-          "targets": [
-            {
-              "target": "bandwidth.download.server8"
-            },
-            {
-              "target": "bandwidth.upload.server8"
-            }
-          ],
-          "aliasColors": {
-            "bandwidth.upload.server8": "#E5AC0E",
-            "bandwidth.download.server8": "#1F78C1"
-          },
-          "seriesOverrides": [],
-          "links": []
-        }
-      ]
     },
     {
       "title": "New row",
