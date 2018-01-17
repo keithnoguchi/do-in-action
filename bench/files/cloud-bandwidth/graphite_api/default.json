@@ -16,7 +16,7 @@
       "collapse": false,
       "panels": [
         {
-          "title": "Combined Download Bandwidth",
+          "title": "Total Download Bandwidth",
           "error": false,
           "span": 6,
           "editable": true,
@@ -38,7 +38,7 @@
           ],
           "cacheTimeout": null,
           "format": "bps",
-          "prefix": "CURRENT COMBINED DOWNLOAD",
+          "prefix": "CURRENT TOTAL DOWNLOAD",
           "postfix": "",
           "nullText": null,
           "valueMaps": [
@@ -70,7 +70,7 @@
           "height": ""
         },
         {
-          "title": "Combined Upload Bandwidth",
+          "title": "Total Upload Bandwidth",
           "error": false,
           "span": 6,
           "editable": true,
@@ -92,7 +92,7 @@
           ],
           "cacheTimeout": null,
           "format": "bps",
-          "prefix": "CURRENT COMBINED UPLOAD",
+          "prefix": "CURRENT TOTAL UPLOAD",
           "postfix": "",
           "nullText": null,
           "valueMaps": [
