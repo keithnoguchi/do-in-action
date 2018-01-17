@@ -131,7 +131,7 @@
       "collapse": false,
       "panels": [
         {
-          "title": "Combined Upload Bandwidth",
+          "title": "Upload Bandwidth",
           "error": false,
           "span": 12,
           "editable": true,
@@ -172,6 +172,7 @@
             "total": false,
             "avg": true,
             "alignAsTable": true,
+            "rightSide": true,
             "hideEmpty": true
           },
           "nullPointMode": "connected",
@@ -209,7 +210,7 @@
       "collapse": false,
       "panels": [
         {
-          "title": "Combined Download Bandwidth",
+          "title": "Download Bandwidth",
           "error": false,
           "span": 12,
           "editable": true,
@@ -250,6 +251,7 @@
             "total": false,
             "avg": true,
             "alignAsTable": true,
+            "rightSide": true,
             "hideEmpty": true
           },
           "nullPointMode": "connected",
