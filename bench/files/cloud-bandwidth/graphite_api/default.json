@@ -1,7 +1,7 @@
 {
   "id": null,
-  "title": "do-in-action Bandwidth Dasboard",
-  "originalTitle": "do-in-action Bandwidth Dasboard",
+  "title": "DO-in-Action Bandwidth Dasboard",
+  "originalTitle": "DO-in-Action Bandwidth Dasboard",
   "tags": [],
   "style": "dark",
   "timezone": "browser",
@@ -16,7 +16,7 @@
       "collapse": false,
       "panels": [
         {
-          "title": "Summary",
+          "title": "Summary Bandwidth",
           "error": false,
           "span": 12,
           "editable": true,
@@ -68,15 +68,15 @@
           },
           "targets": [
             {
-              "target": "alias(sumSeries(bandwidth.download.*), 'Total Download')"
+              "target": "alias(sumSeries(bandwidth.download.*), 'Summed Download Bandwidth')"
             },
             {
-              "target": "alias(sumSeries(bandwidth.upload.*), 'Total Upload')"
+              "target": "alias(sumSeries(bandwidth.upload.*), 'Summed Upload Bandwidth')"
             }
           ],
           "aliasColors": {
-            "Total Download": "#0082C8",
-            "Total Upload": "#46F0F0"
+            "Summed Download Bandwidth": "#0082C8",
+            "Summed Upload Bandwidth": "#46F0F0"
           },
           "seriesOverrides": [],
           "links": []
@@ -90,7 +90,7 @@
       "collapse": false,
       "panels": [
         {
-          "title": "Individual Download Bandwidth",
+          "title": "Download Bandwidth",
           "error": false,
           "span": 12,
           "editable": true,
@@ -169,7 +169,7 @@
       "collapse": false,
       "panels": [
         {
-          "title": "Individual Upload Bandwidth",
+          "title": "Upload Bandwidth",
           "error": false,
           "span": 12,
           "editable": true,
