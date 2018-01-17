@@ -146,9 +146,9 @@
             "short"
           ],
           "grid": {
-            "leftMax": null,
+            "leftMax": 20000000000,
             "rightMax": null,
-            "leftMin": null,
+            "leftMin": 0,
             "rightMin": null,
             "threshold1": null,
             "threshold2": null,
@@ -225,9 +225,9 @@
             "short"
           ],
           "grid": {
-            "leftMax": null,
+            "leftMax": 20000000000,
             "rightMax": null,
-            "leftMin": null,
+            "leftMin": 0,
             "rightMin": null,
             "threshold1": null,
             "threshold2": null,
