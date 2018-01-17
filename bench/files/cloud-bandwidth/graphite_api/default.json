@@ -131,12 +131,91 @@
       "collapse": false,
       "panels": [
         {
-          "title": "Individual Upload Bandwidth",
+          "title": "Individual Download Bandwidth",
           "error": false,
           "span": 12,
           "editable": true,
           "type": "graph",
           "id": 3,
+          "datasource": null,
+          "renderer": "flot",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "bps",
+            "short"
+          ],
+          "grid": {
+            "leftMax": null,
+            "rightMax": null,
+            "leftMin": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold2": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "lines": true,
+          "fill": 0,
+          "linewidth": 3,
+          "points": true,
+          "pointradius": 3,
+          "bars": false,
+          "stack": false,
+          "percentage": false,
+          "legend": {
+            "show": true,
+            "values": true,
+            "min": true,
+            "max": true,
+            "current": true,
+            "total": false,
+            "avg": true,
+            "alignAsTable": true,
+            "rightSide": true,
+            "hideEmpty": true
+          },
+          "nullPointMode": "connected",
+          "steppedLine": false,
+          "tooltip": {
+            "value_type": "cumulative",
+            "shared": true
+          },
+          "targets": [
+            {
+              "target": "aliasByMetric(bandwidth.download.*)"
+            }
+          ],
+          "aliasColors": {
+            "server0": "#E6194B",
+            "server1": "#3CB44B",
+            "server2": "#FFE119",
+            "server3": "#0082C8",
+            "server4": "#F58231",
+            "server5": "#911EB4",
+            "server6": "#46F0F0",
+            "server7": "#F032E6",
+            "server8": "#D2F53C",
+            "server9": "#FABEBE"
+          },
+          "seriesOverrides": [],
+          "links": []
+        }
+      ]
+    },
+    {
+      "title": "New row",
+      "height": "250px",
+      "editable": true,
+      "collapse": false,
+      "panels": [
+        {
+          "title": "Individual Upload Bandwidth",
+          "error": false,
+          "span": 12,
+          "editable": true,
+          "type": "graph",
+          "id": 4,
           "datasource": null,
           "renderer": "flot",
           "x-axis": true,
@@ -202,86 +281,6 @@
           "links": []
         }
       ]
-    },
-    {
-      "title": "New row",
-      "height": "250px",
-      "editable": true,
-      "collapse": false,
-      "panels": [
-        {
-          "title": "Individual Download Bandwidth",
-          "error": false,
-          "span": 12,
-          "editable": true,
-          "type": "graph",
-          "id": 4,
-          "datasource": null,
-          "renderer": "flot",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "bps",
-            "short"
-          ],
-          "grid": {
-            "leftMax": null,
-            "rightMax": null,
-            "leftMin": null,
-            "rightMin": null,
-            "threshold1": null,
-            "threshold2": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
-          "lines": true,
-          "fill": 0,
-          "linewidth": 2,
-          "points": true,
-          "pointradius": 3,
-          "bars": false,
-          "stack": false,
-          "percentage": false,
-          "legend": {
-            "show": true,
-            "values": true,
-            "min": true,
-            "max": true,
-            "current": true,
-            "total": false,
-            "avg": true,
-            "alignAsTable": true,
-            "rightSide": true,
-            "hideEmpty": true
-          },
-          "nullPointMode": "connected",
-          "steppedLine": false,
-          "tooltip": {
-            "value_type": "cumulative",
-            "shared": true
-          },
-          "targets": [
-            {
-              "target": "aliasByMetric(bandwidth.download.*)"
-            }
-          ],
-          "aliasColors": {
-            "server0": "#E6194B",
-            "server1": "#3CB44B",
-            "server2": "#FFE119",
-            "server3": "#0082C8",
-            "server4": "#F58231",
-            "server5": "#911EB4",
-            "server6": "#46F0F0",
-            "server7": "#F032E6",
-            "server8": "#D2F53C",
-            "server9": "#FABEBE"
-          },
-          "seriesOverrides": [],
-          "links": []
-        }
-      ],
-      "showTitle": false
     }
   ],
   "nav": [

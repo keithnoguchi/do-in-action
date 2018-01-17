@@ -8,7 +8,7 @@
     - name: install python packages
       pip: name={{ item }}
       with_items:
-        - docker-py
+        - docker
         - docker-compose
       become: true
 
@@ -40,7 +40,7 @@
     - name: install python packages
       pip: name={{ item }}
       with_items:
-        - docker-py
+        - docker
       become: true
 
     - name: pull networkstatic/iperf3 image
@@ -74,7 +74,7 @@
     - name: install python packages
       pip: name={{ item }}
       with_items:
-        - docker-py
+        - docker
       become: true
 
     - name: clone the cloud-bandwidth git repo
