@@ -1,0 +1,41 @@
+---
+all:
+  vars:
+    ansible_user: root
+    monitor:
+      ipv4: 159.89.183.238
+  hosts:
+    client0:
+      ansible_host: 159.89.181.40
+      server:
+        name: server0
+        ipv4: 159.65.32.112
+    server0:
+      ansible_host: 159.65.32.112
+    client1:
+      ansible_host: 159.89.183.240
+      server:
+        name: server1
+        ipv4: 159.65.32.113
+    server1:
+      ansible_host: 159.65.32.113
+    client2:
+      ansible_host: 159.65.32.5
+      server:
+        name: server2
+        ipv4: 159.65.32.93
+    server2:
+      ansible_host: 159.65.32.93
+    client3:
+      ansible_host: 159.89.183.247
+      server:
+        name: server3
+        ipv4: 159.65.32.107
+    server3:
+      ansible_host: 159.65.32.107
+client:
+  hosts:
+    client[0:3]
+server:
+  hosts:
+    server[0:3]
