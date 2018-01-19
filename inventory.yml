@@ -1,41 +1,105 @@
 ---
+monitor:
+  hosts: monitor0
+client:
+  hosts: client[0:9]
+server:
+  hosts: server[0:9]
 all:
   vars:
     ansible_user: root
     monitor:
-      ipv4: 159.89.183.238
+      ipv4: 192.168.122.130
   hosts:
+    monitor0:
+      ansible_host: 192.168.122.130
     client0:
-      ansible_host: 159.89.181.40
+      ansible_host: 10.112.41.105
+      ansible_port: 2220
       server:
         name: server0
-        ipv4: 159.65.32.112
+        ipv4: 10.1.1.30
     server0:
-      ansible_host: 159.65.32.112
+      ansible_host: 10.112.41.205
+      ansible_port: 2230
     client1:
-      ansible_host: 159.89.183.240
+      ansible_host: 10.112.41.105
+      ansible_port: 2221
       server:
         name: server1
-        ipv4: 159.65.32.113
+        ipv4: 10.1.1.31
     server1:
-      ansible_host: 159.65.32.113
+      ansible_host: 10.112.41.205
+      ansible_port: 2231
     client2:
-      ansible_host: 159.65.32.5
+      ansible_host: 10.112.41.105
+      ansible_port: 2222
       server:
         name: server2
-        ipv4: 159.65.32.93
+        ipv4: 10.1.1.32
     server2:
-      ansible_host: 159.65.32.93
+      ansible_host: 10.112.41.205
+      ansible_port: 2232
     client3:
-      ansible_host: 159.89.183.247
+      ansible_host: 10.112.41.105
+      ansible_port: 2223
       server:
         name: server3
-        ipv4: 159.65.32.107
+        ipv4: 10.1.1.33
     server3:
-      ansible_host: 159.65.32.107
-client:
-  hosts:
-    client[0:3]
-server:
-  hosts:
-    server[0:3]
+      ansible_host: 10.112.41.205
+      ansible_port: 2233
+    client4:
+      ansible_host: 10.112.41.105
+      ansible_port: 2224
+      server:
+        name: server4
+        ipv4: 10.1.1.34
+    server4:
+      ansible_host: 10.112.41.205
+      ansible_port: 2234
+    client5:
+      ansible_host: 10.112.41.105
+      ansible_port: 2225
+      server:
+        name: server5
+        ipv4: 10.1.1.35
+    server5:
+      ansible_host: 10.112.41.205
+      ansible_port: 2235
+    client6:
+      ansible_host: 10.112.41.105
+      ansible_port: 2226
+      server:
+        name: server6
+        ipv4: 10.1.1.36
+    server6:
+      ansible_host: 10.112.41.205
+      ansible_port: 2236
+    client7:
+      ansible_host: 10.112.41.105
+      ansible_port: 2227
+      server:
+        name: server7
+        ipv4: 10.1.1.37
+    server7:
+      ansible_host: 10.112.41.205
+      ansible_port: 2237
+    client8:
+      ansible_host: 10.112.41.105
+      ansible_port: 2228
+      server:
+        name: server8
+        ipv4: 10.1.1.38
+    server8:
+      ansible_host: 10.112.41.205
+      ansible_port: 2238
+    client9:
+      ansible_host: 10.112.41.105
+      ansible_port: 2229
+      server:
+        name: server9
+        ipv4: 10.1.1.39
+    server9:
+      ansible_host: 10.112.41.205
+      ansible_port: 2239
