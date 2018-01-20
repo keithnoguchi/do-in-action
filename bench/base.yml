@@ -5,6 +5,13 @@
     repo: https://github.com/nerdalert/cloud-bandwidth
   gather_facts: false
   pre_tasks:
+    - name: install pre-requisite packages
+      apt: name={{ item }}
+      with_items:
+        - docker.io
+        - python-pip
+      become: true
+
     - name: install python packages
       pip: name={{ item }}
       with_items:
@@ -38,6 +45,13 @@
     agent_port: 5201
   gather_facts: false
   pre_tasks:
+    - name: install pre-requisite packages
+      apt: name={{ item }}
+      with_items:
+        - docker.io
+        - python-pip
+      become: true
+
     - name: install python packages
       pip: name={{ item }}
       with_items:
@@ -72,6 +86,13 @@
       report_address: "{{ monitor.ipv4 }}"
   gather_facts: false
   pre_tasks:
+    - name: install pre-requisite packages
+      apt: name={{ item }}
+      with_items:
+        - docker.io
+        - python-pip
+      become: true
+
     - name: install python packages
       pip: name={{ item }}
       with_items:
