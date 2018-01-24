@@ -90,7 +90,7 @@
       "collapse": false,
       "panels": [
         {
-          "title": "Download Bandwidth",
+          "title": "Individual Download Bandwidth",
           "error": false,
           "span": 12,
           "editable": true,
@@ -169,7 +169,7 @@
       "collapse": false,
       "panels": [
         {
-          "title": "Upload Bandwidth",
+          "title": "Individual Upload Bandwidth",
           "error": false,
           "span": 12,
           "editable": true,
