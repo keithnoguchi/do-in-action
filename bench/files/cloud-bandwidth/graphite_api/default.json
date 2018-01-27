@@ -68,15 +68,15 @@
           },
           "targets": [
             {
-              "target": "alias(sumSeries(bandwidth.download.*), 'Summed Download Bandwidth')"
+              "target": "alias(sumSeries(bandwidth.download.*), 'Total Download Bandwidth')"
             },
             {
-              "target": "alias(sumSeries(bandwidth.upload.*), 'Summed Upload Bandwidth')"
+              "target": "alias(sumSeries(bandwidth.upload.*), 'Total Upload Bandwidth')"
             }
           ],
           "aliasColors": {
-            "Summed Download Bandwidth": "#0082C8",
-            "Summed Upload Bandwidth": "#46F0F0"
+            "Total Download Bandwidth": "#0082C8",
+            "Total Upload Bandwidth": "#46F0F0"
           },
           "seriesOverrides": [],
           "links": []
