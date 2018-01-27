@@ -16,7 +16,7 @@
       "collapse": false,
       "panels": [
         {
-          "title": "Summary Bandwidth",
+          "title": "Total Bandwidth",
           "error": false,
           "span": 12,
           "editable": true,
