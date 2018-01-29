@@ -14,7 +14,7 @@ resource "digitalocean_droplet" "client" {
   image              = "ubuntu-16-04-x64"
   name               = "client${count.index}"
   region             = "${var.DO_REGION}"
-  size               = "512mb"
+  size               = "1gb"
   resize_disk        = false
   ipv6               = true
   private_networking = true
@@ -29,7 +29,7 @@ resource "digitalocean_droplet" "server" {
   image              = "ubuntu-16-04-x64"
   name               = "server${count.index}"
   region             = "${var.DO_REGION}"
-  size               = "512mb"
+  size               = "1gb"
   resize_disk        = false
   ipv6               = true
   private_networking = true
@@ -44,7 +44,7 @@ resource "digitalocean_droplet" "monitor" {
   image              = "ubuntu-16-04-x64"
   name               = "monitor${count.index}"
   region             = "${var.DO_REGION}"
-  size               = "512mb"
+  size               = "1gb"
   resize_disk        = false
   ipv6               = true
   private_networking = true
