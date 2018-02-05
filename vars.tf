@@ -16,6 +16,11 @@ variable "DO_MONITOR_COUNT" {
   default     = 1
 }
 
+variable "DO_IMAGE" {
+  description = "The slug of the DO image, e.g. ubuntu-16-04-x64"
+  default     = "ubuntu-16-04-x64"
+}
+
 variable "DO_REGION" {
   description = "The slug of the DO region, e.g. nyc3"
   default     = "nyc3"

@@ -11,7 +11,7 @@ module "tags" {
 # https://www.terraform.io/docs/providers/do/r/droplet.html
 resource "digitalocean_droplet" "client" {
   count              = "${var.DO_CLIENT_COUNT}"
-  image              = "ubuntu-16-04-x64"
+  image              = "${var.DO_IMAGE}"
   name               = "client${count.index}"
   region             = "${var.DO_REGION}"
   size               = "1gb"
@@ -26,7 +26,7 @@ resource "digitalocean_droplet" "client" {
 # https://www.terraform.io/docs/providers/do/r/droplet.html
 resource "digitalocean_droplet" "server" {
   count              = "${var.DO_SERVER_COUNT}"
-  image              = "ubuntu-16-04-x64"
+  image              = "${var.DO_IMAGE}"
   name               = "server${count.index}"
   region             = "${var.DO_REGION}"
   size               = "1gb"
@@ -41,7 +41,7 @@ resource "digitalocean_droplet" "server" {
 # https://www.terraform.io/docs/providers/do/r/droplet.html
 resource "digitalocean_droplet" "monitor" {
   count              = "${var.DO_MONITOR_COUNT}"
-  image              = "ubuntu-16-04-x64"
+  image              = "${var.DO_IMAGE}"
   name               = "monitor${count.index}"
   region             = "${var.DO_REGION}"
   size               = "1gb"
