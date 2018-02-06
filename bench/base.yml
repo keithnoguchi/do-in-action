@@ -2,6 +2,12 @@
 - name: data vis containers based on github.com/nerdalert/cloud-bandwidth
   hosts: monitor
   vars:
+    # http://docs.ansible.com/ansible/latest/docker_service_module.html
+    docker_service_recreate: smart
+    report:
+      title: "DO-in-Action Bandwidth Dasboard"
+    summary_graph:
+      title: "Total Bandwidth"
     repo: https://github.com/nerdalert/cloud-bandwidth
   gather_facts: false
   pre_tasks:
@@ -28,15 +34,23 @@
         ssh_opts: "-o StrictHostKeyChecking=no"
 
     - name: modify the grafana configuration
-      copy:
-        src: "files/{{ item }}"
+      template:
+        src: "templates/{{ item }}.j2"
         dest: "/tmp/{{ item }}"
       with_items:
         - cloud-bandwidth/graphite_api/default.json
+      register: config
+
+    - name: set docker service recreate policy based on the config change
+      set_fact:
+        docker_service_recreate: always
+      when: config.changed|bool
+      changed_when: false
 
     - name: fire up the data vis containers!
       docker_service:
         project_src: /tmp/cloud-bandwidth
+        recreate: "{{ docker_service_recreate }}"
 
 - name: run iperf server as bandwidth agent on server
   hosts: server
