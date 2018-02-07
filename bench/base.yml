@@ -8,6 +8,16 @@
       title: "DO-in-Action Bandwidth Dasboard"
     summary_graph:
       title: "Total Bandwidth"
+      # 40Gbps
+      y_axis_max: 40000000000
+    download_graph:
+      title: "Individual Download Bandwidth"
+      # 4Gbps
+      y_axis_max: 4000000000
+    upload_graph:
+      title: "Individual Upload Bandwidth"
+      # 4Gbps
+      y_axis_max: 4000000000
     repo: https://github.com/nerdalert/cloud-bandwidth
   gather_facts: false
   pre_tasks:

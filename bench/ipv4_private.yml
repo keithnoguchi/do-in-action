@@ -1,6 +1,8 @@
 ---
 - import_playbook: base.yml
   vars:
+    report:
+      title: "Private IPv4 Bandwidth Dasboard"
     polling:
       count: 120
       sampling_seconds: 10

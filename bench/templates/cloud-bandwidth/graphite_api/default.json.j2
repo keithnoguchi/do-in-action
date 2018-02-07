@@ -31,7 +31,7 @@
             "short"
           ],
           "grid": {
-            "leftMax": 40000000000,
+            "leftMax": {{ summary_graph.y_axis_max }},
             "rightMax": null,
             "leftMin": 0,
             "rightMin": null,
@@ -90,7 +90,7 @@
       "collapse": false,
       "panels": [
         {
-          "title": "Individual Download Bandwidth",
+          "title": "{{ download_graph.title }}",
           "error": false,
           "span": 12,
           "editable": true,
@@ -105,7 +105,7 @@
             "short"
           ],
           "grid": {
-            "leftMax": 4000000000,
+            "leftMax": {{ download_graph.y_axis_max }},
             "rightMax": null,
             "leftMin": 0,
             "rightMin": null,
@@ -169,7 +169,7 @@
       "collapse": false,
       "panels": [
         {
-          "title": "Individual Upload Bandwidth",
+          "title": "{{ upload_graph.title }}",
           "error": false,
           "span": 12,
           "editable": true,
@@ -184,7 +184,7 @@
             "short"
           ],
           "grid": {
-            "leftMax": 4000000000,
+            "leftMax": {{ upload_graph.y_axis_max }},
             "rightMax": null,
             "leftMin": 0,
             "rightMin": null,
