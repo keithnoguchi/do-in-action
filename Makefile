@@ -19,10 +19,11 @@ deploy: init plan
 	$(MAKE) -C flips $@
 
 .PHONY: test test-all test-firewalls
-test: deploy wait
+.PHONY: check check-all check-firewalls
+test check: deploy wait
 	ansible-playbook tests/all.yml
-test-all: test test-firewalls
-test-firewalls:
+test-all check-all: test test-firewalls
+test-firewalls check-firewalls:
 	$(MAKE) -C firewalls test
 
 .PHONY: bench-ipv4 bench-ipv4-private bench-ipv6
