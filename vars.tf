@@ -3,12 +3,12 @@ variable "DO_FINGERPRINT" {}
 
 variable "DO_CLIENT_COUNT" {
   description = "The number of clients"
-  default     = 20
+  default     = 40
 }
 
 variable "DO_SERVER_COUNT" {
   description = "The number of servers"
-  default     = 20
+  default     = 40
 }
 
 variable "DO_MONITOR_COUNT" {
