@@ -49,12 +49,19 @@
         dest: "/tmp/{{ item }}"
       with_items:
         - cloud-bandwidth/graphite_api/default.json
-      register: config
+      register: grafana
+
+    - name: add --no-cache-dir pip option in cloud-bandwidth/carbon/Dockerfile
+      lineinfile:
+        path: "/tmp/cloud-bandwidth/carbon/Dockerfile"
+        regexp: "^RUN pip install git"
+        line: "RUN pip install --no-cache-dir git+https://github.com/graphite-project/carbon.git@${VERSION}#egg=carbon whisper==${WHISPER_VERSION}"
+      register: carbon
 
     - name: set docker service recreate policy based on the config change
       set_fact:
         docker_service_recreate: always
-      when: config.changed|bool
+      when: grafana.changed|bool or carbon.changed|bool
       changed_when: false
 
     - name: fire up the data vis containers!
