@@ -332,7 +332,7 @@ images, and run it fresh.  Once that ansible task is complete, you can point
 your browser to the graphana dashboard, for example:
 
 ```bash
-air$ chromium $(terraform output client0_public_ipv4):8000
+air$ chromium $(terraform output monitor_public_ipv4):8000
 ```
 
 The playbook keep continue to run the `iperf3` server on the server droplet
